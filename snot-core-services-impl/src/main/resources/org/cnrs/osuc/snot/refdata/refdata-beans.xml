@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <bean id="typeSiteDAO" class="org.cnrs.osuc.snot.refdata.typezoneetude.JPATypeSiteDAO" parent="abstractDAO" /><!--
+        <bean id="siteSnotDAO" class="org.cnrs.osuc.snot.refdata.site.JPASiteSnotDAO" parent="abstractDAO">
+        <property name="typeSiteDAO" ref="typeSiteDAO" />
+    </bean>-->
+    <bean id="siteSnotDAO" class="org.cnrs.osuc.snot.refdata.site.JPASiteSnotDAO" parent="abstractDAO"/>
+    <bean id="siteDAO" class="org.cnrs.osuc.snot.refdata.site.JPASiteSnotDAO" parent="abstractDAO" />
+    <bean id="jeuDAO" class="org.cnrs.osuc.snot.refdata.jeu.JPAJeuDAO" parent="abstractDAO" />
+    <bean id="gestionnaireJeuDAO" class="org.cnrs.osuc.snot.refdata.gestionnairejeu.JPAGestionnaireJeuDAO" parent="abstractDAO" />
+    <bean id="sousJeuDAO" class="org.cnrs.osuc.snot.refdata.sousjeu.JPASousJeuDAO" parent="abstractDAO" />
+    <bean id="variableDAO" class="org.cnrs.osuc.snot.refdata.variable.JPAVariableSnotDAO" parent="abstractDAO" />
+    <bean id="datatypeVariableUniteSnotDAO" class="org.cnrs.osuc.snot.refdata.datatypevariableunite.JPADatatypeVariableUniteSnotDAO" parent="abstractDAO" />
+           
+    <!--    <bean id="siteThemeDatatypeSnotDAO" class="org.cnrs.osuc.snot.refdata.sitethemedatatypesnot.JPASiteThemeDatatypeSnotDAO" parent="abstractDAO" />-->
+    <!--  <bean id="metadataManager" >
+            <property name="localizationManager" ref="localizationManager" />
+    </bean>-->
+    <bean id="traitementDAO" class="org.cnrs.osuc.snot.refdata.traitement.JPATraitementDAO" parent="abstractDAO" />
+    <bean id="methodeCalculDAO" class="org.cnrs.osuc.snot.refdata.methodecalcul.JPAMethodeCalculDAO" parent="abstractDAO" />
+    <bean id="instrumentDAO" class="org.cnrs.osuc.snot.refdata.instrument.JPAInstrumentDAO" parent="abstractDAO" />
+    <bean id="referenceDAO" class="org.cnrs.osuc.snot.refdata.reference.JPAReferenceDAO" parent="abstractDAO" />
+    <bean id="methodeCalculReferenceDAO" class="org.cnrs.osuc.snot.refdata.methodecalculreference.JPAMethodeCalculReferenceDAO" parent="abstractDAO" />
+    <bean id="instrumentReferenceDAO" class="org.cnrs.osuc.snot.refdata.instrumentreference.JPAInstrumentReferenceDAO" parent="abstractDAO" />
+    <bean id="periodeApplicationMethodeDAO" class="org.cnrs.osuc.snot.refdata.periodeapplicationmethode.JPAPeriodeApplicationMethodeDAO" parent="abstractDAO" />
+    <bean id="periodeUtilisationInstrumentDAO" class="org.cnrs.osuc.snot.refdata.periodeutilisationinstrument.JPAPeriodeUtilisationInstrumentDAO" parent="abstractDAO" />
+    <bean id="listeValeurInfoDAO" class="org.cnrs.osuc.snot.refdata.listevaleurinfo.JPAListeValeurInfoDAO" parent="abstractDAO" />
+    <bean id="itemListeDAO" class="org.cnrs.osuc.snot.refdata.listevaleurinfo.JPAItemListeDAO" parent="abstractDAO" />
+    <bean id="infoComplementaireDAO" class="org.cnrs.osuc.snot.refdata.informationcomplementaire.JPAInformationComplementaireDAO" parent="abstractDAO" />
+    <bean id="infoCpltStdtVariableDAO" class="org.cnrs.osuc.snot.refdata.infocomplstdtvar.JPAInfoComplementaireStdtVariableDAO" parent="abstractDAO" />
+    <bean id="valeurQualitativeDAO" class="org.inra.ecoinfo.refdata.valeurqualitative.JPAValeurQualitativeDAO" parent="abstractDAO" />
+</beans>

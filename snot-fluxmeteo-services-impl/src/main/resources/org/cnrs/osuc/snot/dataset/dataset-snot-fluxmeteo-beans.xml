@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/fluxmeteo/impl/flux/flux-beans.xml"/>
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/fluxmeteo/impl/hydro/hydro-beans.xml"/>
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/fluxmeteo/impl/biogeo/biogeo-beans.xml"/>
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/fluxmeteo/impl/meteo/meteo-beans.xml"/>
+
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/infoComplementaire/infoComplementaire-beans.xml"/>
+
+
+    <bean id="fluxMeteoTestHeader" class="org.cnrs.osuc.snot.dataset.fluxmeteo.entete.AbstractVerificateurEnteteFluxMeteo" abstract="true" parent="abstractTestHeader">
+    </bean>
+    <bean id="abstractProcessRecordFluxMeteo" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.AbstractProcessRecordFluxMeteo" parent="abstractProcessRecord" abstract="true"/>
+    <bean id="testDuplicateFluxMeteo_j" class="org.cnrs.osuc.snot.dataset.fluxmeteo.testDuplicates.TestDuplicateFluxMeteo_j" scope="prototype" />
+    <bean id="testDuplicateFluxMeteo_infraj" class="org.cnrs.osuc.snot.dataset.fluxmeteo.testDuplicates.TestDuplicateFluxMeteo_infraj" scope="prototype" />
+    <bean id="testDuplicateFluxMeteo_m" class="org.cnrs.osuc.snot.dataset.fluxmeteo.testDuplicates.TestDuplicateFluxMeteo_m" scope="prototype" />
+
+    <bean id="requestPropertiesFluxMeteo_j" scope="request" class="org.cnrs.osuc.snot.dataset.fluxmeteo.request.RequestPropertiesFluxMeteo" parent="requestProperties" >
+        <property name="testDuplicateName" value="testDuplicateFluxMeteo_j" />
+    </bean>
+    <bean id="requestPropertiesFluxMeteo_infraj" scope="request" class="org.cnrs.osuc.snot.dataset.fluxmeteo.request.RequestPropertiesFluxMeteo" parent="requestProperties" >
+        <property name="testDuplicateName" value="testDuplicateFluxMeteo_infraj" />
+    </bean>
+    <bean id="requestPropertiesFluxMeteo_m" scope="request" class="org.cnrs.osuc.snot.dataset.fluxmeteo.request.RequestPropertiesFluxMeteo" parent="requestProperties" >
+        <property name="testDuplicateName" value="testDuplicateFluxMeteo_m" />
+    </bean>
+</beans>

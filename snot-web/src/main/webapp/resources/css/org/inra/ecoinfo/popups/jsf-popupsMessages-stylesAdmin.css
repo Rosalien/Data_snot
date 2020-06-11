@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.popupTimer {
+    border: 2px solid #D8DEE8;
+}
+
+.popupTimer .rf-pp-cnt-scrlr {
+    background-color: #EEF5FF;
+}

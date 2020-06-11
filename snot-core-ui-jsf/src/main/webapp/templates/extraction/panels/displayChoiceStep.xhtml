@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:outputStylesheet name="css/extraction/#{css}" />
+    <f:param name="panelNumber"></f:param>
+    <ui:param name="stepBuilderDisplay" value="#{uiBean.getStepBuilder(panelNumber-1)}" />	
+    <p:remoteCommand name="updateDisplay" 
+                     process="@this,panelChoiceDisplay,#{p:component('parametersRequest')}"
+                     update="panelChoiceDisplay,#{p:component('parametersRequest')}, prevStepButton, nextStepButton, validImage" />
+        <f:loadBundle basename="org.cnrs.osuc.snot.extraction.jsf.panels.displayChoiceStep" var="displayChoiceStep"/>
+        <h3>#{displayChoiceStep.PROPERTY_MSG_TITLE}</h3>
+        <h:panelGroup id="panelChoiceDisplay" >
+            <p:selectOneRadio id="customRadioDisplay" value="#{stepBuilderDisplay.europeanFormat}" layout="custom" >
+                <f:selectItem itemLabel="#{displayChoiceStep.PROPERTY_MSG_DISPLAY_1}" itemValue="true" />
+                <f:selectItem itemLabel="#{displayChoiceStep.PROPERTY_MSG_DISPLAY_2}" itemValue="false" />
+                <p:ajax event="change" oncomplete="updateDisplay()" immediate="true" />
+            </p:selectOneRadio>
+            <h:panelGrid styleClass="buttonRadioAndLabel" columns="3">
+                <p:radioButton id="opt1Display" for="customRadioDisplay" itemIndex="0" />
+                <h:outputLabel for="opt1Display" value="#{displayChoiceStep.PROPERTY_MSG_DISPLAY_1}" /> 
+                <h:graphicImage name="images/europeanFormat.png"  />
+                <p:radioButton id="opt2Display" for="customRadioDisplay" itemIndex="1" />
+                <h:outputLabel for="opt2Display" value="#{displayChoiceStep.PROPERTY_MSG_DISPLAY_2}" /> 
+                <h:graphicImage name="images/classicFormat.png"  />
+            </h:panelGrid>
+        </h:panelGroup>
+
+</html>

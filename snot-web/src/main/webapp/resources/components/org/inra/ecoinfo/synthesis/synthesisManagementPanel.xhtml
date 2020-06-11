@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:synthesis="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/synthesis">
+
+
+    <composite:interface>
+        <composite:attribute name="nom" required="false" />
+        <composite:attribute name="configurationNumber" required="true" default="5"/>
+    </composite:interface>
+
+
+    <composite:implementation id="compositeSynthesisManagementPanelID">
+
+
+<!--        <h:outputStylesheet  name="css/org/inra/ecoinfo/synthesis/jsf-synthesisManagementPanel-stylesSnot.css" />-->
+        <h:outputStylesheet  name="css/org/inra/ecoinfo/synthesis/jsf-synthesisManagementPanel-stylesAdmin.css" />
+        <h:outputStylesheet  name="css/jqplot.css" />
+        <h:outputScript name="js/org/inra/ecoinfo/synthesis/chartValuesVariableExtenderSnot.js" />
+        <h:outputScript name="js/org/inra/ecoinfo/synthesis/graphicMeanVariableChartExtenderSnot.js" />
+        <h:outputScript name="js/org/inra/ecoinfo/synthesis/graphicVariableChartExtenderSnot.js" />
+
+
+        <f:loadBundle
+            basename="org.inra.ecoinfo.treetable.jsf.entites"
+            var="entities" />
+        <f:loadBundle basename="org.inra.ecoinfo.synthesis.jsf.messages"
+                      var="msg" />
+        <f:loadBundle
+            basename="org.inra.ecoinfo.extraction.jsf.extractionpanel"
+            var="extractionPanel" />
+        <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+        <h:form>
+            <p:remoteCommand name="updateInputDatesControlStart" process="@this" >
+                <!--                <a4j:param name="param1"
+                                           assignTo="#{uiSynthesis.itemDatatableVariableSelected.debut}" />-->
+            </p:remoteCommand>
+
+
+            <p:remoteCommand name="updateInputDatesControlEnd" process="@this" >
+                <!--                <a4j:param name="param1"
+                                           assignTo="#{uiSynthesis.itemDatatableVariableSelected.fin}" />-->
+            </p:remoteCommand>
+
+
+            <p:remoteCommand name="refreshTree" process="@this"
+                             update="#{p:component('tree')}" />
+        </h:form>
+        
+<!--        Titre principal du graphique-->
+        <p:dialog id="panelValuesVariableSelected" appendTo="@(body)" widgetVar="panelValuesVariableSelected"
+                  width="750" height="400" modal="true"
+                  styleClass="uploadFilesToCheckPopup">
+            <f:facet name="header">
+                <h:outputFormat id = "localizedName1" escape="false"  
+                                value="#{msg.PROPERTY_MSG_TENDANCE_FOR_VARIABLE}" >
+                    <f:param value="#{uiSynthesis.itemDatatableVariableSelected.localizedName} (#{uiSynthesis.itemDatatableVariableSelected.localizedDescription})" />
+                </h:outputFormat>
+<!--JBP Suppression de la fenêtre d'aide, inutile                 -->
+<!--<p:tooltip for="localizedName1" escape="false" value="#{msg.PROPERTY_MSG_TENDANCE_FOR_VARIABLE} #{uiSynthesis.itemDatatableVariableSelected.localizedDescription}"></p:tooltip>-->
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png"
+                                styleClass="logout"
+                                onclick="PF('panelValuesVariableSelected').hide();
+                                        return false;" />
+            </f:facet>
+
+<!--            Sous-titre du graphique pas vraiment utile, voir si on le conserve...
+            <h:panelGroup layout="block">
+                <h:outputFormat id = "localizedName2" escape="false"
+                                value="#{msg.PROPERTY_MSG_TENDANCE_FOR_VARIABLE}"
+                                styleClass="intro" >
+                    <f:param value="#{uiSynthesis.itemDatatableVariableSelected.localizedDescription}#{uiSynthesis.itemDatatableVariableSelected.localizedUniteNameGetAxisName}" />
+                </h:outputFormat>
+                localizedUniteNameGetAxisName: code variable (unite)
+                localizedDescription: nom complet de la variable (unite)
+JBP                Pour la signification de la variable, pas vraiment utile
+                <p:tooltip for="localizedName2">
+                    <h:outputFormat escape="false"
+                                    value="#{msg.PROPERTY_MSG_TENDANCE_FOR_VARIABLE}"
+                                    styleClass="intro" >
+                        <f:param value="#{uiSynthesis.itemDatatableVariableSelected.localizedDescription}" />
+                    </h:outputFormat>
+                </p:tooltip>
+            </h:panelGroup>-->
+            
+             <!--Taille de la fenêtre du graphique. Préferer 100% pour optimiser la taille. Width 98% permet de gérer
+             le changement de la taille du graph lors d'un zoom-->
+            <h:panelGroup
+                rendered="#{uiSynthesis.itemDatatableVariableSelected != null}" style="height: 100%">
+                <p:chart type="line" responsive="true" style="height: 100%; width: 98% "
+                         model="#{uiSynthesisChartTrendVariableBuilder.getGraphicVariable(uiSynthesis.currentContext, uiSynthesis.getSynthesisValueClass(uiSynthesis.currentDatatypeName), uiSynthesis.itemDatatableVariableSelected, uiLocalization.locale.language)}" >
+                </p:chart>
+            </h:panelGroup>
+
+
+        </p:dialog>
+        <p:layoutUnit position="west" resizable="true" collapsible="true" minSize="150"  size="250" styleClass="left" >
+            <h:form>
+                <p:remoteCommand name="updateInputDatesControlStart" process="@this">
+                    <!--                <a4j:param name="param1"
+                                               assignTo="#{uiSynthesis.itemDatatableVariableSelected.debut}" />-->
+                </p:remoteCommand>
+
+
+                <p:remoteCommand name="updateInputDatesControlEnd" process="@this" >
+                    <!--                <a4j:param name="param1"
+                                               assignTo="#{uiSynthesis.itemDatatableVariableSelected.fin}" />-->
+                </p:remoteCommand>
+                <p:panel rendered="#{not empty uiSynthesis.treeNodesSynthesis}" >
+                    <h2>#{msg.PROPERTY_MSG_ARBORESCENCE_DONNEES}</h2>
+                    <!--JBP Pour alléger la page-->
+<!--                    <p class="intro">#{msg.PROPERTY_MSG_DATATYPE_SELECTION}</p>-->
+
+
+                    <p:remoteCommand name="autoRunOnLoadPage"
+                                     autoRun="true"
+                                     async="false"
+                                     process="@this"
+                                     partialSubmit="true" 
+                                     action="#{uiSynthesis.treeNodesSynthesis}"
+                                     update="#{p:component('tree')}"/>
+
+
+                    <p:treeTable id="tree"
+                                 value="#{uiSynthesis.treeNodesSynthesis()}"
+                                 widgetVar="depotActivity"
+                                 var="node"  scrollable="true" scrollWidth="true"
+                                 selectionMode="single"
+                                 selection="#{uiSynthesis.selectedTreeNode}"
+                                 emptyMessage="#{msg.PARAM_MSG_NO_RECORD}"
+                                 resizableColumns="true" >
+
+
+                        <f:attribute name="codeConfig" value="2" />
+
+
+                        <p:ajax event="select"
+                                update="#{p:component('selectionDatatableID')},#{p:component('currentSelectionTableVariables')}"/>
+
+
+                        <p:column resizable="true"     style="white-space: pre-line;">
+                            <p:commandLink process="@this" update="@this">
+                                <h:outputText value="#{uiBeanActionTree.getLocalName(node)}" id="name" />
+                                <p:spacer width="5" rendered="#{node.isLeaf()}"  />
+                                <h:outputText rendered="#{node.isLeaf()}"
+                                              value="#{msg.PROPERTY_MSG_FROM} #{uiSynthesis.getDatatypeMessage(node.data,0)} #{msg.PROPERTY_MSG_TO} #{uiSynthesis.getDatatypeMessage(node.data,1)}"
+                                              styleClass="availableDate" />
+                                <p:ajax onstart="event.target.parentNode.previousSibling.click()" />
+                            </p:commandLink>
+                        </p:column>
+                    </p:treeTable>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+
+
+
+
+        <p:layoutUnit id="synthesisRight" position="center" resizable="true" collapsible="true" minSize="500" styleClass="right" >
+            <h:form>
+                <h:panelGroup id="synthesisRightPanel">
+                    <h:panelGroup id="panelControls" styleClass="panelControls">
+                        <h:panelGroup   rendered="#{uiBeanActionTree.getUser('CURRENTUSER') ne null}"
+                                        styleClass="control #{uiSynthesis.canSynchronize?'':'disabled'}">
+                            <p:graphicImage value="#{resource['images/refresh.png']}" />
+                            <p:commandLink disabled="#{not uiSynthesis.canSynchronize}"
+                                           id="synchronizeSynthesis" async="false"
+                                           onstart="PF('longSynthesis').show()"
+                                           process="@this" action="#{uiSynthesis.synchronize}"
+                                           onsuccess="refreshTree()"
+                                           oncomplete="PF('longSynthesis').hide()">
+                                <h:outputText value="#{msg.PROPERTY_MSG_SYNCHRONIZE}" />
+                            </p:commandLink>
+                            <p:tooltip styleClass="tooltip" showDelay="0"
+                                       rendered="#{not uiSynthesis.canSynchronize}"
+                                       for="synchronizeSynthesis">
+                                <h:outputText value="#{msg.PROPERTY_MSG_UNVAILABLE_ROLE}" />
+                            </p:tooltip>
+                            <p:tooltip styleClass="tooltip" showDelay="0"
+                                       rendered="#{uiSynthesis.canSynchronize}"
+                                       for="synchronizeSynthesis">
+                                <h:outputText value="#{msg.PROPERTY_MSG_SYNCHRO_TOOLTIP}" />
+                            </p:tooltip>
+                        </h:panelGroup>
+
+
+                    </h:panelGroup>
+                    <p:panel rendered="#{empty uiSynthesis.treeNodesSynthesis}"
+                             styleClass="warning">
+                        <p:graphicImage value="#{resource['images/warning.png']}"
+                                        styleClass="warning" />
+                        <h:outputText value="#{msg.PROPERTY_NO_VALUE}" />
+                    </p:panel>
+
+                    <synthesis:synthesisDefaultCurrentSelection id="synthesisDefaultCurrentSelectionID"  configurationNumber="#{cc.attrs.configurationNumber}"/>
+
+<!--                   JBP : Pour l'accès tout public-->
+<!--                    <h:panelGroup id="synthesisRightPanelNull" rendered="#{uiBeanActionTree.getUser('CURRENTUSER') eq null}" >
+                        <p:graphicImage value="#{resource['images/warning.png']}"
+                                        styleClass="warning" />
+                        <h:outputText value="Les autres panneaux de synthèse sont accessibles en mode connecté" />
+                    </h:panelGroup>-->
+
+
+                    <h:panelGroup id="currentSelectionTableVariables"  rendered="#{uiBeanActionTree.getUser('CURRENTUSER') ne null}" >
+                        <p:panel
+                            rendered="#{uiSynthesis.currentItemsDatatableVariablesSynthesis != null and fn:length(uiSynthesis.currentItemsDatatableVariablesSynthesis) == 0}"
+                            styleClass="warning">
+                            <p:graphicImage value="#{resource['images/warning.png']}"
+                                            styleClass="warning" />
+                            <h:outputText value="#{msg.PROPERTY_MSG_NO_DATATYPE}" />
+                        </p:panel>
+
+
+                        <h:panelGroup
+                            rendered="#{uiSynthesis.currentItemsDatatableVariablesSynthesis != null and fn:length(uiSynthesis.currentItemsDatatableVariablesSynthesis)>0}">
+                            <h3>
+                                <h:outputText value="#{msg.PROPERTY_MSG_VARIABLE_LIST}" />
+                            </h3>
+                            <p:dataTable var="currentItemDatatableVariable"
+                                         value="#{uiSynthesis.currentItemsDatatableVariablesSynthesis}"
+                                         id="datatableVariablesDataset"
+                                         rendered="#{uiSynthesis.currentItemsDatatableVariablesSynthesis != null}"
+                                         styleClass="dataTable datasetSelectedDatatable" rows="6">
+                                <p:column styleClass="variable">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg.PROPERTY_MSG_VARIABLE}" />
+                                    </f:facet>
+                                    <p:commandLink id="variableLink" process="@this"
+                                                   update="#{p:component('panelValuesVariableSelected')}"
+                                                   disabled="#{not currentItemDatatableVariable.accessChartDetail}"
+                                                   oncomplete="PF('panelValuesVariableSelected').show()">
+                                        <h:outputFormat id = "localizedName3" escape="false"
+                                                        value="#{msg.PROPERTY_MSG_REPARTITION_FOR_VARIABLE}" >
+                                            <f:param value="#{currentItemDatatableVariable.localizedName} (#{currentItemDatatableVariable.localizedDescription})" />
+                                        </h:outputFormat>
+<!--                                        <p:tooltip for="localizedName3" showDelay="2000">
+                                            <h:outputFormat escape="false"
+                                                            value="#{msg.PROPERTY_MSG_TENDANCE_FOR_VARIABLE}"
+                                                            styleClass="intro" >
+                                                <f:param value="#{currentItemDatatableVariable.localizedDescription}" />
+                                            </h:outputFormat>   
+                                        </p:tooltip>-->
+                                        <p:tooltip for="localizedName3" showDelay="2000">
+                                            <h:outputFormat escape="false"
+                                                            value="#{msg.PROPERTY_MSG_TENDANCE_FOR_VARIABLE}"
+                                                            styleClass="intro" >
+                                                <f:param value="#{currentItemDatatableVariable.localizedDescription}" />
+                                            </h:outputFormat>
+                                        </p:tooltip>
+                                        <f:setPropertyActionListener
+                                            target="#{uiSynthesis.itemDatatableVariableSelected}"
+                                            value="#{currentItemDatatableVariable}" />
+                                    </p:commandLink>
+                                </p:column>
+
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg.PROPERTY_MSG_REPARTITION}" />
+                                    </f:facet>
+                                    <p:spacer height="5" />
+                                    <p:commandLink process="@this"
+                                                   update="#{p:component('panelValuesVariableSelected')}"
+                                                   disabled="#{not currentItemDatatableVariable.accessChartDetail}"
+                                                   oncomplete="PF('panelValuesVariableSelected').show();"
+                                                   >
+                                        <p:chart id="powerchart" type="line" responsive="true" style="height: 45px"
+                                                 model="#{uiSynthesisChartRepartitionBuilder.getChartValuesVariable(uiSynthesis.currentContext, uiSynthesis.getSynthesisValueClass(uiSynthesis.currentDatatypeName), currentItemDatatableVariable,uiLocalization.locale.language)}">
+                                        </p:chart>
+                                        <f:setPropertyActionListener
+                                            target="#{uiSynthesis.itemDatatableVariableSelected}"
+                                            value="#{currentItemDatatableVariable}" />
+                                    </p:commandLink>
+                                    <p:tooltip styleClass="tooltip" for="powerchart"
+                                               rendered="#{currentItemDatatableVariable.accessChartDetail}"
+                                               showDelay="2000">
+                                        <h:outputText value="#{msg.PROPERTY_MSG_SHOW_GRAPHE_TOOLTIP}" />
+                                    </p:tooltip>
+                                    <p:tooltip styleClass="tooltip" for="powerchart"
+                                               rendered="#{not currentItemDatatableVariable.accessChartDetail}" >
+                                        <h:outputText value="#{msg.PROPERTY_MSG_NO_RIGHT_SHOW_GRAPHE_TOOLTIP}" />
+                                    </p:tooltip>
+                                </p:column>
+                            </p:dataTable>
+
+
+                            <h:panelGroup styleClass="dataTable-scroller">
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <p:dialog  appendTo="@(body)" width="250" height="60"
+                           modal="true" styleClass="right" widgetVar="longSynthesis"
+                           id ="longSynthesis" >
+                    <h:outputText value="Reconstruction de la synthèse en cours ..." />
+                    <p:graphicImage name="images/loading.gif" style="margin-left: 10px;" />
+                </p:dialog>
+            </h:form>
+        </p:layoutUnit>
+    </composite:implementation>
+
+
+</html>

@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+div.introduction p {
+    text-indent: 20px;
+    font-size: 10pt;
+    text-align: left;
+}
+
+p:FIRST-LETTER {
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 150%;
+}

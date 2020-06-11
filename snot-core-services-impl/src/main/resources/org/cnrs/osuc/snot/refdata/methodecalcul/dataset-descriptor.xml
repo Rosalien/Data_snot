@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+	<name>methode calcul</name>
+	<column>
+		<name>code</name>
+		<not-null>true</not-null>
+	</column>
+	<column>
+		<name>libellé</name>
+		<not-null>false</not-null>
+		<localizable fieldName="libelle">true</localizable>
+	</column>
+	<column>
+		<name>description</name>
+		<not-null>false</not-null>
+		<localizable>true</localizable>
+	</column>
+</dataset-descriptor>

@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:utils="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/utils">
+
+
+    <composite:interface>
+    </composite:interface>
+    <composite:implementation>
+        <f:loadBundle
+            basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+            var="changeProfil" />
+        <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+
+        <h:outputStylesheet name="css/org/inra/ecoinfo/identification/jsf-changeProfilePanel-stylesAdmin.css" />
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) {
+                    PF('panelgridContent').jq.effect("shake", {times: 5}, 100);
+                    resetInputSize();
+                }
+            }
+            function resetInputSize() {
+                $('.formError div').filter(':empty').parent().prev()
+                        .removeClass('ui-grid-col-6').addClass('ui-grid-col-12')
+                        .next().css('display', 'none');
+                $('input').css('width', '100%');
+            }
+            jQuery(document).ready(function () {
+                resetInputSize();
+            });
+        </script>
+        <p:dialog widgetVar="createAccountSuccess" modal="true" appendTo="@(body)" header="#{changeProfil.PARAM_MSG_CREATED}"
+                  closable="false"  style="text-align: left">
+            <p:panel>
+                <p><h:outputText value="#{changeProfil.PARAM_MSG_HELLO}" /></p>
+                <p><h:outputText value="#{changeProfil.PARAM_MSG_MAIL_SEND_1}" /></p>
+                <p><h:outputText value="#{changeProfil.PARAM_MSG_MAIL_SEND_2}" />
+                    <h:outputText value="#{uiChangeProfile.mailAdmin}" /></p>
+                <h:panelGroup styleClass="panelControls panelControlsLaunch">
+                    <h:panelGroup styleClass="control">
+                        <p:commandLink value="#{changeProfil.PARAM_MSG_HOME}" action="home">#{changeProfil.PARAM_MSG_HOME}</p:commandLink>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </p:panel>
+        </p:dialog>
+        <p:dialog id="popupCreateProfileConfirmation" styleClass="charte"
+                  modal="true" widgetVar="popupCreateProfileConfirmation" appendTo="@(body)">
+            <f:facet name="header">
+                <h:outputText escape="false"
+                              value="#{changeProfil.PARAM_MSG_ALERT_CONFIRM}" />
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png" styleClass="logout"
+                                onclick="PF('popupCreateProfileConfirmation').hide();
+                                        return false;" />
+            </f:facet>
+            <object data="resources/manual/charte.pdf" type="application/pdf" height="380" width="800" >
+                <utils:charte />
+            </object>
+            <f:facet name="footer">
+                <h:form>
+                    <p:panel styleClass="charteValidation">
+                        <p:panel styleClass="acceptCharte">
+                            <h:outputText value="#{msg.PROPERTY_MSG_CONFIRM_CHARTER}" />
+                            <p:spacer width="10" />
+                            <p:selectBooleanCheckbox id="acceptCharter" styleClass="checkboxRead" 
+                                                     value="#{uiCreateProfile.validateCharter}">
+                                <f:ajax execute="acceptCharter" render="createAccountUser" event="change" />
+                            </p:selectBooleanCheckbox>
+                        </p:panel>
+                        <!--Bouton pour la validation de la lecture de la charte-->
+                        <p:panel styleClass="logoutButtons">
+                            <p:commandButton id="createAccountUser"
+                                             value="#{changeProfil.PARAM_MSG_CONFIRM}"
+                                             disabled="#{not uiCreateProfile.validateCharter}"
+                                             action="#{uiCreateProfile.updateUser}" process="@this"
+                                             onstart="PF('popupCreateProfileConfirmation').hide();" 
+                                             oncomplete="PF('createAccountSuccess').show();"/>
+
+                            <p:commandButton value="#{changeProfil.PARAM_MSG_CANCEL}"
+                                             oncomplete="PF('popupCreateProfileConfirmation').hide(); return false;"
+                                             process="@none" update="@none" />
+                        </p:panel>
+                    </p:panel>
+                </h:form>
+            </f:facet>
+
+
+        </p:dialog>
+        <h:form id="createProfilform" class="intro">
+            <h:panelGroup id="profileForm" binding="#{uiCreateProfile.uiForm}">
+                <ui:debug rendered="true"
+                          hotkey="y"  />
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+                    var="changeProfil" />
+                <div>
+                    <f:loadBundle basename="org.inra.ecoinfo.identification.messages"
+                                  var="msg" />
+                    <p class="intro">#{msg.PROPERTY_MSG_CREATE_PROFIL_TEXT}</p>
+                    <p:panel id="panelgridContent" header="#{msg.PROPERTY_MSG_IDENTIFICATION}"
+                             style="width: 100%"
+                             widgetVar="panelgridContent"
+                             styleClass="custom-rf-p profileForm">
+
+                        <h:outputLabel value="#{msg.PROPERTY_MSG_MANDATORY_FIELDS}"
+                                       styleClass="mandatory" />
+
+                        <p:panelGrid columns="2" layout="grid" styleClass="profileForm*content ui-g" columnClasses="ui-g-4, ui-g-8" >
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_NAME}" for="createNom" styleClass="mandatory" />
+                            <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:inputText id="createNom" value="#{uiCreateProfile.nom}" label="#{msg.PROPERTY_MSG_NAME}"
+                                             required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_NAME}"
+                                             maxlength="20" size="60" 
+                                             alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                    <f:validateLength minimum="2" maximum="20" />
+                                    <f:validateRequired />
+                                </p:inputText>
+                                <p:message id="createNomError" showSummary="true"
+                                           showDetail="false" styleClass="message" for="createNom" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_FIRST_NAME}"
+                                           for="createPrenom"  styleClass="mandatory" />
+                            <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError"> 
+                                <p:inputText id="createPrenom" value="#{uiCreateProfile.prenom}"
+                                             required="true"
+                                             validatorMessage="#{msg.PROPERTY_MSG_BAD_FIRST_NAME}"
+                                             maxlength="20" size="60" 
+                                             alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                    <f:validateLength minimum="2" maximum="20" />
+                                    <f:validateRequired />
+                                </p:inputText>
+                                <p:message id="createPrenomError" showSummary="true"
+                                           showDetail="false" styleClass="message" for="createPrenom" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_EMAIL}" for="createEmail"   styleClass="mandatory" />
+                            <p:panelGrid  columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:inputText id="createEmail" value="#{uiCreateProfile.email}"
+                                             required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_EMAIL}"
+                                             maxlength="100" size="60"
+                                             validator="#{uiCreateProfile.validateEmail}"
+                                             alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                    <f:validateRegex
+                                        pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$" />
+                                    <f:validateRequired />
+                                </p:inputText>
+                                <p:message id="createEmailError" showSummary="true"
+                                           showDetail="false" styleClass="message" for="createEmail" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#Email check" for="checkEmail"
+                                           styleClass="messageEmail mandatory" />
+                            <p:inputText id="checkEmail" value="#{uiCreateProfile.checkBot}"
+                                         styleClass="messageEmail" />
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_JOB}" for="createEmploi" />
+                            <p:panelGrid  columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:inputText id="createEmploi" value="#{uiCreateProfile.emploi}"
+                                             maxlength="20" size="60"
+                                             alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                </p:inputText>
+                                <p:message id="createEmploiMsg" showSummary="true"
+                                           showDetail="false" styleClass="message" for="createEmploi" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_POSTE}" for="createPoste" />
+                            <p:panelGrid  columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:inputText id="createPoste" value="#{uiCreateProfile.poste}"
+                                             maxlength="20" size="60"
+                                             alt="#{msg.PROPERTY_MSG_EMPTY_STRING}" />
+                                <p:message id="createPosteMsg" showSummary="true"
+                                           showDetail="false" styleClass="message" for="createPoste" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_LOGIN}" for="createLogin"  styleClass="mandatory" />
+                            <p:panelGrid  columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:inputText id="createLogin" value="#{uiCreateProfile.login}"
+                                             required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_LOGIN}"
+                                             maxlength="100" size="60"
+                                             validator="#{uiCreateProfile.validateLogin}"
+                                             alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                    <f:validateRegex pattern="^[a-zA-Z][0-9a-zA-Z]*$" />
+                                    <f:validateLength minimum="3" maximum="20" />
+                                    <f:validateRequired />
+                                </p:inputText>
+                                <p:message id="createLoginError" showSummary="true"
+                                           showDetail="false" styleClass="message" for="createLogin" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_CREATE_PASSWORD}"
+                                           for="createPassword"  styleClass="mandatory" />
+                            <p:panelGrid  columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:password id="createPassword"
+                                            value="#{uiCreateProfile.password}"
+                                            validator="#{uiCreateProfile.validatePassword}" maxlength="20" >
+                                </p:password>
+                                <p:message id="createPasswordError" showSummary="true"
+                                           styleClass="message" showDetail="false" for="createPassword" />
+                            </p:panelGrid>
+
+                            <h:outputLabel value="#{msg.PROPERTY_MSG_CREATE_PASSWORD_BIS}"
+                                           for="createPasswordBis"  styleClass="mandatory" />
+                            <p:panelGrid  columns="2" layout="grid"  columnClasses="formInput,formError">
+                                <p:password id="createPasswordBis"
+                                            value="#{uiCreateProfile.passwordBis}"
+                                            validator="#{uiCreateProfile.validatePasswordBis}"
+                                            maxlength="20" size="60">
+                                    <!---->
+                                </p:password>
+                                <p:message id="createPasswordErrorBis" showSummary="true"
+                                           styleClass="message" showDetail="false" for="createPasswordBis" />
+                            </p:panelGrid>
+
+
+                        </p:panelGrid>
+                        <p:panelGrid columns="2" styleClass="footer">
+
+                            <p:commandButton id="buttonCreate" actionListener="#{uiCreateProfile.isButtonValid}"
+                                             value="#{msg.PROPERTY_MSG_CHANGE_PROFIL_ADD}" update="profileForm" 
+                                             oncomplete="handleLoginRequest(xhr, status, args)">
+                            </p:commandButton>
+                            <p:commandButton process="@this"
+                                             action="#{uiCreateProfile.reset}"
+                                             value="#{msg.PROPERTY_MSG_CHANGE_PROFIL_RESET}"
+                                             update="profileForm" 
+                                             oncomplete="resetInputSize()"/>
+                        </p:panelGrid>
+                    </p:panel>
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </composite:implementation>
+
+</html>

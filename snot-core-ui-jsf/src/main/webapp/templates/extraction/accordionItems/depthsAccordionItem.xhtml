@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:param name="stepBuilderDepth" value="#{uiBean.getStepBuilder(panelNumber-1)}" />
+    <f:facet name="header">
+        <h:outputText value="#{titleForDepthsAccordionItem}" />
+        <h:graphicImage name="accepted.png" library="images"
+                        rendered="#{stepBuilderDepth.stepValid}" />
+    </f:facet>
+
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.meteosol.jsf.extraction-meteosol-jsf" 
+                  var="depthsAccordionItem" />
+
+    <h:outputText value="#{depthsAccordionItem.MSG_PROFONDEUR_ACCORDIONITEM}" 
+                  styleClass="selectionEmpty"
+                  rendered="#{empty stepBuilderDepth.selectedDepths 
+                              and stepBuilderDepth.interval==0}"/>
+
+    <h:outputText value="#{depthsAccordionItem.MSG_PROFONDEUR_ACCORDIONITEM_SELECTION}"
+                  rendered="#{stepBuilderDepth.stepValid
+                              and not empty stepBuilderDepth.selectedDepths
+                              and stepBuilderDepth.interval==0}" />
+
+    <h:outputText value="#{depthsAccordionItem.MSG_PROFONDEUR_ACCORDIONITEM_INTERVAL}" 
+                  styleClass="selectionEmpty"
+                  rendered="#{not stepBuilderDepth.stepValid and 
+                              stepBuilderDepth.interval==1}"/>
+
+    <p:dataList value="#{stepBuilderDepth.selectedDepths}"
+               var="depth" type="ordered" 
+               rendered="#{stepBuilderDepth.stepValid}">
+        <h:outputText escape="false" value="#{depth}" />
+    </p:dataList>
+
+</html>

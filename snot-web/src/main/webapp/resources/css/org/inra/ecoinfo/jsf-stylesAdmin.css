@@ -1,0 +1,676 @@
+@CHARSET "UTF-8";
+
+
+/*Modification des bulles d'aide*/
+.ui-tooltip .ui-tooltip-text{
+    font-size:16px !important;
+    width: 50% !important;
+    text-align: left !important;
+}
+
+
+/*Pour adapter les menus du panneau nord au contenu*/
+/*ul.ui-menu-child {
+    white-space: nowrap;
+    width: auto !important;
+
+}*/
+
+/*Gestion générale du thème */
+/*.ui-widget-content{
+    border:white;    
+    background: white;
+}*/
+
+/*Changement de la couleur du menu*/
+/*.ui-menu{
+    border-color: white;
+    border-bottom: 2px solid #0070B7;
+        #f2f5f7;
+    Test pour menu en gris comme le site web
+    background: #646464;
+    color: white
+}*/
+
+/*Modif de la taille de la police dans les tables de gauche pour synthèse et DDR*/
+/*.ui-panel .ui-panel-content{
+    font-size: 16px; 
+    width:100%;
+        left: 0px;
+    padding: .5em .1em !important;
+}*/
+
+/*Modif de la taille de la police dans les tables de données pour DDR*/
+/* Modification de la couleur de fond du site */
+/*.ui-layout-unit .ui-layout-unit-content{
+    font-size: 16px;
+    background: white;
+}*/
+
+
+html {
+    height: 100%;
+    position: relative;
+    background-color: white;
+}
+
+/*Voir pour changer le positionnement du texte (left) dans le menu nord*/
+/*html body {
+    text-align: left;
+    position: absolute;
+    background-color: white;
+    margin: inherit;
+    padding: inherit;
+    color:white;
+    line-height: inherit;
+    font-family: 'Trebuchet MS', Arial, georgia, 'Trebuchet MS', Tahoma,
+        Verdana, 'Times New Roman', Times, serif;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px; 
+}*/
+
+/*Titre de la page d'accueil'*/
+
+h1 {
+    margin: 0px 0px 0px 0px;
+    /*border-bottom: 2px solid #0070B7;*/
+    height: auto;
+    margin-left: 7pt;
+    text-align: right;
+    font-size: 24px;
+    overflow: hidden;
+}
+
+/*Titre de l'accueil*/
+h1.home {
+    text-align: left;
+    margin-bottom: 30px;
+    font-size: 24px;    
+    /*color: black;*/
+}
+
+
+h1 img {
+    float: left;
+}
+
+/*Bordure gauche dans la synthèse, extraction, gestion des données référence...*/
+h2 {
+    font-size: 16px;
+    margin: 2px 2px 5px 2px;
+    text-align:left;
+
+}
+
+h3 {
+    margin: 30px 2px 15px 0px;
+    text-align: left;
+};
+
+
+/*Ici, la bordure principale a été modifiée en blanc*/
+div.container {
+    text-align: left;
+    /*position: absolute;*/
+    position: absolute;
+    margin: 0px 0px 0px 0px;
+    /*background-color: white;*/
+    /*border: 2px solid white;*/
+    /*height: 100%;*/
+    top: 0px;
+    bottom: 10px;
+    left: 0px;
+    right: 0px;
+}
+
+.content-container {
+    position: absolute;
+    /*min-height: 100%;*/
+    /*margin: 20px 50px 10px 10px auto;*/
+    /*padding-bottom: 70px;*/
+    padding: 15px 20px 0px 20px;
+    /*height: 80%;*/
+    top: 34px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow-y: auto;
+}
+
+/*Titres principaux*/
+.header {
+    margin: 0px 0px 0px 0px;
+    /*border-bottom: 1px solid #565656;*/
+    text-align: left;
+    font-size: 24px;
+    overflow: hidden;
+    font-weight: bold;
+    font-style: normal;
+    /*color: black;*/
+}
+
+.container .subcontainer {
+    width: 100%;
+    height: inherit;
+    position: relative;
+}
+
+.subcontainer .left {
+    float: left;
+    position: relative;
+    width: 30%;
+}
+
+.subcontainer .right {
+    float: right;
+    position: relative;
+    width: 69%;
+}
+
+
+
+#footer{    
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+/*Mise en forme du bas de page*/
+form.footer {
+    
+    text-align: center;
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: 10px;
+    font-size: 13px;    
+}
+
+.footer a {
+    color: #555 !important;
+    /*    font-weight: bold;*/
+    text-decoration: none !important;
+    font-stretch: expanded;
+}
+
+.imageAlign {
+    padding-left: 3px;
+    padding-right: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/*Bulle d'aide*/
+.tooltip, .tooltip-text {
+        background-color: #FFF8DE !important;
+}
+
+/*.tooltip {
+ position:absolute;
+ z-index:1070;
+ display:block;
+ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-size:12px;
+ font-style:normal;
+ font-weight:normal;
+ line-height:1.42857143;
+ text-align:left;
+ text-align:start;
+ text-decoration:none;
+ text-shadow:none;
+ text-transform:none;
+ letter-spacing:normal;
+ word-break:normal;
+ word-spacing:normal;
+ word-wrap:normal;
+ white-space:normal;
+ filter:alpha(opacity=0);
+ opacity:0;
+ line-break:auto
+}*/
+
+.subcontainer .tooltip, .subcontainer .tooltip-text {
+    background-color: #FFF8DE !important;
+}
+
+.notification-details-link {
+    text-decoration: none;
+    color: black;
+    display: block;
+    width: 100%;
+}
+
+p.intro-main {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-indent: 20px;
+    line-height: 15px;
+    text-indent: 0;
+    Line-Height: normal;
+}
+
+#mainToolbarLogoff, #mainToolbarLogin{
+    /*box-shadow: 0px 2px 7px #898989;*/
+}
+.img-menu {
+    margin-bottom: -4px;
+    margin-right: 2px;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+.logoutButtons {
+    float: right;
+    padding: 5px;
+}
+
+.subcontainer .dataTable .rf-dt-c {
+    padding: 1px 5px 1px 5px;
+}
+
+.subcontainer select, .subcontainer input[type="text"] {
+    /*background-color: #ECF3FE;*/
+    cursor: pointer;
+}
+
+.subcontainer .rf-ds-btn {
+    padding: 2px 5px 3px 5px;
+}
+
+.navigation {
+    float: left;
+    font-size: 10pt;
+    /*color: #787878;*/
+    padding-top: 7px;
+}
+
+h1 .title {
+    float: right;
+}
+
+h1 .title img {
+    float: none;
+}
+
+.navigation img {
+    width: 20px;
+}
+
+.navigation .navigationItem a {
+    font-size: 10pt;
+}
+
+.navigation .navigationItem {
+    margin-right: 10px;
+}
+
+.wrapperFloat {
+    overflow: hidden;
+}
+
+
+p.intro {
+    font-size: 16px;
+    margin-left: 12px;
+    margin-right: 120px;
+    text-indent: 30px;
+    margin-bottom: 15px;
+    font-style: italic;
+    font-weight: bold;
+    text-indent: 0;
+    /*color: #0070B7;*/
+}
+
+form.intro {
+    font-size: 16px;
+    margin-left: 12px;
+    margin-right: 120px;
+    text-indent: 30px;
+    margin-bottom: 15px;
+    text-indent: 0;
+}
+
+.help-panel img, img.warning {
+    margin-right: 5px;
+    float: left;
+    cursor: default;
+    width: 21px;
+}
+
+.help-panel {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.help-panel .description {
+    /*    border: 1px solid #CDCDCD;
+        background-color: #EFEFEF;*/
+}
+
+*.rf-ddm-sel {
+    /*padding: 2px 0px !important;*/
+}
+
+.subcontainer .panelControlsLaunch {
+    padding: 5px 5px 5px 5px;
+    left: 30%;
+    top: 0px;
+}
+
+.subcontainer  .panelControlsLaunch .control, .subcontainer  .panelControlsLaunch .control a
+{
+    font-size: 16px;
+}
+
+/*Pour modifier notamment les boites pour se connecter dans la page d'accueil et pour synchroniser la synthèse*/
+.panelControls {
+    border: 1px solid #d2d6de;
+    color: #555;
+    padding: 1px 1px 1px 1px;
+    float: left;
+    /*    margin-top: 7px;*/
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+/*.panelControls .control img {
+    float: left;
+    margin-right: 3px;
+    height: 16px;
+}*/
+
+/*.panelControls .control {
+    color: black;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, Verdana, sans-serif;
+}*/
+
+/*.panelControls .control a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}*/
+
+.launchWrapper {
+    position: relative;
+    height: 50px;
+    margin-bottom: 5px;
+}
+.notOverflow {
+    overflow: hidden;
+}
+
+label.mandatory:before, span.mandatory:before {
+    content: "*";
+    color: red;
+    margin: 9px;
+    font-size: 200%;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+label.nkey, span.nkey {
+    font-weight: bolder;
+}
+
+.ui-outputlabel-rfi{
+    color: red;
+    margin-top: -5px;
+    margin-right: 9px;
+    font-size: 200%;
+    vertical-align: middle;
+    font-weight: bold;
+    float: left;
+}
+
+div#charterDiv{
+    top: 85px;
+    bottom: 30px;
+    position: absolute;
+    right: 30px;
+    left: 30px;
+    border: 1px solid black;
+}
+ui-layout-south{
+    bottom: -44px !important;
+}
+ui-layout-south{
+    bottom: -44px !important;
+}
+
+
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;;
+}
+
+/*Les menus du panneau nord du menu--non pris en compte*/
+.ui-menu .ui-menu-parent .ui-menu-child{
+    /*display: none;*/
+    width: 30em;
+    padding: .3em;
+    position: absolute;
+    margin: 0;
+    outline: 0;
+    line-height: 1.3;
+    text-decoration: none;
+    font-size: 100%;
+    list-style: none;
+}
+
+/*Panneau nord du menu*/
+.ui-layout-north .ui-layout-unit-content {
+    font-size: 16px;
+    text-align: left;
+    /*    font-weight: bold;*/
+    overflow: visible !important;
+}
+.security-users{
+    background:url("#{resource['images/security-users.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.credential-user{
+    background:url("#{resource['images/credential-user.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.refdata{
+    background:url("#{resource['images/refdata.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.dataset{
+    background:url("#{resource['images/dataset.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.profile_user{
+    background:url("#{resource['images/profile_user.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.icon_search_menu{
+    background:url("#{resource['images/icon_search_menu.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.help-icon{
+    background:url("#{resource['images/help-icon.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+.invisibleButton{
+    background: none !important;
+    border: none !important;
+}
+.published{
+    background:url("#{resource['images/published.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.unpublished{
+    background:url("#{resource['images/unpublished.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.save{
+    background:url("#{resource['images/save.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.save span{
+    margin-left: 9px;
+}
+.add{
+    background:url("#{resource['images/add.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.add_ok{
+    background:url("#{resource['images/add_ok.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.file_delete{
+    background:url("#{resource['images/file_delete.gif']}") no-repeat !important;
+    height:34px;
+    width:34px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.attach{
+    background:url("#{resource['images/attach.png']}") no-repeat !important;
+    height:34px;
+    width:34px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.show_hide_colum{
+    background:url("#{resource['images/show_hide_colum.jpg']}") no-repeat !important;
+    height:34px;
+    width:34px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.delete{
+    background:url("#{resource['images/delete.png']}") no-repeat !important;
+    height:34px;
+    width:34px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.warning_icon{
+    background:url("#{resource['images/warning_icon.png']}") no-repeat !important;
+    height: 47px;
+    width: 32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 5% !important;
+    margin-top: 0 !important;
+}
+.edit{
+    background:url("#{resource['images/edit.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.linkToUnAssociate{
+    background:url("#{resource['images/linkToUnAssociate.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.linkTo{
+    background:url("#{resource['images/linkTo.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.remove_selection{
+    background:url("#{resource['images/remove_selection.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+
+.download{
+    background:url("#{resource['images/download.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.synthesis{
+    background:url("#{resource['images/synthesis.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.search_results{
+    background:url("#{resource['images/search_results.png']}") no-repeat !important;
+    height:32px;
+    width:32px;
+    left: 10% !important;
+    margin-left: 0 !important;
+    top: 2% !important;
+    margin-top: 0 !important;
+}
+.help-panel span.ui-icon {
+    background:url("#{resource['images/help-icon.png']}") no-repeat !important;
+}

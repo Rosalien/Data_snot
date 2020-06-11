@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    <!-- <import resource="classpath:/org/inra/ecoinfo/localization/localization-beans.xml" />  -->
+    <bean id="chartFabrique" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.ChartFabrique">
+    </bean>
+<!--    //JBP Ajout des bean pour la construction de la synthèse basée sur le DVUSnot-->
+        <bean id="localizedFormatterForUniteNameGetAxisName"  class="org.cnrs.osuc.snot.synthesis.impl.LocalizedFormatterForUniteNameGetAxisNameSnot">
+        <property name="localizationManager" ref="localizationManager"/>
+    </bean>
+        <bean id="localizedFormatterForVariableNameGetDisplay"  class="org.cnrs.osuc.snot.synthesis.impl.LocalizedFormatterForVariableNameGetDisplaySnot">
+        <property name="localizationManager" ref="localizationManager"/>
+    </bean>
+           <bean id="localizedFormatterForVariableNameGetDescription"  class="org.cnrs.osuc.snot.synthesis.impl.LocalizedFormatterForVariableNameGetDescriptionSnot">
+        <property name="localizationManager" ref="localizationManager"/>
+    </bean>
+    
+    <bean id="fabriqueDatasetDefaut" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.FabriqueDatasetDefaut"/>
+    <bean id="fabriqueDatasetInfraJournalier" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.FabriqueDatasetInfraJournalier"/>
+    <bean id="fabriqueDatasetOrdonnees" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.FabriqueDatasetOrdonnees"/>
+    <bean id="synthesisDAODefaut" class="org.inra.ecoinfo.synthesis.jpa.JPASynthesisDAO" parent="abstractDAO" >
+        <property name="synthesisRegister" ref="synthesisRegister"/>
+    </bean>
+    <bean id = "synthesisClimatDAO" class = "org.cnrs.osuc.snot.synthesis.jpa.MeteoSolJPASynthesisDAO" parent="synthesisDAODefaut"/>
+    <bean id = "snotSynthesisDAO" class = "org.cnrs.osuc.snot.synthesis.jpa.SnotJPASynthesisDAO" parent="synthesisDAODefaut">
+        <property name="climatSynthesisDAO" ref="synthesisClimatDAO"/>
+    </bean>
+    
+<!--    JBP TEST-->
+<!--    <bean id="synthesisChartTrenderVariableBuilder" class="org.inra.ecoinfo.synthesis.jsf.SpecificSynthesisChartTrendVariableBuilder">
+        <property name="synthesisManager" ref="synthesisManager"/>
+    </bean>-->
+                
+    <bean id="synthesisRegister" class="org.inra.ecoinfo.synthesis.impl.DefaultSynthesisRegister">	
+        <property name="basePackage" value="org.cnrs.osuc.snot.synthesis" />		
+        <property name="metaSynthesisDatatypesMap">
+            <map>
+                <entry key="eddycovariance_sh">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype">
+                        <property name="prefix" value="fluxsh" />
+                        <property name="synthesisValueDAO" ref="synthesis_eddycovariance_sh" />
+                        <property name="synthesisChartTrenderVariableBuilder" value="synthesisChartTrenderVariableBuilder" />
+                    </bean>
+                </entry>
+                                
+<!--                <entry key="flux_j">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype">
+                        <property name="prefix" value="fluxj" />
+                        <property name="synthesisValueDAO" ref="synthesis_flux_j" />
+                    </bean>
+                </entry>
+                <entry key="flux_m">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype">
+                        <property name="prefix" value="fluxm" />
+                        <property name="synthesisValueDAO" ref="synthesis_flux_m" />
+                    </bean>
+                </entry>-->
+                <entry key="meteosol_sh">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype">
+                        <property name="prefix" value="meteosh" />
+                        <property name="synthesisValueDAO" ref="synthesis_meteo_sh" />
+                    </bean>
+                </entry>
+<!--                <entry key="meteosol_j">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype">
+                        <property name="prefix" value="meteoj" />
+                        <property name="synthesisValueDAO" ref="synthesis_meteo_j" />
+                    </bean>
+                </entry>
+                <entry key="meteosol_m">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype">
+                        <property name="prefix" value="meteom" />
+                        <property name="synthesisValueDAO" ref="synthesis_meteo_m" />
+                    </bean>
+                </entry>-->
+<!--                 mesure flux chaleur journalier 
+                <entry key="g_j">
+                    <bean class="org.inra.ecoinfo.synthesis.MetaSynthesisDatatype"> class="org.cnrs.osuc.snot.synthesis.MeteoSolMetaSynthesisDatatype"
+                        <property name="prefix" value="mfcj" />
+                        <property name="synthesisValueDAO" ref="synthesis_mfc_j" />
+                    </bean>
+                </entry>
+                 mesure humidite volumique journalier 
+                <entry key="swc_j">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mhvj" />
+                        <property name="synthesisValueDAO" ref="synthesis_mhv_j" />
+                    </bean>
+                </entry>
+                 mesure température du sol journalier 
+                <entry key="ts_j">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mtpj" />
+                        <property name="synthesisValueDAO" ref="synthesis_mtp_j" />
+                    </bean>
+
+                </entry>
+                 mesure tension de l'eau journalier 
+                <entry key="smp_j">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mtej" />
+                        <property name="synthesisValueDAO" ref="synthesis_mte_j" />
+                    </bean>
+
+                </entry>
+                 mesure profondeur nappe journalier 
+                <entry key="gwd_j">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mpnj" />
+                        <property name="synthesisValueDAO" ref="synthesis_mpn_j" />
+                    </bean>				
+                </entry>
+                 mesure flux chaleur infra journalier 
+                <entry key="g_infraj">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mfcsh" />
+                        <property name="synthesisValueDAO" ref="synthesis_mfc_sh" />
+                    </bean>
+                </entry>
+                 mesure humidite volumique infra journalier 
+                <entry key="swc_infraj">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mhvsh" />
+                        <property name="synthesisValueDAO" ref="synthesis_mhv_sh" />
+                    </bean>
+                </entry>
+                 mesure température du sol infra journalier 
+                <entry key="ts_infraj">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mtpsh" />
+                        <property name="synthesisValueDAO" ref="synthesis_mtp_sh" />
+                    </bean>
+                </entry>
+                 mesure tension de l'eau infra journalier 
+                <entry key="smp_infraj">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mtesh" />
+                        <property name="synthesisValueDAO" ref="synthesis_mte_sh" />
+                    </bean>
+                </entry>
+                 mesure profondeur nappe infra journalier 
+                <entry key="gwd_infraj">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="mpnsh" />
+                        <property name="synthesisValueDAO" ref="synthesis_mpn_sh" />
+                    </bean>
+                </entry>
+                 climat du sol mensuel 
+                <entry key="cms_m">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="cmsm" />
+                        <property name="synthesisValueDAO" ref="synthesis_cmsm" />
+                    </bean>
+                </entry>-->
+                <!-- chambre flux sol infraj -->
+<!--                <entry key="chambrefluxsol_infraj">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="flcij" />
+                        <property name="synthesisValueDAO" ref="synthesis_chambrefluxsol_infraj" />
+                    </bean>
+                </entry>
+                chambre flux sol journalier 
+                <entry key="chambrefluxsol_j">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="flcj" />
+                        <property name="synthesisValueDAO" ref="synthesis_chambrefluxsol_j" />
+                    </bean>
+                </entry>
+                chambre flux sol mensuel 
+                <entry key="chambrefluxsol_m">
+                    <bean class="org.cnrs.osuc.snot.synthesis.SnotMetaSynthesisDatatype">
+                        <property name="prefix" value="flcm" />
+                        <property name="synthesisValueDAO" ref="synthesis_chambrefluxsol_m" />
+                    </bean>
+                </entry>				-->
+            </map>
+        </property>
+    </bean>
+<!--    <bean id="chartBuilderDefaut" class="org.inra.ecoinfo.synthesis.impl.jfreechart.ChartBuilderJFreechart"/>
+<bean id="chartBuilder" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.SnotChartBuilderJFreechart" parent="chartBuilderDefaut">
+    <property name="synthesisRegister" ref="synthesisRegister"/>
+    <property name="fJournalier" ref="fabriqueDatasetInfraJournalier" />
+    <property name="fDefaut" ref="fabriqueDatasetDefaut" />
+    <property name="chartFabrique" ref="chartFabrique" />
+    <property name="fOrdonnees" ref="fabriqueDatasetOrdonnees" />
+</bean>-->
+<!--<bean id="synthesisManager" class="org.cnrs.osuc.snot.synthesis.impl.SnotSynthesisManager" parent="synthesisManagerLocal">
+</bean>-->
+<!--    <bean id="synthesisManagerLocal" class="org.inra.ecoinfo.synthesis.impl.LocalSynthesisManager" parent="MO">
+    <property name="synthesisDAO" ref="synthesisDAO"/>
+    <property name="siteDAO" ref="siteDAO"/>
+    <property name="variableDAO" ref="variableDAO"/>
+    <property name="datatypeDAO" ref="datatypeDAO"/>
+    <property name="synthesisRegister" ref="synthesisRegister"/>
+    <property name="chartBuilder" ref="chartBuilder"/>
+</bean>-->
+<bean id = "synthesisDAO" class = "org.cnrs.osuc.snot.synthesis.jpa.SnotJPASynthesisDAO" parent="synthesisDAODefaut">
+    <property name="climatSynthesisDAO" ref="synthesisClimatDAO"/>
+</bean>
+<!--    <bean id="chartBuilderDefaut" class="org.inra.ecoinfo.synthesis.impl.jfreechart.ChartBuilderJFreechart"/>
+    <bean id="chartBuilder" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.SnotChartBuilderJFreechart" parent="chartBuilderDefaut">
+        <property name="synthesisRegister" ref="synthesisRegister"/>
+        <property name="fJournalier" ref="fabriqueDatasetInfraJournalier" />
+        <property name="fDefaut" ref="fabriqueDatasetDefaut" />
+        <property name="chartFabrique" ref="chartFabrique" />
+        <property name="fOrdonnees" ref="fabriqueDatasetOrdonnees" />
+        <property name="variableDAO" ref="variableDAO" />
+        <property name="localizationManager" ref="localizationManager" />
+        
+    </bean>-->
+    <!--    <bean id="synthesisManager" class="org.cnrs.osuc.snot.synthesis.impl.SnotSynthesisManager" parent="synthesisManagerLocal">
+    </bean>-->
+    <!--    <bean id="synthesisManagerLocal" class="org.inra.ecoinfo.synthesis.impl.LocalSynthesisManager" parent="MO">
+        <property name="synthesisDAO" ref="snotSynthesisDAO"/>
+        <property name="siteDAO" ref="siteDAO"/>
+        <property name="variableDAO" ref="variableDAO"/>
+        <property name="datatypeDAO" ref="datatypeDAO"/>
+        <property name="synthesisRegister" ref="synthesisRegister"/>
+        <property name="chartBuilder" ref="chartBuilder"/>
+    </bean>-->
+    
+</beans>

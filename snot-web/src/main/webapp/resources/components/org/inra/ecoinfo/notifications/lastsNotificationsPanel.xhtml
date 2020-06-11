@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <composite:interface>
+        <composite:attribute name="nom" required="false" />
+    </composite:interface>
+    <composite:implementation>
+        <f:loadBundle
+            basename="org.inra.ecoinfo.notifications.jsf.notification"
+            var="notificationPanel" />
+        <!--<h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-lastsNotificationsPanel-stylesSnot.css" />-->
+        <h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-lastsNotificationsPanel-stylesAdmin.css" />
+        
+        <p:dataTable var="notification" rows="3" 
+                        value="#{uiNotifications.notifications}" styleClass="dataTable">
+
+
+            <p:column styleClass="date">
+                <f:facet name="header">
+                    <h:outputText value="#{notificationPanel.PARAM_MSG_DATE}" />
+                </f:facet>
+                <h:outputText value="#{notification.date}"
+                              styleClass="message #{notification.archived ?'':'new-notification'}" />
+            </p:column>
+
+            <p:column
+                styleClass="message #{notification.level == 'error'?'red':''} #{not empty notification.body ?'detail':''}">
+                <f:facet name="header">
+                    <h:outputText value="#{notificationPanel.PARAM_MSG_HEADER_MESSAGE}" />
+                </f:facet>
+
+                <h:outputText value="#{notification.message}"
+                              styleClass="message new-notification" />
+
+
+                <p:commandLink update="messageDetails"
+                                 rendered="#{notification.archived}"
+                                 styleClass="notification-details-link" process="@this">
+                    <h:outputText value="#{notification.message}" />
+                </p:commandLink>
+            </p:column>
+        </p:dataTable>
+    </composite:implementation>
+
+</html>

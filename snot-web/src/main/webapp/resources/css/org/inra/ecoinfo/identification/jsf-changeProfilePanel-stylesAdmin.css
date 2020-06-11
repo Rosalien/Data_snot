@@ -1,0 +1,330 @@
+@CHARSET "UTF-8";
+
+h3 {
+    border-bottom: 1px solid #CDCDCD;
+    color: #787878;
+    text-align: right;
+    margin-top: 32px;
+}
+
+p {
+    margin-bottom:  9px;
+    line-height: 15px;
+}
+
+.profileForm {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+h3 {
+    border-bottom: 1px solid #CDCDCD;
+    color: #787878;
+    text-align: right;
+    margin-top: 32px;
+}
+
+.messageEmail {
+    display: none;
+}
+
+.present {
+    color: green;
+}
+
+.absent {
+    color: red;
+}
+
+.subcontainer .rf-trn-ico,.rf-trn-hnd,.rf-trn-hnd-ldn-fct {
+    vertical-align: top;
+}
+
+.selectionPanel {
+    border: 1px solid #CDCDCD;
+}
+
+.tree {
+    position: relative;
+}
+
+.selected {
+    color: green;
+    font-style: italic;
+}
+
+.emptySelection {
+    color: red;
+    font-weight: bold;
+}
+
+.subcontainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.subcontainer .left {
+    position: absolute;
+    width: 250px;
+}
+
+.subcontainer .right {
+    position: absolute;
+    right: 20px;
+    left: 265px;
+    overflow: hidden;
+}
+
+.subcontainer .leafNode {
+    width: 100%;
+}
+
+.subcontainer .rights {
+    float: none;
+    position: absolute;
+    right: 0px;
+    font-size: 11px;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.subcontainer .rights table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-right: 0px solid #CDCDCD;
+}
+
+.subcontainer .rights input {
+    margin: 0px 0px 0px 0px;
+    font-weight: normal;
+}
+
+.subcontainer .rights table tr,.subcontainer .rights table td,.subcontainer .rights table
+{
+    padding: 0px 0px 0px 0px;
+    border-left: 1px solid #CDCDCD;
+}
+
+.rf-fu {
+    text-align: left;
+    width: 100%;
+    margin-top: 20px;
+    min-height: 192px;
+}
+
+.disabled {
+    opacity: 0.55;
+    filter: alpha(opacity = 55);
+    cursor: default;
+}
+
+.subcontainer a {
+    text-decoration: none;
+}
+
+.subcontainer a:first-letter {
+    text-transform: capitalize;
+}
+
+.even-row {
+    background-color: #FCFFFE;
+}
+
+.odd-row {
+    background-color: #ECF3FE;
+}
+
+.active-row {
+    background-color: #FFEBDA;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.important {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.help-panel img,img.warning {
+    margin-right: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.subcontainer h2 img {
+    float: left;
+    padding-bottom: 5px;
+    margin-right: 5px;
+}
+
+.help-panel {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.help-panel .description {
+    border: 1px solid #CDCDCD;
+    background-color: #EFEFEF;
+}
+
+div.warning {
+    padding: 12px;
+    border: 1px solid #FFF012;
+    background-color: #FFFFC0;
+    margin: 15px 15px 15px 15px;
+    overflow: hidden;
+}
+
+div.warning p {
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+.dataTable-scroller {
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.dataTable {
+    width: 100%;
+}
+
+.dataTable a {
+    display: block;
+}
+
+.subcontainer .rights input[type="text"] {
+    width: 70px;
+}
+
+.textarea {
+    width: 325px;
+    height: 66px;
+}
+
+.subcontainer h2 {
+    border-bottom: solid 1px #DFDFDF;
+    font-size: 20px;
+}
+
+.subcontainer h2 span.right {
+    text-align: right;
+    color: green;
+    float: right;
+    padding-right: 50px;
+    width: 50%;
+}
+
+.panel-currentUtilisateur-selected {
+    color: green;
+    font-weight: bold;
+    border: 1px solid #CDCDCD;
+    font-size: 12px;
+    float: right;
+    background-color: #ECF3FE;
+    padding: 3px 3px 3px 3px;
+}
+
+.tablePermissionsRefdatas .header {
+    font-weight: bold;
+}
+
+.tablePermissionsRefdatas {
+    width: 100%;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.download,.edition,.administration {
+    text-align: center;
+}
+
+.download input,.edition input,.administration input {
+    cursor: pointer;
+}
+
+.download,.edition {
+    width: 50px;
+}
+
+.administration {
+    width: 65px;
+}
+
+.panelControlsWrapper {
+    overflow: hidden;
+}
+
+.panelControls {
+    border: 1px solid #d2d6de;
+    background-color: #ECF3FE;
+    padding: 0px 0px 3px 5px;
+    float: right;
+    margin-top: 7px;
+}
+
+.panelControls .control {
+    margin-right: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, Verdana, sans-serif;
+    text-transform: capitalize;
+}
+
+.panelControls .control a {
+    color: black;
+    font-weight: bold;
+}
+
+td.resource {
+    background-color: #ECF3FE;
+    font-style: italic;
+    color: #595959;
+    font-weight: normal;
+}
+
+.inline {
+    display: inline !important;
+    margin-left: 5px;
+}
+
+.stage_1 li.stage_1,.stage_2 li.stage_2,.stage_3 li.stage_3 {
+    font-weight: bolder;
+    color: blue;
+}
+ /*Modifier ici*/
+.charte{
+    position: absolute;
+/*    left: 12.5%;
+    right: 12.5%;
+    top: 5%;
+    bottom: 5%;*/
+    width: auto;
+    height: auto;
+    overflow-y: scroll;
+}
+.profileConfirmation {
+}
+.panelCharteContent{    
+}
+.panelCharte {
+}
+.acceptCharte{
+/*    margin-top: 15px;  
+    font-size: 1.5em;
+    color: rgb(104, 52, 155);*/
+}
+.charteValidation{
+
+}
+/* the form panle*/
+.profileForm .ui-g>.ui-panelgrid-content{
+    width: 100%;
+}

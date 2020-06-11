@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+	http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+    <import resource="classpath:/META-INF/spring/persistenceTest.xml" />
+
+    <import resource="classpath:/org/cnrs/osuc/snot/snot-beans.xml" />
+
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="session">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+                <entry key="request">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+                <entry key="application">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="configurationFactory" class="org.inra.ecoinfo.config.ConfigurationFactory">
+        <property name="modulesConfiguration">
+            <map>
+                <entry key="coreConfiguration">
+                    <bean class="org.inra.ecoinfo.config.impl.CoreConfiguration" />
+                </entry>
+                <entry key="internationalisationConfiguration">
+                    <bean
+                        class="org.inra.ecoinfo.config.impl.InternationalisationConfiguration" />
+                </entry>
+                <entry key="metadataConfiguration">
+                    <bean class="org.inra.ecoinfo.refdata.config.impl.MetadataConfiguration" />
+                </entry>
+                <entry key="datasetConfiguration">
+                    <bean class="org.inra.ecoinfo.dataset.config.impl.DatasetConfiguration" />
+                </entry>
+                <entry key="extractionConfiguration">
+                    <bean
+                        class="org.inra.ecoinfo.extraction.config.impl.ExtractionConfiguration" />
+                </entry>
+                <entry key="fileCompConfiguration">
+                    <bean class="org.inra.ecoinfo.filecomp.config.impl.FileCompConfiguration" />
+                </entry>
+                <entry key="systemConfiguration">
+                    <bean
+                        class="org.inra.ecoinfo.system.config.impl.SystemConfiguration" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--bean id="configurationTestFactory" class="org.inra.ecoinfo.utils.configuration.ConfigurationFactoryTests"> 
+    <property name="usersManager" ref="usersManager" /> <property name="localizationManager" 
+    ref="localizationManager" /> </bean> <bean id="configurationTest" factory-bean="configurationTestFactory" 
+    factory-method="createConfig" / -->
+    <bean id="messageProducer" class="org.mockito.Mockito"
+          factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.notifications.impl.PrimeFacesMessageProducer" />
+    </bean>
+    <!-- mocks de recorders -->
+    <bean id="recorderFlux_if" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorderFlux_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorderFlux_m" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorderMeteo_if" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorderMeteo_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorderMeteo_m" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_SWC_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_SWC_sh" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_SWC_infraj" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_cms_m" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_Tp_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_Tp_infraj" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_G_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_G_infraj" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_SMP_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_SMP_infraj" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_GWD_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_GWD_infraj" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_ChambreFluxSol_j" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_ChambreFluxSol_infraj" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+    <bean id="recorder_ChambreFluxSol_m" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.AbstractRecorder" />
+    </bean>
+	
+	
+    <!-- mocks de extraction -->
+    <bean id="fluxmeteoExtractor" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.extraction.impl.AbstractExtractor" />
+    </bean>
+    <bean id="fluxMeteoBuildOutputDisplayBySite" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.extraction.impl.AbstractOutputBuilder" />
+    </bean>
+    <bean id="fluxMeteoBuildOutputDisplayByRow" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.extraction.impl.AbstractOutputBuilder" />
+    </bean>
+    <bean id="meteosolExtractor" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.extraction.impl.AbstractExtractor" />
+    </bean>
+    <bean id="cSOutputEuropeanDisplay" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.extraction.impl.AbstractOutputBuilder" />
+    </bean>
+    <bean id="cSOutputClassicDisplay" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.extraction.impl.AbstractOutputBuilder" />
+    </bean>
+	
+	
+    <!-- mocks de filenamechecker -->
+    <bean id="fileNameCheckerSnotddmmyyyy" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.impl.filenamecheckers.AbstractFileNameChecker" />
+    </bean>
+    <bean id="fileNameCheckerSnotmmyyyy" class="org.mockito.Mockito"
+              factory-method="mock">
+        <constructor-arg
+            value="org.inra.ecoinfo.dataset.impl.filenamecheckers.AbstractFileNameChecker" />
+    </bean>
+    <bean id="mgaIOConfigurator" class="org.cnrs.osuc.snot.mga.configurator.MgaIOConfigurator" />
+
+</beans>

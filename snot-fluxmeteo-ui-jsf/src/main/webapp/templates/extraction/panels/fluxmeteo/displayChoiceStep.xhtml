@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:outputStylesheet library="css/extraction" name="#{css}" />
+<f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+		var="choiceStep" />
+<a4j:jsFunction name="changeDisplay"
+	execute="@this,panelChoiceDisplay,parametersRequest"
+	render="panelChoiceDisplay,parametersRequest"
+	limitRender="true">
+</a4j:jsFunction>
+
+<p class="intro">#{choiceStep.MSG_DISPLAY_STEP_CHOOSE_FORMAT}</p>
+
+<a4j:outputPanel id="panelChoiceDisplay" ajaxRendered="false">
+<h:selectOneRadio value="#{uiBean.affichage}" onchange="changeDisplay()">
+	<f:selectItems value="#{uiBean.parametersRequest.datesForm1ParamVO.FMPresentation}"  var="display"
+		itemLabel="#{display.key}" itemValue="#{display.value}" />
+</h:selectOneRadio>
+</a4j:outputPanel>
+</html>

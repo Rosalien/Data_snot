@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="body">
+            salut
+            <f:loadBundle basename="org.cnrs.osuc.snot.extraction.jsf.template-jsf" var="template"/>
+            <f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" var="extractionFMPanel"/>
+            <h:outputStylesheet>
+
+            <a4j:jsFunction name="updateCommentExtraction"
+                            action="#{uiBean.extract}" status="statusWaitLonger" render="@none"
+                            limitRender="true"
+                            onbegin="#{rich:component('popupCommentExtraction')}.hide()">
+                <a4j:param name="param1"
+                           assignTo="#{uiBean.parametersRequest.commentExtraction}" />
+            </a4j:jsFunction>
+
+            <h:form>
+
+                <rich:popupPanel id="popupCommentExtraction" autosized="true"
+                                 modal="true" moveable="true">
+                    <f:facet name="header">
+                        <h:outputText escape="false"
+                                      value="#{template.MSG_COMMENT_TITLE_DIALOG}" />
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:graphicImage name="close.png" library="images"
+                                        styleClass="logout"
+                                        onclick="#{rich:component('popupCommentExtraction')}.hide(); return false;" />
+                    </f:facet>
+
+                    <h:panelGroup layout="block" styleClass="popupCommentExtraction">
+                        <h:outputText
+                            value="#{template.MSG_COMMENT_EXTRACTION}"
+                            styleClass="intro" />
+                        <br />
+                        <h:inputTextarea id="textAreaCommentExtraction"
+                                         value="#{uiBean.parametersRequest.commentExtraction}" />
+                        <br />
+                        <a4j:commandButton value="#{template.MSG_EXTRACTION_EXECUTION}" render="@none"
+                                           styleClass="buttonPopupExtraction" execute="@none"
+                                           limitRender="true"
+                                           onclick="updateCommentExtraction(#{rich:element('textAreaCommentExtraction')}.value)" />
+                    </h:panelGroup>
+
+                </rich:popupPanel>
+
+                <h1>
+                    <h:panelGroup styleClass="navigation">
+                        <h:panelGroup styleClass="navigationItem">
+                            <h:graphicImage name="home.png" library="images" />
+                            <h:outputLink value="index.jsf">#{template.MSG_TITLE_PART1}  </h:outputLink>
+                        </h:panelGroup>
+                        <h:panelGroup styleClass="navigationItem">#{template.MSG_TITLE_PART2}  </h:panelGroup>
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="title">
+                        <h:graphicImage name="download.png" library="images" />
+                        <h:outputText value="#{titleExtraction}" />
+                    </h:panelGroup>
+                </h1>
+                <p class="intro-main">
+                    <h:outputText value="#{introMain}" />
+                </p>
+
+                <h:panelGroup layout="block" styleClass="subcontainer">
+                    <h:panelGroup layout="block" styleClass="left">
+                        <h:panelGroup id="navigationSteps">
+                            <h2>
+                                <a4j:commandButton id="prevStepButton"
+                                                   value="#{template.MSG_STEP_PREV}" styleClass="buttonStepPrev"
+                                                   action="#{uiBean.prevStep}" rendered="#{uiBean.step>1}"
+                                                   render="parametersRequestSteps, workspace, navigationSteps">
+                                </a4j:commandButton>
+                                <h:panelGroup styleClass="titleStep">
+                                    <h:outputText value="#{template.MSG_STEP} #{uiBean.titleForStep}" />
+                                    <h:panelGroup id="validImage">
+                                        <h:graphicImage name="accepted.png" library="images"
+                                                        rendered="#{uiBean.isStepValid}" />
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <a4j:commandButton id="nextStepButton" value="#{template.MSG_STEP_NEXT}"
+                                                   styleClass="buttonStepNext" action="#{uiBean.nextStep}"
+                                                   render="parametersRequestSteps, workspace,navigationSteps"
+                                                   rendered="#{uiBean.step!=5}"
+                                                   disabled="#{not uiBean.isStepValid}">
+                                </a4j:commandButton>
+                            </h2>
+                        </h:panelGroup>
+                        <rich:togglePanel id="workspace"
+                                          binding="#{uiBean.togglePanel}">
+                            <ui:insert name="togglePanelItems" />
+
+                        </rich:togglePanel>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" styleClass="right"
+                                  id="parametersRequest">
+
+                        <rich:accordion switchType="ajax" id="parametersRequestSteps"
+                                        itemHeaderClass="headerParametersRequest"
+                                        binding="#{uiBean.accordion}" onitemchange="#{uiBean.changeStep}">
+                            <ui:insert name="accordionItems" />
+                        </rich:accordion>
+
+                        <h:panelGroup
+                            styleClass="panelControlsWrapper launchWrapper #{uiBean.parametersRequest.dateStepIsValid?'':'disabled'}"
+                            layout="block">
+                            <h:panelGroup styleClass="panelControls panelControlsLaunch">
+                                <h:panelGroup styleClass="control">
+                                    <a4j:commandLink
+                                        oncomplete="#{rich:component('popupCommentExtraction')}.show();"
+                                        execute="@none" limitRender="true"
+                                        render="popupCommentExtraction"
+                                        disabled="#{not uiBean.parametersRequest.formIsValid}">
+                                        <h:graphicImage value="#{resource['images:check.png']}" />
+                                        <h:outputText value="#{template.MSG_EXTRACTION_EXECUTION}" />
+                                    </a4j:commandLink>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

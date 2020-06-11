@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+    <name>jeu</name>
+    <column>
+        <name>code_jeu</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>code_site</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>code_theme</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>titre</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>description</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>objectif</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>genealogie</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>doi</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>citation</name>
+        <not-null>false</not-null>
+    </column>
+
+    <column>
+        <name>Titre licence</name>
+        <not-null>false</not-null>
+    </column>  
+    <column>
+        <name>Url licence</name>
+        <not-null>false</not-null>
+    </column>  
+
+    <column>
+        <name>Url téléchargement</name>
+        <not-null>false</not-null>
+    </column>
+    
+    <column>
+        <name>Url information</name>
+        <not-null>false</not-null>
+    </column>
+    
+</dataset-descriptor>

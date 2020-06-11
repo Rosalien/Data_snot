@@ -1,0 +1,395 @@
+@CHARSET "UTF-8";
+
+h3 {
+    border-bottom: 1px solid #CDCDCD;
+    color: #787878;
+    text-align: right;
+    margin-top: 32px;
+}
+
+p {
+    text-indent: 15px;
+}
+
+.present {
+    color: green;
+}
+
+.absent {
+    color: red;
+}
+
+p.intro {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+}
+
+.subcontainer .rf-trn-ico, .rf-trn-hnd, .rf-trn-hnd-ldn-fct {
+    vertical-align: top;
+}
+
+.selectionPanel {
+    border: 1px solid #CDCDCD;
+}
+
+.tree {
+    position: relative;
+}
+
+.selected {
+    color: green;
+    font-style: italic;
+}
+
+.emptySelection {
+    color: red;
+    font-weight: bold;
+}
+
+.subcontainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.dataTable {
+    width: 100%;
+}
+
+.subcontainer .left {
+    position: absolute;
+    width: 280px;
+}
+tze_nom_fr
+.subcontainer .right {
+    position: absolute;
+    right: 20px;
+    left: 300px;
+}
+
+.subcontainer .leafNode {
+    width: 100%;
+}
+
+.subcontainer .rights {
+    float: none;
+    position: absolute;
+    right: 0px;
+    font-size: 11px;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.subcontainer .rights table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-right: 0px solid #CDCDCD;
+}
+
+.subcontainer .rights input {
+    margin: 0px 0px 0px 0px;
+    font-weight: normal;
+}
+
+.subcontainer .rights table tr, .subcontainer .rights table td,
+.subcontainer .rights table {
+    padding: 0px 0px 0px 0px;
+    border-left: 1px solid #CDCDCD;
+}
+
+.rf-fu {
+    text-align: left;
+    width: 100%;
+    margin-top: 20px;
+    min-height: 192px;
+}
+
+.disabled {
+    opacity: 0.60;
+    filter: alpha(opacity =     60);
+    cursor: default;
+}
+
+.subcontainer .panelValuesMetadatas .dataTable .invalid {
+    opacity: 0.20;
+    filter: alpha(opacity =     20);
+    background-color: red;
+    border: 2px solid #590000;
+}
+
+.subcontainer a {
+    text-decoration: none;
+}
+
+.dataTable-scroller {
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.even-row {
+    background-color: #FCFFFE;
+}
+
+.odd-row {
+    background-color: #ECF3FE;
+}
+
+.active-row {
+    background-color: #FFEBDA;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.important {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.help-panel img, img.warning {
+    margin-right: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.subcontainer h2 img {
+    float: left;
+    padding-bottom: 5px;
+    margin-right: 5px;
+}
+
+.help-panel {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.help-panel .description {
+    border: 1px solid #CDCDCD;
+    background-color: #EFEFEF;
+}
+
+div.warning {
+    padding: 12px;
+    border: 1px solid #FFF012;
+    background-color: #FFFFC0;
+    margin: 15px 15px 15px 15px;
+    overflow: hidden;
+}
+
+div.warning p {
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+.subcontainer .rights .synthese {
+    width: 60px;
+}
+
+.subcontainer .rights .admin {
+    width: 50px;
+}
+
+.subcontainer .rights .publication {
+    width: 65px;
+}
+
+.subcontainer .rights .suppression {
+    width: 65px;
+}
+
+.subcontainer .rights .depot {
+    width: 50px;
+}
+
+.subcontainer .rights .extraction {
+    width: 65px;
+}
+
+.subcontainer .rights .debut, .subcontainer .rights .fin {
+    width: 74px;
+}
+
+.subcontainer .rights input[type="text"] {
+    width: 70px;
+}
+
+.subcontainer h2 {
+    border-bottom: solid 1px #DFDFDF;
+    font-size: 20px;
+}
+
+.subcontainer h2 span.right {
+    text-align: right;
+    color: green;
+    float: right;
+    padding-right: 50px;
+    width: 50%;
+}
+
+.panel-currentUtilisateur-selected {
+    color: green;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+}
+
+.inputTextAreaLongString {
+    width: 100%;
+    height: 100px;
+}
+
+.NKey {
+    background-color: #3c8dbc;
+    font-weight: bold;
+    color: white;
+}
+
+.panelValuesMetadatas .dataTable .NKey a {
+    background-color: #3c8dbc;
+    font-weight: bold;
+    color: white;
+}
+
+.panel-currentRefdata-selected {
+    color: green;
+    font-weight: bold;
+    border: 1px solid #CDCDCD;
+    font-size: 12px;
+    float: right;
+    background-color: #ECF3FE;
+    padding: 3px 3px 3px 3px;
+}
+
+.panelControlsRefdataWrapper {
+    overflow: hidden;
+}
+
+.wrapperButtonsDialog {
+    padding-top: 3px;
+    overflow: hidden;
+}
+
+.dataTableAddNewRefdata {
+    width: 100%;
+    width: 400px;
+}
+
+.panelGroupDatatable {
+    max-width: 1520px;
+    overflow: auto;
+}
+
+.scrollBarAddNewRefData {
+    width: 415px;
+    max-height: 800px;
+}
+
+.dataTableAddNewRefdata .header {
+    width: 20%;
+    /*background-color: #ECF3FE;*/
+    color: #555;
+    font-size:16px;
+
+}
+
+.dataTableAddNewRefdata select {
+    background-color: #ECF3FE;
+}
+
+.panelControlsRefdataWrapper {
+    overflow: hidden;
+}
+
+.panelControlsRefdata {
+    border: 1px solid #d2d6de;
+    color: #555;    
+    padding: 0px 0px 3px 5px;
+    float: right;
+    margin-top: 7px;
+    margin-bottom: 15px;
+}
+
+.panelControlsRefdata .control a {
+    color: #555;
+    font-weight: bold;
+}
+
+.subcontainer .dataTable a.newEntry {
+    font-style: italic;
+    color: red;
+}
+
+.dataTable a {
+    display: block;
+}
+
+select, .dataTableAddNewRefdata input, .dataTableAddNewRefdata span {
+    width: 100%;
+}
+
+.panelValuesMetadatas .dataTable td.actions {
+    width: 50px;
+    text-align: center;
+}
+
+.panelValuesMetadatas .dataTable td.actions a {
+    display: inline;
+}
+
+.deleted {
+    text-decoration: line-through;
+    opacity: 0.4;
+    margin: 5px;
+}
+
+span.alertToDelete {
+    font-size: 14px;
+}
+
+.alertToDelete img {
+    width: 15%;
+    vertical-align: middle;
+    padding-right: 25px;
+}
+.ui-fileupload .start {
+    display: none;
+}
+.ui-fileupload .cancel {
+    display: none;
+}
+.ui-fileupload .progress {
+    display: none;
+}
+td.nom span{
+    overflow-wrap: break-word;
+}
+
+/*Fenêtre popup pour déposer un fichier*/
+.uploadFilesToCheckPopup span.intro {
+    /*text-indent: 30px;*/
+    /*display: block;*/
+    /*text-align: left;*/
+    /*font-size:14px !important;*/
+}
+
+/*Ajout de cette config pour résoudre un problème de taille de texte (ici c'est 14px)*/
+.ui-fileupload-buttonbar .ui-fileupload-choose input {
+    position:absolute;
+    top:0;
+    right:0;
+    margin:0;
+    opacity:0;
+    filter:alpha(opacity=0);
+    font-size:14px;
+    direction:ltr;
+    cursor:pointer
+}
+
+/*Config de l'affichage du fichier en dépôt dans le popup*/
+.ui-fileupload-row > div {
+    display: inline-flex;
+    padding: 2px 2px 2px 2px;
+}

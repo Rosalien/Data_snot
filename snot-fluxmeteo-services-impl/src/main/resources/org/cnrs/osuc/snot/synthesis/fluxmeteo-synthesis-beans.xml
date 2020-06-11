@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+<bean id="abstractFluxSynthesis" class="org.cnrs.osuc.snot.synthesis.flux.AbstractFluxSynthesisDAO" parent="abstractDAO" abstract="true" />
+<bean id="synthesis_eddycovariance_sh" class="org.cnrs.osuc.snot.synthesis.flux.Flux_shSynthesisDAO" parent="abstractFluxSynthesis"/>
+<bean id="synthesis_flux_j" class="org.cnrs.osuc.snot.synthesis.flux.Flux_jSynthesisDAO" parent="abstractFluxSynthesis"/>
+<bean id="synthesis_flux_m" class="org.cnrs.osuc.snot.synthesis.flux.Flux_mSynthesisDAO" parent="abstractFluxSynthesis"/>
+<bean id="abstractMeteoSynthesis" class="org.cnrs.osuc.snot.synthesis.meteo.AbstractMeteoSynthesisDAO" parent="abstractDAO" abstract="true" />
+<bean id="synthesis_meteo_sh" class="org.cnrs.osuc.snot.synthesis.meteo.Meteo_shSynthesisDAO" parent="abstractMeteoSynthesis"/>
+<bean id="synthesis_meteo_j" class="org.cnrs.osuc.snot.synthesis.meteo.Meteo_jSynthesisDAO" parent="abstractMeteoSynthesis"/>
+<bean id="synthesis_meteo_m" class="org.cnrs.osuc.snot.synthesis.meteo.Meteo_mSynthesisDAO" parent="abstractMeteoSynthesis"/>
+</beans>

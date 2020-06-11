@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+p.distributionVariable{
+    font-size: 16px;
+    font-weight: bolder;
+}
+span.distributionVariableName:before{
+    content:' : ';
+}
+span.distributionVariableName{
+    font-weight: normal;
+    font-size: 16px;
+    font-family: cursive;
+}
+/*Paramètre pour les dates de disponibilités dans l'arborescence de la synthèse'*/
+.availableDate {
+    color: #3c8dbc;
+    font-weight: bold;
+}
+
+
+
+

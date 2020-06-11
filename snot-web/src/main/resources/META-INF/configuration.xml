@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://orei.inra.fr/configuration"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://orei.inra.fr/configuration configuration.xsd ">
+    <module>
+        <coreConfiguration>
+            <id>SNOT</id>
+            <siteSeparatorForFileNames>-</siteSeparatorForFileNames>
+            <name>SNO-T</name>
+            <mailAdmin>data-snot@cnrs-orleans.fr</mailAdmin>
+            <mailHost>smtp.cnrs-orleans.fr</mailHost>
+            <repositoryURI>${user.home}/tmp-snot/</repositoryURI>
+        </coreConfiguration>
+    </module>
+    <module>
+        <localizationConfiguration>
+            <localizations defaultLanguage="fr">
+                <localization language="fr" />
+                <localization language="en" />
+            </localizations>
+        </localizationConfiguration>
+    </module>
+    <module>
+        <systemConfiguration>
+            <memories>
+                <memory name="publish" memory="30" />
+                <memory name="extract" memory="50" />
+            </memories>
+        </systemConfiguration>
+    </module>
+
+    <module>
+        <metadataConfiguration>
+            <metadata>
+                <name language="key">arborescence/type_de_zones_d_etudes</name>
+                <name language="fr">Arborescence/Type de zones d'études</name>
+                <name language="en">Tree/Type of zones of studies</name>
+                <order>1</order>
+                <description language="key">tze_description</description>
+                <description language="fr">Définit le type de zone d'étude</description>
+                <description language="en">Defines the type of study area</description>
+                <recorder>org.cnrs.osuc.snot.refdata.typezoneetude.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>typeSiteDAO</class>
+                </spring-dao>
+            </metadata>   
+            <metadata>
+                <name language="key">arborescence/sites</name>
+                <name language="fr">Arborescence/Sites</name>
+                <name language="en">Tree/Sites</name>
+                <order>2</order>
+                <description language="key">sites_description</description>
+                <description language="fr">Les sites correspondent à la description des tourbières et des stations de mesure du SNO-T</description>
+                <description language="en">A site is defined by description of peatland and measurement station of SNO-T</description>
+                <recorder>org.cnrs.osuc.snot.refdata.site.Recorder</recorder>
+                <spring-dao>
+                    <class>siteSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>typeSiteDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">arborescence/theme</name>
+                <name language="fr">Arborescence/Thèmes de données</name>
+                <name language="en">Tree/Thematics</name>
+                <order>3</order>
+                <description language="key">themes_description</description>
+                <description language="fr">Un thème de donnée regroupe un ensemble de type de données similaires</description>
+                <description language="en">A thematic group includes a set of similar data types</description>
+                <recorder>org.inra.ecoinfo.refdata.theme.Recorder</recorder>
+                <spring-dao>
+                    <class>themeDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">arborescence/datatype</name>
+                <name language="fr">Arborescence/Types de données</name>
+                <name language="en">Tree/Datatype</name>
+                <order>4</order>
+                <description language="key">datatype_description</description>
+                <description language="fr">Un type de donnée est défini par un format de fichier d'entrée et de traitements associés. Chaque type de données à ses propres définitions de variables.</description>
+                <description language="en">A data type is defined by an input file format and associated processes.Each data type has its own variable definitions.</description>
+                <recorder>org.inra.ecoinfo.refdata.datatype.Recorder</recorder>                
+                <spring-dao>
+                    <class>datatypeDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">arborescence/valeurqualitative</name>
+                <name language="fr">Arborescence/Valeurs qualitatives</name>
+                <name language="en">Tree/Qualitatives values</name>
+                <order>5</order>
+                <description language="key">valeurqualitative_description</description>
+                <description language="fr">Définit les valeurs qualitatives utiles dans les données de références du SNO-T</description>
+                <description language="en">Sets qualitatives values</description>
+                <recorder>org.inra.ecoinfo.refdata.valeurqualitative.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>valeurQualitativeDAO</class>
+                </spring-dao>
+            </metadata> 
+            <metadata>
+                <name language="key">arborescence/types_de_donnees_par_themes_de_sites</name>
+                <name language="fr">Arborescence/Types de données par thèmes de sites</name>
+                <name language="en">Tree/Data types by thematics and sites</name>
+                <order>6</order>
+                <description language="key">types_de_donnees_par_themes_de_sites_description</description>
+                <description language="fr">Cette donnée de référence permet de définir une arborescence qui sera utilisée pour déposer des fichiers de données sur des types de données.</description>
+                <description language="en">This reference data defines a tree that will be used to deposit data files on data types.</description>
+                <recorder>org.inra.ecoinfo.refdata.sitethemedatatype.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>datatypeDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>siteThemeDatatypeDAO</class>
+                </spring-dao>
+<!--                <spring-dao>
+                    <class>datatypeVariableUniteSnotDAO</class>
+                </spring-dao>-->
+                <spring-dao>
+                    <class>siteDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>themeDAO</class>
+                </spring-dao>
+            </metadata>                 
+                                                               
+            <metadata>
+                <name language="key">metadata/jeu</name>
+                <name language="fr">Métadonnées/Jeux de données</name>
+                <name language="en">Metadata/Dataset</name>
+                <order>7</order>
+                <description language="key">jeu_description</description>
+                <description language="fr">Définit le jeu de données pour la construction de métadonnées</description>
+                <description language="en">Sets dataset</description>
+                <recorder>org.cnrs.osuc.snot.refdata.jeu.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>jeuDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>siteSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>themeDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">metadata/gestionnairejeu</name>
+                <name language="fr">Métadonnées/Gestionnaires de jeux de données</name>
+                <name language="en">Metadata/Contacts dataset</name>
+                <order>8</order>
+                <description language="key">gestionnairejeu_description</description>
+                <description language="fr">Définit les responsables des jeux de données du SNO-T</description>
+                <description language="en">Sets personnel</description>
+                <recorder>org.cnrs.osuc.snot.refdata.gestionnairejeu.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>gestionnaireJeuDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>jeuDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>valeurQualitativeDAO</class>
+                </spring-dao>
+            </metadata>       
+            <metadata>
+                <name language="key">metadata/sousjeu</name>
+                <name language="fr">Métadonnées/Sous jeux de données</name>
+                <name language="en">Metadata/Under dataset</name>
+                <order>8</order>
+                <description language="key">sousjeu_description</description>
+                <description language="fr">Définit les sous-jeux de données</description>
+                <description language="en">Sets under-dataset</description>
+                <recorder>org.cnrs.osuc.snot.refdata.sousjeu.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>sousJeuDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>jeuDAO</class>
+                </spring-dao>
+            </metadata> 
+            <metadata>
+                <name language="key">metrologie/variables</name>
+                <name language="fr">Métrologie/Variables</name>
+                <name language="en">Metrology/Variables</name>
+                <order>9</order>
+                <description language="key">variables_description</description>
+                <description language="fr">Une variable définit un objet mesurable. Elle s'exprime pour un type de données dans une unité spécifique.</description>
+                <description language="en">A variable defines a measurable object. It is expressed for a data type in a specific unit.</description>
+                <recorder>org.cnrs.osuc.snot.refdata.variable.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>variableDAO</class>
+                </spring-dao>
+            </metadata>
+                                 
+            <metadata>
+                <name language="key">metrologie/unites</name>
+                <name language="fr">Métrologie/Unités</name>
+                <name language="en">Metrology/Units</name>
+                <order>10</order>
+                <description language="key">unites_description</description>
+                <description language="fr">Définit les unités. La colonne affichage est celle utilisée pour les en-têtes de colonne.</description>
+                <description language="en">Defines the units. The display column is the one used for column headers.</description>
+                <recorder>org.cnrs.osuc.snot.refdata.unite.Recorder</recorder>
+                <spring-dao>
+                    <class>uniteDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">metrologie/variables_par_types_de_donnees</name>
+                <name language="fr">Métrologie/Variables par types de données</name>
+                <name language="en">Metrology/Variables by data types</name>
+                <order>11</order>
+                <description language="key">variables_et_unites_par_types_de_donnees_description</description>
+                <description language="fr">Cette donnée de référence définit quelles sont les variables associées à un type de données, et en quelle unité elle s'exprime.</description>
+                <description language="en">This reference datum defines which variables are associated with a data type, and in which unit it expresses itself.</description>
+                <recorder>org.cnrs.osuc.snot.refdata.datatypevariableunite.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>siteSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>datatypeDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>variableDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>uniteDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>datatypeVariableUniteSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>jeuDAO</class>
+                </spring-dao>
+            </metadata>
+            
+            <metadata>
+                <name language="key">instruments_methods/instruments</name>
+                <name language="fr">Instruments et méthodes/Instruments</name>
+                <name language="en">Sensors and methods/Instruments</name>
+                <order>12</order>
+                <description language="key">instrument_description</description>
+                <description language="fr">Définit des instruments.</description>
+                <description language="en">Sets instruments.</description>
+                <recorder>org.cnrs.osuc.snot.refdata.instrument.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>instrumentDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">instruments_methods/methods</name>
+                <name language="fr">Instruments et méthodes/Méthodes</name>
+                <name language="en">Sensors and methods/Methods</name>
+                <order>13</order>
+                <description language="key">instrument_description</description>
+                <description language="fr">Définit des méthodes</description>
+                <description language="en">Sets methods </description>
+                <recorder>org.cnrs.osuc.snot.refdata.methodecalcul.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>methodeCalculDAO</class>
+                </spring-dao>
+            </metadata>                        
+            <metadata>
+                <name language="key">instruments_methods/references</name>
+                <name language="fr">Instruments et méthodes/Références</name>
+                <name language="en">Sensors and methods/References</name>
+                <order>14</order>
+                <description language="key">references_description</description>
+                <description language="fr">Définit des références</description>
+                <description language="en">Sets references </description>
+                <recorder>org.cnrs.osuc.snot.refdata.reference.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>referenceDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">instruments_methods/references_des_instruments</name>
+                <name language="fr">Instruments et méthodes/Références des instruments</name>
+                <name language="en">Sensors and methods/Instruments references</name>
+                <order>15</order>
+                <description language="key">references_instruments_description</description>
+                <description language="fr">Définit des références pour des instruments</description>
+                <description language="en">Sets references for instruments</description>
+                <recorder>org.cnrs.osuc.snot.refdata.instrumentreference.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>instrumentDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>referenceDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>instrumentReferenceDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">instruments_methods/references_des_methodes</name>
+                <name language="fr">Instruments et méthodes/Références des méthodes</name>
+                <name language="en">Sensors and methods/Methods references</name>
+                <order>16</order>
+                <description language="key">references_methods_description</description>
+                <description language="fr">Définit des références pour des méthodes</description>
+                <description language="en">Sets references for methods </description>
+                <recorder>org.cnrs.osuc.snot.refdata.methodecalculreference.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>methodeCalculDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>referenceDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>methodeCalculReferenceDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">instruments_methods/periodes_d_utilisation_des_instruments</name>
+                <name language="fr">Instruments et méthodes/Périodes d'utilisation des instruments</name>
+                <name language="en">Sensors and methods/Use periods of instruments</name>
+                <order>17</order>
+                <description language="key">periods_instruments_description</description>
+                <description language="fr">Définit des périodes pour des instruments</description>
+                <description language="en">Sets periods for instrument </description>
+                <recorder>org.cnrs.osuc.snot.refdata.periodeutilisationinstrument.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>instrumentDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>periodeUtilisationInstrumentDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>datatypeVariableUniteSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>jeuDAO</class>
+                </spring-dao>
+            </metadata>
+            <metadata>
+                <name language="key">instruments_methods/periodes_d_application_des_methodes</name>
+                <name language="fr">Instruments et méthodes/Périodes d'application des méthodes</name>
+                <name language="en">Sensors and methods/Application periods of methods</name>
+                <order>18</order>
+                <description language="key">periods_methods_description</description>
+                <description language="fr">Définit des périodes pour des méthodes</description>
+                <description language="en">Sets periods for methods </description>
+                <recorder>org.cnrs.osuc.snot.refdata.periodeapplicationmethode.Recorder
+                </recorder>
+                <spring-dao>
+                    <class>methodeCalculDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>periodeApplicationMethodeDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>datatypeVariableUniteSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>jeuDAO</class>
+                </spring-dao>
+            </metadata>
+        </metadataConfiguration>
+    </module>
+    <module>
+        <datatypeConfiguration>
+            <dataType>
+                <name language="key">eddycovariance_sh</name>
+                <name language="fr">Flux de GES par eddy-covariance</name>
+                <name language="en">Greenhouse gas flux by eddy-covariance</name>
+                <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance
+                </description>
+                <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station
+                </description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderFlux_if</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>
+<!--            <dataType>
+                <name language="key">meteosol_sh</name>
+                <name language="fr">Météo et physique du sol semi-horaire</name>
+                <name language="en">Weather and soil physic</name>
+                <description language="fr">Météo et physique du sol semi-horaire</description>
+                <description language="en">Weather and soil physic</description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderMeteo_sh</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>-->
+            <dataType>
+                <name language="key">meteosol_infraj</name>
+                <name language="fr">Météo et physique du sol infra-journalier</name>
+                <name language="en">Weather and soil physic</name>
+                <description language="fr">Météo et physique du sol infra-journalier</description>
+                <description language="en">Infra-daily weather and soil physic</description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderMeteo_if</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>
+            <dataType>
+                <name language="key">piezo_infraj</name>
+                <name language="fr">Profondeur et température de la nappe</name>
+                <name language="en">Depth and temperature of the groundwater</name>
+                <description language="key">wtd_infraj_desc</description>
+                <description language="fr">Profondeur de la nappe et température infra-journalière</description>
+                <description language="en">Infra-daily depth and temperature of the groundwater</description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderHydro_if</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>
+            <dataType>
+                <name language="key">docpoc_infraj</name>
+                <name language="fr">Flux du carbone organique à l'exutoire</name>
+                <name language="en">Organic carbon flux at the outlet</name>
+                <description language="key">docpoc_infraj_desc</description>
+                <description language="fr">Flux du carbone organique à l'exutoire</description>
+                <description language="en">Organic carbon flux at the outlet</description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderDoc_if</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>
+            <dataType>
+                <name language="key">chambreco2_infraj</name>
+                <name language="fr">Flux de GES dans les chambres CO2</name>
+                <name language="en">Flux de GES dans les chambres CO2</name>
+                <description language="key">gesChambre_infraj_desc</description>
+                <description language="fr">Flux de GES dans les chambres CO2</description>
+                <description language="en">Flux de GES dans les chambres CO2</description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderChambreCO2_if</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>           
+        </datatypeConfiguration>
+    </module>
+    <module>
+<!--        <extractionConfiguration>
+            <extraction>
+                <name language="fr">Flux et météo</name>
+                <name language="en">Flow and weather</name>
+                <description>Extraction de données de flux et de météo</description>
+                <extractor>fluxmeteoExtractor</extractor>
+                <outputDisplay number="1">
+                    <class>fluxMeteoBuildOutputDisplayByRow</class>
+                </outputDisplay>
+            </extraction>
+        </extractionConfiguration>-->
+    </module>
+</configuration>
+

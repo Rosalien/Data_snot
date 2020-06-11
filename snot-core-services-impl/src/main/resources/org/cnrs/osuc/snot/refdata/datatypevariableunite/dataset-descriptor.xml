@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+    <name>TypeDeDonneesVariableUnite</name>
+    <column>
+        <name>code_jeu</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>nom du site</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>nom du type de données</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>nom de la variable</name>		
+        <not-null>true</not-null>
+    </column>	 
+    <column>
+        <name>nom de l'unité</name>		
+        <not-null>true</not-null>
+    </column>	 
+    <column>
+        <name>min</name>
+        <value-type>float</value-type>
+    </column>	 
+    <column>
+        <name>max</name>
+        <value-type>float</value-type>
+    </column>
+    <column>
+        <name>missingvalue</name>		
+        <not-null>true</not-null>
+    </column>	 	 
+</dataset-descriptor>

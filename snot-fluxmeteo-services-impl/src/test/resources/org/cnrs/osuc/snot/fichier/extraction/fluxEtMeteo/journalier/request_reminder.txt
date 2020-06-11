@@ -1,0 +1,23 @@
+Rappel des paramètres liés à votre requête:
+------------------------------------------
+
+
+Sites choisis:;
+
+	 -Hesse 1
+Variables météo choisies:;
+
+	 -CO2 (CO2)
+	 -H2O (H2O)
+	 -LE (LE)
+	 -T (T)
+
+Fréquence:;
+	-j
+
+Date:;
+	 du 01/01/2008 au 31/03/2008 ;
+
+Commentaire:
+	;extraction de flux tours Hesse hesse1
+

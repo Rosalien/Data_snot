@@ -1,0 +1,92 @@
+/**
+ *
+ */
+package org.cnrs.osuc.snot.dataset.fluxmeteo.testDuplicates;
+
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import org.cnrs.osuc.snot.dataset.ITestDuplicates;
+import org.cnrs.osuc.snot.dataset.impl.AbstractTestDuplicate;
+import org.cnrs.osuc.snot.dataset.impl.SNOTRecorder;
+
+
+
+/**
+ * The Class TestDuplicateWsol.
+ * <p>
+ * implementation for Tillage of {@link ITestDuplicates}
+ * 
+ * @author Tcherniatinsky Philippe test the existence of duplicates in flux files
+ */
+public class TestDuplicateFluxMeteo_m extends AbstractTestDuplicate {
+
+
+    /**
+     * The Constant BUNDLE_SOURCE_PATH @link(String).
+     */
+    public static final String SNOT_DATASET_FLUXMETEO_BUNDLE_NAME = "org.cnrs.osuc.snot.dataset.fluxmeteo.impl.messages";
+
+    /**
+     *
+     */
+    public static final String PROPERTY_MSG_DOUBLON_LINE_M = "PROPERTY_MSG_DOUBLON_LINE_M";
+    /**
+     * The Constant serialVersionUID @link(long).
+     */
+    static final long serialVersionUID = 1L;
+
+    /**
+     * The date time line.
+     * 
+     * @link(SortedMap<String,SortedMap<String,SortedSet<Long>>>).
+     */
+    SortedMap<String, SortedSet<Long>> line;
+
+    /**
+     * Instantiates a new test duplicate flux.
+     */
+    public TestDuplicateFluxMeteo_m() {
+        this.line = new TreeMap<>();
+    }
+
+    /**
+     * Adds the line.
+     * 
+     * @param values
+     * @link(String[]) the values
+     * @param lineNumber
+     *            long the line number {@link String[]} the values
+     */
+    @Override
+    public void addLine(String[] values, long lineNumber) {
+        this.addLine(values[0], lineNumber + 1);
+    }
+
+    /**
+     * Adds the line.
+     *
+     * @param date
+     * @link(String)
+     * @link(String)
+     * @link(String) the numero
+     * @param lineNumber
+     *            long the line number
+     * @link(String) the date
+     * @link(String) the order of the intervention in the day
+     * @link(String) the number of the tool in intervention
+     */
+    protected void addLine(final String date, final long lineNumber) {
+        final String key = this.getKey(date);
+        if (!this.line.containsKey(key)) {
+            SortedSet<Long> lineNumbers = new TreeSet();
+            lineNumbers.add(lineNumber);
+            this.line.put(key, lineNumbers);
+        } else {
+            this.line.get(key).add(lineNumber);
+            this.errorsReport.addErrorMessage(String.format(SNOTRecorder.getSnotMessageWithBundle(TestDuplicateFluxMeteo_m.SNOT_DATASET_FLUXMETEO_BUNDLE_NAME, TestDuplicateFluxMeteo_m.PROPERTY_MSG_DOUBLON_LINE_M), lineNumber, date, this.line.get(key).first().intValue()));
+        }
+
+    }
+}

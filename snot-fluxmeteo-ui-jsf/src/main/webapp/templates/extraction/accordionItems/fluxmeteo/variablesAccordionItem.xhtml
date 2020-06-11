@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+		var="accordionItem" />
+<f:facet name="header">
+	<h:graphicImage name="accepted.png" library="images"
+		rendered="#{uiBean.parametersRequest.variableStepIsValid}" />
+	<h:outputText value="#{titleForVariablesAccordionItem}" />
+</f:facet>
+<h3>
+	<h:outputText escape="false" value="#{accordionItem.MSG_VARIABLES_FLUX}"
+		rendered="#{uiBean.parametersRequest.variableFluxSelected != 0}" />
+</h3>
+
+<rich:list value="#{uiBean.parametersRequest.listVariablesFluxSelected}"
+	var="variable" type="unordered"
+	rendered="#{uiBean.parametersRequest.variableStepIsValid}">
+	<h:outputText escape="false" value="#{variable.nom}" />
+	<h:graphicImage name="remove_selection.png" library="images"
+		onclick="deSelectVariable(#{variable.id})" styleClass="buttonAction" />
+</rich:list>
+<h3>
+	<h:outputText escape="false" value="#{accordionItem.MSG_VARIABLES_METEO}"
+		rendered="#{uiBean.parametersRequest.variableMeteoSelected != 0}" />
+</h3>
+<rich:list
+	value="#{uiBean.parametersRequest.listVariablesMeteoSelected}"
+	var="variable" type="unordered"
+	rendered="#{uiBean.parametersRequest.variableStepIsValid}">
+	<h:outputText escape="false" value="#{variable.nom}" />
+	<h:graphicImage name="remove_selection.png" library="images"
+		onclick="deSelectVariable(#{variable.id})" styleClass="buttonAction" />
+</rich:list>
+<h:outputText
+	value="#{accordionItem.MSG_VARIABLES_ACCORDIONITEM}"
+	styleClass="selectionEmpty"
+	rendered="#{not uiBean.parametersRequest.variableStepIsValid}" />
+
+</html>

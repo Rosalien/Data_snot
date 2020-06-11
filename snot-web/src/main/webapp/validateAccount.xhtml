@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:identification="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/identification"
+      xmlns:utils="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/utils"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <body>
+        <ui:composition template="/templates/template.xhtml">
+
+            <ui:define name="title">
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+                    var="changeProfil" />
+                #{changeProfil.PARAM_MSG_CREATED}
+            </ui:define>
+
+            <ui:define name="body">
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+                    var="changeProfil" />
+                <p:panel>
+                    <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_1}" /></p>
+                    <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_2}" /></p>
+                    <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_3}" />
+                        <h:outputLink value="charter.jsf">#{changeProfil.PARAM_MSG_GOTO_CHARTER}</h:outputLink>
+                        <h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_4}" /></p>
+                    <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_5}" /></p>
+                    <br />
+                    <h:panelGroup styleClass="panelControlsWrapper launchWrapper"
+                                  layout="block">
+                        <h:panelGroup styleClass="panelControls panelControlsLaunch">
+                            <h:panelGroup styleClass="control">
+                                <p:commandLink onclick="PF('loginPopup').show()">
+                                    <p:graphicImage value="#{resource['images/login.png']}" />
+                                    <h:outputText value="#{index.PARAM_MSG_CONNECT}" />
+                                </p:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup styleClass="panelControls panelControlsLaunch">
+                            <h:panelGroup styleClass="control">
+                                <p:commandLink value="#{changeProfil.PARAM_MSG_HOME}" action="home">#{changeProfil.PARAM_MSG_HOME}</p:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>*
+                    </h:panelGroup>
+                </p:panel>
+                <p:dialog widgetVar="createAccountSuccess" modal="true" appendTo="@(body)" header="#{changeProfil.PARAM_MSG_CREATED}"
+                          onHide="PF('loginPopup').show(); PF('createAccountSuccess').hide()"  style="text-align: left" visible="true">
+                    <p:panel>
+                        <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_1}" /></p>
+                        <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_2}" /></p>
+                        <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_3}" />
+                            <h:outputLink value="charter.jsf">#{changeProfil.PARAM_MSG_GOTO_CHARTER}</h:outputLink>
+                            <h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_4}" /></p>
+                        <p><h:outputText value="#{changeProfil.PARAM_MSG_VALID_SUCCESS_5}" /></p>
+                        <br />
+                        <h:panelGroup styleClass="panelControls panelControlsLaunch">
+                            <h:panelGroup styleClass="control">
+                                <p:commandLink onclick="PF('loginPopup').show()">
+                                    <p:graphicImage value="#{resource['images/login.png']}" />
+                                    <h:outputText value="#{index.PARAM_MSG_CONNECT}" />
+                                </p:commandLink>
+                                <p:spacer width="10" />
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <p:spacer width="10" />
+                        <h:panelGroup styleClass="panelControls panelControlsLaunch">
+                            <h:panelGroup styleClass="control">
+                                <p:commandLink value="#{changeProfil.PARAM_MSG_HOME}" action="home">#{changeProfil.PARAM_MSG_HOME}</p:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </p:panel>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </body>
+
+</html>

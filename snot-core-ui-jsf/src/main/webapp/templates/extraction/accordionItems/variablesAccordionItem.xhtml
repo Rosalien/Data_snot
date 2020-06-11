@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+    <ui:composition>
+        <f:param name="panelNumber"></f:param>
+        <ui:param name="stepBuilderDate" value="#{uiBean.getStepBuilder(panelNumber-1)}" />	
+
+        <f:facet name="header">
+            <h:graphicImage name="images/accepted.png" 
+                            rendered="#{stepBuilderDate.stepValid}" />
+            <h:outputText value="#{titleForVariablesAccordionItem}" />
+        </f:facet>
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.jsf.panels.variablesChoiceStep" var="variablesChoiceStep"/>
+
+        <h:outputText
+            rendered="#{not stepBuilderDate.stepValid}"
+            value="#{variablesAccordionItem.PARAM_MSG_WARNING}" />
+<!--        <c:forEach items="#{stepBuilderDate.selectedVariables.entrySet()}" var="variables"
+                    rendered="#{stepBuilderDate.stepValid}"> -->
+        <p:dataList value="#{stepBuilderDate.selectedVariables.entrySet()}"
+                    var="variables"  type="definition"
+                    rendered="#{stepBuilderDate.stepValid}"> 
+            <p:panel header="#{variables.key}" >
+                <p:dataList value="#{variables.value}"
+                            var="variable" type="definition" >
+                    <p:commandLink actionListener="#{stepBuilderDate.selectVariable(variable)}"
+                                   process="@this"
+                                   oncomplete="updateVariables()" >
+                        <h:outputText value="#{variable.localizedVariableName} (#{variable.localizedVariableDefinition})" />
+                        <p:graphicImage name="images/remove_selection.png"  styleClass="buttonAction" />
+                    </p:commandLink>
+                </p:dataList>
+            </p:panel>
+        </p:dataList>
+        <!--</c:forEach>-->
+    </ui:composition>
+</html>

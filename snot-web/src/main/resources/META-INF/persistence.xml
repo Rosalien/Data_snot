@@ -1,0 +1,61 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+
+    <persistence-unit name="JPAPu" transaction-type="RESOURCE_LOCAL">
+	
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-mga-api/${kernel.version}/kernel-mga-api-${kernel.version}.jar</jar-file>
+        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-core-services-api/${kernel.version}/kernel-core-services-api-${kernel.version}.jar
+        </jar-file>
+        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-metadata-services-api/${kernel.version}/kernel-metadata-services-api-${kernel.version}.jar
+        </jar-file>
+        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-dataset-services-api/${kernel.version}/kernel-dataset-services-api-${kernel.version}.jar
+        </jar-file>
+<!--        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-extraction-services-api/${kernel.version}/kernel-extraction-services-api-${kernel.version}.jar
+        </jar-file>-->
+        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-synthesis-services-api/${kernel.version}/kernel-synthesis-services-api-${kernel.version}.jar
+        </jar-file>
+        <jar-file>file:/${settings.localRepository}/org/inra/ecoinfo/kernel-filecomp-services-api/${kernel.version}/kernel-filecomp-services-api-${kernel.version}.jar
+        </jar-file>
+        <jar-file>file:/${settings.localRepository}/org/cnrs/osuc/snot-core-services-api/${project.version}/snot-core-services-api-${project.version}.jar
+        </jar-file>
+        <!--<jar-file>file:/${settings.localRepository}/org/cnrs/osuc/snot-meteosol-services-api/${project.version}/snot-meteosol-services-api-${project.version}.jar-->
+        <!--</jar-file>-->
+        <!--<jar-file>file:/${settings.localRepository}/org/cnrs/osuc/snot-fluxgazeux-services-api/${project.version}/snot-fluxgazeux-services-api-${project.version}.jar-->
+        <!--</jar-file>-->
+        <jar-file>file:/${settings.localRepository}/org/cnrs/osuc/snot-fluxmeteo-services-api/${project.version}/snot-fluxmeteo-services-api-${project.version}.jar
+        </jar-file>
+        
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+            <property name="hibernate.jdbc.batch_size" value="50"/>
+            <property name="hibernate.jdbc.fetch_size" value="50"/>
+            <property name="connection.isolation" value="2"/>
+            <property name="hibernate.jdbc.use_scrollable_resultset" value="false"/>
+            <property name="hibernate.order_updates" value="true"/>
+            <property name="hibernate.order_inserts" value="true"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <property name="hibernate.show_sql" value="${log_sql}"/>
+            <property name="hibernate.format_sql" value="${log_sql}"/>
+            <property name="use_sql_comments" value="${log_sql}"/>
+            <property name="hibernate.query.substitutions" value="${log_sql}"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+            <property name="hibernate.cache.use_minimal_puts" value="true"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
+            <property name="hibernate.cache.provider_configuration" value="ehcache.xml"/>
+            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache.xml"/>
+            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.cache.use_structured_entries" value="true"/>
+            <property name="hibernate.connection.autocommit" value="false"/>
+            <!--<property name="javax.persistence.schema-generation.database.action" value="update"/>-->
+        </properties>
+
+
+    </persistence-unit>
+</persistence>

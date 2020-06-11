@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://orei.inra.fr/configuration"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://orei.inra.fr/configuration">
+
+	<element name="configuration" type="tns:configurationType"/>
+	<complexType name="configurationType">
+		<annotation>
+			<documentation>identifie l'application portail parent</documentation>
+		</annotation>
+		<sequence>
+			<element name="coreConfiguration" type="tns:coreConfigurationType" />
+			<element name="localizationConfiguration" type="tns:localizationConfigurationType" />
+			<any processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<complexType name="abstractConfigurationType">
+		<annotation>
+			<documentation>abstract element configuration l'application portail
+				parent
+			</documentation>
+		</annotation>
+	</complexType>
+	<complexType name="coreConfigurationType">
+		<complexContent>
+			<extension base="tns:abstractConfigurationType">
+				<sequence>
+					<any processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="localizationConfigurationType">
+		<complexContent>
+			<extension base="tns:abstractConfigurationType">
+
+				<annotation>
+					<documentation>identifie l'internationalisation de l'application
+						portail parent
+					</documentation>
+				</annotation>
+				<sequence>
+					<element name="localizations" type="tns:localizations"
+						maxOccurs="1" minOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="localizations">
+		<sequence>
+			<element name="localization" type="tns:localization"
+				maxOccurs="unbounded" minOccurs="1">
+			</element>
+		</sequence>
+		<attribute name="defaultLanguage" type="string" default="fr" />
+	</complexType>
+
+	<complexType name="localization">
+		<attribute name="language" type="string" default="fr" />
+	</complexType>
+</schema>

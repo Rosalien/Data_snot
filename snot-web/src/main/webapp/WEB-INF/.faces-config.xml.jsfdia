@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="login::#login.xhtml" NAME="output"
+    PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="home::#index.xhtml" NAME="output1"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="dataset::#datasetManagement.xhtml"
+    NAME="output2" PATH="/datasetManagement.xhtml"
+    TARGET="rules:#datasetManagement.xhtml" TITLE="dataset" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="securityDataset::#securityDatasetManagement.xhtml"
+    NAME="output3" PATH="/securityDatasetManagement.xhtml"
+    TARGET="rules:#securityDatasetManagement.xhtml"
+    TITLE="securityDataset" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="extraction::#extractionManagement.xhtml"
+    NAME="output4" PATH="/extractionManagement.xhtml"
+    TARGET="rules:#extractionManagement.xhtml" TITLE="extraction" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="synthesis::#synthesisManagement.xhtml"
+    NAME="output5" PATH="/synthesisManagement.xhtml"
+    TARGET="rules:#synthesisManagement.xhtml" TITLE="synthesis" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="refdata::#refdataManagement.xhtml"
+    NAME="output6" PATH="/refdataManagement.xhtml"
+    TARGET="rules:#refdataManagement.xhtml" TITLE="refdata" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="securityRefdata::#securityRefdataManagement.xhtml"
+    NAME="output7" PATH="/securityRefdataManagement.xhtml"
+    TARGET="rules:#securityRefdataManagement.xhtml"
+    TITLE="securityRefdata" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="changeProfiles::#changeProfiles.xhtml"
+    NAME="output8" PATH="/changeProfiles.xhtml"
+    TARGET="rules:#changeProfiles.xhtml" TITLE="changeProfiles" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="changeProfile::#changeProfile.xhtml"
+    NAME="output9" PATH="/changeProfile.xhtml"
+    TARGET="rules:#changeProfile.xhtml" TITLE="changeProfile" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="createProfile::#createProfile.xhtml"
+    NAME="output10" PATH="/createProfile.xhtml"
+    TARGET="rules:#createProfile.xhtml" TITLE="createProfile" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="requestRights::#requestRightsManagement.xhtml" NAME="output11"
+    PATH="/requestRightsManagement.xhtml"
+    TARGET="rules:#requestRightsManagement.xhtml" TITLE="requestRights" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="retrievePassword::#retrievePassword.xhtml"
+    NAME="output12" PATH="/retrievePassword.xhtml"
+    TARGET="rules:#retrievePassword.xhtml" TITLE="retrievePassword" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="securityFileComp::#securityFileCompManagement.xhtml"
+    NAME="output13" PATH="/securityFileCompManagement.xhtml"
+    TARGET="rules:#securityFileCompManagement.xhtml"
+    TITLE="securityFileComp" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="fileComp::#fileCompManagement.xhtml"
+    NAME="output14" PATH="/fileCompManagement.xhtml"
+    TARGET="rules:#fileCompManagement.xhtml" TITLE="fileComp" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="meteosol::#meteosol.xhtml" NAME="output15"
+    PATH="/meteosol.xhtml" TARGET="rules:#meteosol.xhtml"
+    TITLE="meteosol" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="fluxMeteo::#fluxmeteo.xhtml" NAME="output16"
+    PATH="/fluxmeteo.xhtml" TARGET="rules:#fluxmeteo.xhtml"
+    TITLE="fluxMeteo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="MPS::#mps.xhtml" NAME="output17"
+    PATH="/mps.xhtml" TARGET="rules:#mps.xhtml" TITLE="MPS" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#securityRefdataManagement.xhtml"
+  PATH="/securityRefdataManagement.xhtml" SHAPE="304,1297,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#synthesisManagement.xhtml"
+  PATH="/synthesisManagement.xhtml" SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#securityDatasetManagement.xhtml"
+  PATH="/securityDatasetManagement.xhtml" SHAPE="304,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#datasetManagement.xhtml"
+  PATH="/datasetManagement.xhtml" SHAPE="304,737,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#requestRightsManagement.xhtml"
+  PATH="/requestRightsManagement.xhtml" SHAPE="304,1745,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#refdataManagement.xhtml"
+  PATH="/refdataManagement.xhtml" SHAPE="304,1185,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#createProfile.xhtml"
+  PATH="/createProfile.xhtml" SHAPE="304,1633,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#changeProfile.xhtml"
+  PATH="/changeProfile.xhtml" SHAPE="304,1521,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#retrievePassword.xhtml"
+  PATH="/retrievePassword.xhtml" SHAPE="304,1857,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#extractionManagement.xhtml"
+  PATH="/extractionManagement.xhtml" SHAPE="304,961,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#changeProfiles.xhtml"
+  PATH="/changeProfiles.xhtml" SHAPE="304,1409,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#securityFileCompManagement.xhtml"
+  PATH="/securityFileCompManagement.xhtml" SHAPE="304,1969,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#fileCompManagement.xhtml"
+  PATH="/fileCompManagement.xhtml" SHAPE="304,2081,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#fluxmeteo.xhtml" PATH="/fluxmeteo.xhtml"
+  SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#mps.xhtml" PATH="/mps.xhtml"
+  SHAPE="304,801,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#meteosol.xhtml" PATH="/meteosol.xhtml"
+  SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

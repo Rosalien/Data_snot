@@ -1,0 +1,526 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:dataset="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/dataset">
+
+    <composite:interface>
+        <composite:attribute name="nom" required="false" />
+        <composite:attribute name="configurationNumber" required="true" default="2"/>
+    </composite:interface>
+
+    <composite:implementation id="compositeDatasetManagementPanelID">
+        <p:importEnum type="org.inra.ecoinfo.mga.enums.Activities" var="activitiesEnum" allSuffix="ALL" />
+
+        <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+
+        <f:loadBundle
+            basename="org.inra.ecoinfo.dataset.jsf.datasetManagementPanel"
+            var="datasetManagementPanel" />
+
+        <!--<h:outputStylesheet name="css/org/inra/ecoinfo/dataset/jsf-datasetManagementPanel-styles.css" />-->
+        <h:outputStylesheet name="css/org/inra/ecoinfo/dataset/jsf-datasetManagementPanel-stylesAdmin.css" />
+
+        <p:dialog id="uploadFilesToCheckPopup" widgetVar="uploadFilesToCheckPopup" appendTo="@(body)"
+                  showHeader="true"
+                  modal="true"
+                  styleClass="uploadFilesToCheckPopup">
+            <f:facet name="header">
+                <h:outputText escape="false"
+                              value="#{datasetManagementPanel.PARAM_MSG_CHECK_FILE}" />
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png" styleClass="logout"
+                                onclick="PF('uploadFilesToCheckPopup').hide();
+                                        return false;" />
+            </f:facet>
+            <h:panelGroup>
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_CHECK_FILE_INFO}"
+                    escape="false" styleClass="intro" />
+            </h:panelGroup>
+            <h:form enctype="multipart/form-data">
+
+                <p:fileUpload
+                    id="uploadFilesToCheckSelectionTable"
+                    fileUploadListener="#{uiDataset.uploadCheckListener}"
+                    process="@form"
+                    update="@this"
+                    styleClass="uploadPanel"
+                    dragDropSupport="true"
+                    sizeLimit="40000000"
+                    fileLimit="30"
+                    allowTypes="/(\.|\/)(csv|pdf|txt|doc?|xls|zip|od?|xml|)$/"
+                    label="test"
+                    cancelLabel="#{datasetManagementPanel.PARAM_MSG_CANCEL}"
+                    uploadLabel="#{datasetManagementPanel.PARAM_MSG_DO_UPLOAD}"
+                    multiple="true"
+                    oncomplete="PF('uploadFilesToCheckPopup').hide();showPopupTimer(2000,'#{datasetManagementPanel.PARAM_MSG_CHECK_DONE}')"
+                    invalidFileMessage="#{datasetManagementPanel.PARAM_MSG_ONLY_CSV_FILE_ALERT}"
+                    invalidSizeMessage="{name} {size}"
+                    >
+                    <f:attribute name="typeCSV" value="treeCSV" />
+                </p:fileUpload>
+            </h:form>
+
+
+
+        </p:dialog>
+
+
+        <p:dialog id="confirmPublish" modal="true" widgetVar="confirmPublish" appendTo="@(body)"
+                  showHeader="true"
+                  styleClass="uploadFilesToCheckPopup">
+            <f:facet name="header">
+                <h:outputText escape="false"
+                              value="#{datasetManagementPanel.PARAM_MSG_CONFIRM_CHECK}" />
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png" styleClass="logout"
+                                onclick="PF('confirmPublish').hide();
+                                        return false;" />
+            </f:facet>
+            <h:panelGroup style="width:500px">
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_PUBLISH_FILE}"
+                    styleClass="intro" rendered="#{uiDataset.selectedVersion.checked}" />
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_UNPUBLISH_FILE}"
+                    styleClass="intro"
+                    rendered="#{not uiDataset.selectedVersion.checked}" />
+                <h:panelGrid columns="2" columnClasses="left,right"
+                             styleClass="abstractVersionSelected">
+                    <h:outputText
+                        value="#{datasetManagementPanel.PARAM_MSG_VERSION_NUMBER}" />
+                    <h:outputText
+                        value="#{uiDataset.selectedVersion.versionFile.versionNumber}" />
+                    <h:outputText
+                        value="#{datasetManagementPanel.PARAM_MSG_PUBLISH_DATE}" />
+                    <h:outputText
+                        value="#{uiDataset.selectedVersion.versionFile.uploadDate}">
+                        <f:converter converterId="localDateTimeConverterDD_MM_YYYY_AT_HH_MM" />
+                    </h:outputText>
+                    <h:outputText value="#{datasetManagementPanel.PARAM_MSG_UPLOAD_USER}" />
+                    <h:outputText
+                        value="#{uiDataset.selectedVersion.versionFile.uploadUser.prenom} #{uiDataset.selectedVersion.versionFile.uploadUser.nom}" />
+                </h:panelGrid>
+
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_UNPUBLISH_BEFORE_PUBLISH}"
+                    styleClass="intro important"
+                    rendered="#{uiDataset.selectedDataset.publishVersion != null and uiDataset.selectedVersion.checked}" />
+
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_CONFIRM_PUBLISH}"
+                    styleClass="intro" rendered="#{uiDataset.selectedVersion.checked}" />
+
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_CONFIRM_PUBLISH}"
+                    styleClass="intro"
+                    rendered="#{not uiDataset.selectedVersion.checked}" />
+
+                <h:panelGroup styleClass="logoutButtons">
+                    <h:form>
+                        <p:commandButton value="Confirmer"
+                                         action="#{uiDataset.publishCheckbox}"
+                                         async="true"
+                                         update="@widgetVar(confirmPublish),:#{p:component('datasetsDetailsPanel')},:#{p:component('selectedDatasetDetailsPanel')}"
+                                         onstart="PF('confirmPublish').hide();PF('beginProcessPopup').show()"
+                                         oncomplete="PF('beginProcessPopup').hide()"
+                                         onerror="PF('beginProcessPopup').hide()" />
+
+
+                        <p:commandButton value="#{datasetManagementPanel.PARAM_MSG_CANCEL}"
+                                         oncomplete="PF('confirmPublish').hide()"
+                                         process="@none" update="#{p:component('selectedDatasetDetailsPanel')}" />
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGroup>
+
+        </p:dialog>
+        <p:dialog id="confirmDelete" modal="true"  styleClass="uploadFilesToCheckPopup" widgetVar="confirmDelete" appendTo="@(body)">
+            <f:facet name="header">
+                <h:outputText escape="false"
+                              value="#{datasetManagementPanel.PARAM_MSG_CONFIRM_UPLOAD}" />
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png" styleClass="logout"
+                                onclick="PF('confirmDelete').hide();
+                                        return false;" />
+            </f:facet>
+            <h:panelGroup style="width:500px" id="panelGroupeTemplate_01">
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_DELETE_VERSION}"
+                    styleClass="intro" />
+                <h:panelGrid columns="2" columnClasses="left,right"
+                             styleClass="abstractVersionSelected">
+                    <h:outputText
+                        value="#{datasetManagementPanel.PARAM_MSG_VERSION_NUMBER}" />
+                    <h:outputText
+                        value="#{uiDataset.selectedVersion.versionFile.versionNumber}" />
+                    <h:outputText
+                        value="#{datasetManagementPanel.PARAM_MSG_PUBLISH_DATE}" />
+                    <h:outputText
+                        value="#{uiDataset.selectedVersion.versionFile.uploadDate}">
+                        <f:converter converterId="localDateTimeConverterDD_MM_YYYY_AT_HH_MM" />
+                    </h:outputText>
+                    <h:outputText value="#{datasetManagementPanel.PARAM_MSG_UPLOAD_USER}" />
+                    <h:outputText
+                        value="#{uiDataset.selectedVersion.versionFile.uploadUser.prenom} #{uiDataset.selectedVersion.versionFile.uploadUser.nom}" />
+                </h:panelGrid>
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_ALERT_CONFIRM_DELETE}"
+                    styleClass="intro" />
+
+
+                <h:panelGroup styleClass="logoutButtons">
+                    <p:commandButton action="#{uiDataset.deleteVersion}"
+                                     value="#{datasetManagementPanel.PARAM_MSG_CONFIRM}"
+                                     async="true"
+                                     onstart="PF('confirmDelete').hide()" process="@this"
+                                     update=" :#{p:component('selectedDatasetDetailsPanel')} :#{p:component('datasetsDetailsPanel')}"/>
+                    <p:commandButton value="#{datasetManagementPanel.PARAM_MSG_CANCEL}"
+                                     oncomplete="PF('confirmDelete').hide(); return false;"
+                                     async="false"
+                                     process="@none" update="#{p:component('selectedDatasetDetailsPanel')}" />
+                </h:panelGroup>
+
+            </h:panelGroup>
+        </p:dialog>
+
+
+        <p:dialog id="uploadFilesToSubmitPopup" widgetVar="uploadFilesToSubmitPopup" appendTo="@(body)"
+                  modal="true"
+                  styleClass="uploadFilesToCheckPopup">
+            <f:facet name="header">
+                <h:outputText escape="false"
+                              value="#{datasetManagementPanel.PARAM_MSG_FILE_REPOSITORY}" />
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png" styleClass="logout"
+                                onclick="PF('uploadFilesToSubmitPopup').hide();
+                                        return false;" />
+            </f:facet>
+            <h:panelGroup id="panelGroupeTemplateDataSetManagement">
+                <h:outputText
+                    value="#{datasetManagementPanel.PARAM_MSG_CHOOSE_UPLOAD_FILES}"
+                    styleClass="intro" escape="false" />
+            </h:panelGroup>
+            <h:form id="uploadFilesToSubmitSelectionTableForme" enctype="multipart/form-data" >
+                <p:remoteCommand name="updateColumns" action="#{uiBeanActionTree.updateColumns()}" async="false"/>
+                <p:fileUpload
+                    id="uploadFilesToSubmitSelectionTable"
+                    fileUploadListener="#{uiDataset.uploadSubmitListen}"
+                    update=":#{p:component('datasetsDetailsPanel')},:#{p:component('selectedDatasetDetailsPanel')}"
+                    styleClass="uploadPanel"
+                    mode="advanced" immediate="true"
+                    dragDropSupport="true"
+                    sizeLimit="10000000"
+                    fileLimit="10"
+                    allowTypes="/(\.|\/)(csv|pdf|txt|doc?|xls|zip|od?|xml|)$/"
+                    label="#{datasetManagementPanel.PARAM_MSG_ADD_FILE}"
+                    cancelLabel="#{datasetManagementPanel.PARAM_MSG_CANCEL}"
+                    uploadLabel="#{datasetManagementPanel.PARAM_MSG_DO_UPLOAD}"
+                    multiple="true"
+                    style="width:480px; margin: 0 auto;"
+                    oncomplete="PF('uploadFilesToSubmitPopup').hide();updateColumns()"
+                    invalidFileMessage="#{datasetManagementPanel.PARAM_MSG_ONLY_CSV_FILE_ALERT}"
+                    >
+                    <f:attribute name="typeCSV" value="treeCSV" />
+                </p:fileUpload>
+            </h:form>
+        </p:dialog>
+
+        <p:layoutUnit position="west" resizable="true" collapsible="true"  minSize="200" size="320">
+            <h2>#{datasetManagementPanel.PARAM_MSG_DATA_TREE}</h2>
+            <!--            <p:accordionPanel styleClass="help-panel"  activeIndex="-1" >
+                            <p:tab >
+                                <f:facet name="title">
+            
+                                    <span>#{datasetManagementPanel.PARAM_MSG_SELECT_SITE}</span>
+                                </f:facet>
+                                <h:outputText
+                                    value="#{datasetManagementPanel.PARAM_MSG_HELP_SELECT}"
+                                    escape="false" />
+                            </p:tab>
+                        </p:accordionPanel>-->
+            <h:form id="datasetTree">
+                <dataset:datasetDefaultTree configurationNumber="#{cc.attrs.configurationNumber}"/>
+            </h:form>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" resizable="true" collapsible="true"  minSize="200">
+            <dataset:datasetDefaultCurrentSelection id="datasetDefaultCurrentSelectionID"  configurationNumber="#{cc.attrs.configurationNumber}"/>
+            <p:panel id="datasetsDetailsPanel">
+                <p:panel
+                    rendered="#{uiDataset.displayDatasetPanel and (uiDataset.datasetsSelection == null or fn:length(uiDataset.datasetsSelection) == 0)}"
+                    styleClass="warning">
+                    <p:graphicImage value="#{resource['images/warning.png']}"
+                                    styleClass="warning" />
+                    <h:outputText
+                        value="#{datasetManagementPanel.PARAM_MSG_NO_DATASET_ALERT1}"
+                        escape="false" />
+                    <p:graphicImage value="#{resource['images/add.png']}" />
+                    <h:outputText
+                        value="  #{datasetManagementPanel.PARAM_MSG_NO_DATASET_ALERT2}"
+                        escape="false" />
+                </p:panel>
+
+                <p:panel
+                    rendered="#{uiDataset.datasetsSelection != null and fn:length(uiDataset.datasetsSelection) > 0}">
+
+                    <h3>#{datasetManagementPanel.PARAM_MSG_DATASET_TITLE}</h3>
+
+                    <p class="intro">#{datasetManagementPanel.PARAM_MSG_DATASET_INTRO}</p>
+
+                    <h:form>
+                        <p:remoteCommand name="updateVersionTable"  actionListener="#{uiDataset.selectionChanged()}"
+                                         async="false" update=":#{p:component('selectedDatasetDetailsPanel')}"  />
+                        <p:remoteCommand name="selectedDatasetDetailsDatatable"
+                                         async="false"   update=":#{p:component('selectedDatasetDetailsPanel')}"  />
+                    </h:form>
+                    <h:form  id="formDataExperimental" >
+                        <p:dataTable   id="datasetsDetailsDatatablePLUS" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                                       var="currentDataset"
+                                       value="#{uiDataset.datasetsSelection}"
+                                       selectionMode="single"
+                                       selection="#{uiDataset.selectedDataset}"
+                                       rowKey="#{currentDataset.id}"
+                                       emptyMessage="#{datasetManagementPanel.PARAM_MSG_NO_RECORD}"
+                                       styleClass="dataTable" rows="15"
+                                       widgetVar="datasetsDetailsDatatablePLUS"
+                                       filteredValue="#{uiDataset.filteredSelections}"
+                                       >
+
+                            <p:ajax event="rowSelect"
+                                    oncomplete="selectedDatasetDetailsDatatable();" >
+                            </p:ajax>
+
+                            <p:ajax event="rowUnselect" listener="#{listForm.onRowUnselect}" update="@form"/>
+
+                            <p:column headerText="#{datasetManagementPanel.PARAM_MSG_DATASET_BEGIN}"
+                                      sortBy="#{uiDataset.customFormatDate(currentDataset.dateDebutPeriode)}"
+                                      filterBy="#{uiDataset.customFormatDate(currentDataset.dateDebutPeriode)}"
+                                      filterMatchMode="contains"
+                                      resizable="true">
+                                <h:outputText value="#{currentDataset.dateDebutPeriode}" >
+                                    <f:converter converterId="localDateTimeConverterDD_MM_YYYY"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{datasetManagementPanel.PARAM_MSG_DATASET_END}"
+                                      sortBy="#{uiDataset.customFormatDate(currentDataset.dateFinPeriode)}"
+                                      filterBy="#{uiDataset.customFormatDate(currentDataset.dateFinPeriode)}"
+                                      filterMatchMode="contains"
+                                      resizable="true">
+                                <h:outputText value="#{currentDataset.dateFinPeriode}" >
+                                    <f:converter converterId="localDateTimeConverterDD_MM_YYYY"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="#{datasetManagementPanel.PARAM_MSG_LAST_UPLOAD}"
+                                      filterBy="#{uiDataset.customFormatDateHour(currentDataset.lastVersion.uploadDate)}"
+                                      filterMatchMode="contains"
+                                      resizable="true">
+                                <h:outputText value="#{currentDataset.lastVersion.uploadDate}">
+                                    <f:converter converterId="localDateTimeConverterDD_MM_YYYY_HH_MM" />
+                                </h:outputText>
+                            </p:column>
+
+
+                            <p:column headerText="#{datasetManagementPanel.PARAM_MSG_LAST_UPLOAD_USER}" 
+                                      filterBy="#{currentDataset.lastVersion.uploadUser.prenom} #{currentDataset.lastVersion.uploadUser.nom}"
+                                      filterMatchMode="contains"
+                                      resizable="true">
+                                <h:outputText value="#{currentDataset.lastVersion.uploadUser.prenom} #{currentDataset.lastVersion.uploadUser.nom}" >
+                                </h:outputText>
+                            </p:column>
+
+
+                            <p:column headerText="#{datasetManagementPanel.PARAM_MSG_NUMBER_OF_VERSIONS}" 
+                                      filterBy="#{fn:length(currentDataset.versions)}"
+                                      filterMatchMode="contains"
+                                      resizable="true">
+                                <h:outputText value="#{fn:length(currentDataset.versions)}" />
+                            </p:column>
+
+
+                            <p:column headerText="#{datasetManagementPanel.PARAM_MSG_PUBLISH_DATE}" 
+                                      filterBy="#{uiDataset.customFormatDateHour(currentDataset.publishDate)}||#{datasetManagementPanel.PARAM_MSG_NOT_PUBLISH}"
+                                      filterMatchMode="contains"
+                                      resizable="true">
+
+                                <h:outputText value="#{currentDataset.publishDate}"
+                                              rendered="#{currentDataset.publishDate != null}"
+                                              styleClass="present">
+                                    <f:converter converterId="localDateTimeConverterDD_MM_YYYY_HH_MM" />
+                                </h:outputText>
+
+                                <h:outputText value="#{datasetManagementPanel.PARAM_MSG_NOT_PUBLISH}"
+                                              styleClass="absent"
+                                              rendered="#{currentDataset.publishDate == null}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+
+                    </h:form>
+
+
+                </p:panel>
+            </p:panel>
+
+
+            <h:panelGroup id="selectedDatasetDetailsPanel">
+
+                <h:panelGroup id="displayDatasetPanelID"
+                              rendered="#{uiDataset.displayDatasetPanel and (uiDataset.selectedDataset == null and fn:length(uiDataset.datasetsSelection) > 0)}"
+                              styleClass="important">
+                    <p class="intro">#{datasetManagementPanel.PARAM_MSG_NO_DATASET_SELECTED}</p>
+
+                </h:panelGroup>
+
+                <h:panelGroup id="panelGroupeTemplate"
+                              rendered="#{uiDataset.selectedDataset != null}" >
+
+                    <h3>
+                        #{datasetManagementPanel.PARAM_MSG_SELECTED_VERSIONS}
+                        <span
+                            class="right"> #{datasetManagementPanel.PARAM_MSG_FROM}
+                            <h:outputText
+                                value="#{uiDataset.selectedDataset.dateDebutPeriode}">
+                                <f:converter converterId="localDateTimeConverterDD_MM_YYYY"/>
+                            </h:outputText> #{datasetManagementPanel.PARAM_MSG_TO} <h:outputText
+                                value="#{uiDataset.selectedDataset.dateFinPeriode}">
+                                <f:converter converterId="localDateTimeConverterDD_MM_YYYY"/>
+                            </h:outputText>
+                        </span>
+                    </h3>
+
+                    <p:fragment id="dataTableID" autoUpdate="true">
+                        <h:form>
+                            <p:dataTable id="selectedDatasetDetailsDatatable"
+                                         paginator="true" rows='10'
+                                         paginatorAlwaysVisible="false"
+                                         var="version"
+                                         value="#{uiDataset.selectedVersions}"
+                                         selectionMode="single"
+                                         selection="#{uiDataset.selectedVersion}"
+                                         rowKey="#{version.id}"
+                                         styleClass="dataTable stable"
+                                         widgetVar="selectedDatasetDetailsDatatable"
+                                         emptyMessage="#{datasetManagementPanel.PARAM_MSG_NO_RECORD}">
+                                <p styleClass="numberVersion"
+                                   sortBy="#{version.versionNumber}" sortOrder="descending" />
+                                <p:ajax event="rowSelect" process="selectedDatasetDetailsDatatable"/>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:commandLink>
+                                            <h:outputText value="N°" />
+                                            <p:tooltip styleClass="tooltip" showDelay="0">
+                                                <h:outputText
+                                                    value="#{datasetManagementPanel.PARAM_MSG_VERSION_NUMBER}" />
+                                            </p:tooltip>
+                                        </p:commandLink>
+                                    </f:facet>
+                                    <h:outputText value="#{version.versionFile.versionNumber}"/>
+                                </p:column>
+                                <p:column styleClass="dateVersion">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                            value="#{datasetManagementPanel.PARAM_MSG_UPLOAD_DATE}" />
+                                    </f:facet>
+                                    <h:outputText value="#{version.versionFile.uploadDate}">
+                                        <f:converter converterId="localDateTimeConverterDD_MM_YYYY_AT_HH_MM" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column styleClass="uploadUser">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                            value="#{datasetManagementPanel.PARAM_MSG_UPLOAD_USER}" />
+                                    </f:facet>
+                                    <h:outputText
+                                        value="#{version.versionFile.uploadUser.prenom} #{version.versionFile.uploadUser.nom}" />
+
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{datasetManagementPanel.PARAM_MSG_LENGTH}" />
+                                    </f:facet>
+                                    <h:outputText value="#{version.versionFile.fileSizeAffichage}" />
+                                </p:column>
+
+                                <p:column styleClass="actionPublication" >
+                                    <f:facet name="header">
+                                        <h:outputText
+                                            value="#{datasetManagementPanel.PARAM_MSG_PUBLISH}" />
+                                        <p:tooltip styleClass="tooltip" showDelay="0">
+                                            <h:outputText
+                                                value="#{datasetManagementPanel.PARAM_MSG_PUBLISH_DESCRIPTION}" />
+                                        </p:tooltip>
+                                    </f:facet>
+
+                                    <p:commandButton   icon="#{version.versionFile.published?'published':'unpublished'}"
+                                                       styleClass="invisibleButton"
+                                                       update="@widgetVar(confirmPublish)"
+                                                       oncomplete="PF('confirmPublish').show();"
+                                                       rendered="#{uiIdentification.currentUtilisateur.isRoot or uiBeanActionTree.hasActivity('publication')}">
+                                        <f:setPropertyActionListener value="#{version}" target="#{uiDataset.selectedVersion}" />
+                                        <f:setPropertyActionListener value="#{not version.checked}" target="#{uiDataset.selectedVersion.checked}" />
+                                    </p:commandButton>
+                                    <p:commandButton   icon="#{version.versionFile.published?'published':'unpublished'}"
+                                                       styleClass="invisibleButton"
+                                                       disabled="true"
+                                                       rendered="#{not uiIdentification.currentUtilisateur.isRoot and not uiBeanActionTree.hasActivity('publication')}" />
+
+                                </p:column>
+
+                                <p:column styleClass="actionsPossibles">
+                                    <p:remoteCommand name="deleteVersion" process="@form"
+                                                     async="false"
+                                                     oncomplete="PF('confirmDelete').show()"
+                                                     update="#{p:component('confirmDelete')}">
+                                    </p:remoteCommand>
+                                    <p:commandButton id="imgDownloadVersion" ajax="false" 
+                                                     styleClass="invisibleButton tooltip"
+                                                     icon="download" 
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                     process="@this" update="@this">
+                                        <p:fileDownload value="#{uiDataset.upload(version.versionFile)}"  />
+                                    </p:commandButton>
+
+                                    <p:tooltip styleClass="tooltip" showDelay="500" for="imgDownloadVersion">
+                                        <h:outputText
+                                            value="#{datasetManagementPanel.PARAM_MSG_UPLOAD_THIS_VERSION}" />
+                                    </p:tooltip>
+
+                                    <p:commandButton   id="imgDeleteVersion" icon="file_delete"
+                                                       styleClass="invisibleButton"
+                                                       async="false"
+                                                       update="@widgetVar(confirmDelete)"
+                                                       oncomplete="PF('confirmDelete').show();"
+                                                       rendered="#{uiIdentification.currentUtilisateur.isRoot or uiBeanActionTree.hasActivity('suppression')}">
+                                        <f:setPropertyActionListener value="#{version}" target="#{uiDataset.selectedVersion}" />
+                                        <p:tooltip styleClass="tooltip" for="imgDeleteVersion"
+                                                   showDelay="500">
+                                            <h:outputText
+                                                value="#{datasetManagementPanel.PARAM_MSG_DELETE_THIS_VERSION}" />
+                                        </p:tooltip>
+                                    </p:commandButton>
+                                    <p:commandButton   icon="file_delete"
+                                                       styleClass="invisibleButton"
+                                                       disabled="true"
+                                                       rendered="#{not(uiIdentification.currentUtilisateur.isRoot or uiBeanActionTree.hasActivity('suppression'))}" />
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:fragment>
+                </h:panelGroup>
+            </h:panelGroup>
+        </p:layoutUnit>
+    </composite:implementation>
+
+</html>

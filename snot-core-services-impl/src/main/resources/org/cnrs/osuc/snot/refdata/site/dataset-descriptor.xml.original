@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+	<name>zone_etude</name>
+	<column>
+		<name>type de site</name>
+		<not-null>true</not-null>
+		<localizable fieldName="tze_type_nom">false</localizable>
+	</column>
+	<column>
+		<name>nom</name>
+		<not-null>true</not-null>
+		<localizable fieldName="zet_nom">false</localizable>
+	</column>
+	<column>
+		<name>description</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_description">true</localizable>
+	</column>
+	<column>
+		<name>date début</name>
+		<not-null>true</not-null>
+		<localizable fieldName="zet_date_debut">false</localizable>
+	</column>
+	<column>
+		<name>date fin</name>
+		<not-null>true</not-null>
+		<localizable fieldName="zet_date_fin">false</localizable>
+	</column>
+	<column>
+		<name>latitude</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_latitude">false</localizable>
+	</column>
+	<column>
+		<name>longitude</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_longitude">false</localizable>
+	</column>
+	<column>
+		<name>surface</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_surface">false</localizable>
+	</column>
+	<column>
+		<name>altitude</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_altitude">false</localizable>
+	</column>
+	<column>
+		<name>pente</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_pente">false</localizable>
+	</column>
+	<column>
+		<name>direction pente</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_direction_pente">true</localizable>
+	</column>
+	<column>
+		<name>pays</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_pays">true</localizable>
+	</column>
+	<column>
+		<name>région</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_region">true</localizable>
+	</column>
+	<column>
+		<name>temp moyenne</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_temp_moy_an">false</localizable>
+	</column>
+	<column>
+		<name>précip moyenne</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_precip_moy_an">false</localizable>
+	</column>
+	<column>
+		<name>direction vent</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_direction_vent">true</localizable>
+	</column>
+	<column>
+		<name>type snot</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_type_snot">true</localizable>
+	</column>
+	<column>
+		<name>parent</name>
+		<not-null>false</not-null>
+		<localizable fieldName="zet_chemin_parent">false</localizable>
+	</column>
+</dataset-descriptor>

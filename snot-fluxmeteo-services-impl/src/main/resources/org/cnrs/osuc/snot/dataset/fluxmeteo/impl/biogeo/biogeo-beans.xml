@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    
+    <bean id="mesureMeteo_sh" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAMesureMeteo_shDAO" />
+    <bean id="mesureMeteo_j" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAMesureMeteo_jDAO" />
+    <bean id="mesureMeteo_m" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAMesureMeteo_mDAO" />
+    <bean id="valeurMeteo_sh" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAValeurMeteo_shTourDAO" />
+    <bean id="valeurMeteo_j" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAValeurMeteo_jTourDAO" />
+    <bean id="valeurMeteo_m" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAValeurMeteo_mTourDAO" />
+    <bean id="publicationMeteo_sh" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAPublicationMeteo_shDAO" />
+    <bean id="publicationMeteo_j" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAPublicationMeteo_jDAO" />
+    <bean id="publicationMeteo_m" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAPublicationMeteo_mDAO" />
+       
+    <!--processRecord et deleteRecordMeteo--> 
+    <bean id="processRecordMeteo" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.meteo.ProcessRecordMeteo" parent="abstractProcessRecordFluxMeteo" abstract="true"/>
+    <!-- Pour Meteo_sh -->
+    <bean id="processRecordMeteo_if" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.meteo.ProcessRecordMeteo_if" parent="processRecordMeteo">
+        <property name="mesureMeteoDAO" ref="mesureMeteo_sh" />
+    </bean>
+    <bean id="deleteRecordMeteo_if" parent="deleteRecord">
+        <property name="publicationDAO" ref="publicationMeteo_sh" />
+    </bean>
+     
+    <!--expertEntete-->
+         
+    <bean id="expertEnteteDoc" class="org.cnrs.osuc.snot.dataset.fluxmeteo.entete.SpecialisteEnteteMeteo" parent="fluxMeteoTestHeader">
+        <property name="siteSnotDAO" ref="siteSnotDAO" />
+        <property name="localizationManager" ref="localizationManager" />
+        <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).THEME_BIOGEO}" />
+    </bean>
+    
+    <bean id="expertEnteteDoc_if" parent="expertEnteteDoc">
+        <property name="frequenceAttendu" value="#{T(org.cnrs.osuc.snot.utils.Constantes).FREQUENCE_NAME[3]}" />
+        <property name="formatRegexDate" value="#{T(org.cnrs.osuc.snot.utils.Constantes).REGEX_DATE}" />
+        <property name="nbColonnesIdentifiantes" >
+            <value type="int">2</value>
+        </property>
+    </bean>
+
+    <!--testFormat-->
+    <bean id="testFormatDoc_if"  parent="genericTestFormat">
+        <property name="testHeaders" ref="expertEnteteDoc_if" />
+        <property name="testValues" ref="genericTestValue" />
+        <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).DATATYPE_FREQUENCE_DOC[1]}" />
+    </bean>
+    
+    <!--Recorder-->
+    <bean id="recorderDoc_if" parent="SNOTRecorder">
+        <property name="processRecord" ref="processRecordMeteo_if" />
+        <property name="testFormat" ref="testFormatDoc_if" />
+        <property name="deleteRecord" ref="deleteRecordMeteo_if" />
+        <property name="requestProperties" value="requestPropertiesFluxMeteo_infraj" />
+        <property name="datasetDescriptor" ref="datasetDescriptorDoc_if" />
+    </bean>
+  
+    <!--datasetdescriptor-->
+    <bean id="datasetDescriptorDoc_if"  class="org.cnrs.osuc.snot.dataset.impl.DatasetDescriptorBuilderSnots" factory-method="buildDescriptor">
+        <constructor-arg type="java.lang.Class" value="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.entity.DatasetDescriptorFluxMeteo"/>
+        <constructor-arg type="java.lang.String" value="fluxmeteo/impl/biogeo/dataset-descriptor-doc-infra-journalier.xml" />
+        <constructor-arg type="int" value="1" />
+    </bean>
+
+</beans>

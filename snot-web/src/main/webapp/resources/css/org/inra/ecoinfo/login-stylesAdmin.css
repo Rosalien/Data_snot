@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+body #mainPageTemplateContentContainer .subcontainer {
+    height: auto;
+    width: auto;
+}
+
+body #mainPageTemplateContentContainer .subcontainer .left {
+    position: absolute;
+    width: 175px;
+    left: 0px;
+    float: none;
+}
+
+body #mainPageTemplateContentContainer .subcontainer .right {
+    position: absolute;
+    float: none;
+    right: 5px;
+    left: 180px;
+    width: auto;
+}
+
+.alertconnect {
+    color: red;
+    font-size: 17px !important;
+    border: solid;
+    margin: 10px;
+    padding: 5px;
+    position: relative;
+    top: 12px;
+}
+
+.alertconnect img {
+    width: 20px;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+.inactiveProfilButton {
+    float: none !important;
+}
+
+input.inactiveProfilEmail {
+    padding: 5px;
+    font-size: 17px !important
+}
+
+div.custom-rf-p {
+    color: #96B7D6;
+    border-width: 2px;
+    box-shadow: 5px 5px 15px #898989;
+}
+
+.formLogin table{
+    width: 100%; 
+}
+
+.mandatory{
+    color: red;
+}
+
+table .mandatory{
+    color: inherit;
+}
+
+
+table.footer{
+    width: 100%; 
+}
+
+.mandatory-login{
+    text-align: right;
+    margin-top: 5px;
+    display: block;
+    margin-right: 5px;
+}
+
+td.loginCol1 {
+    text-align: right;
+    width: 100px;
+    padding-right: 10px;
+}
+
+td.loginCol2, td.loginCol3{
+    text-align: left;
+} 
+
+
+.popupLogin div.rf-pp-cnt-scrlr .rf-pp-cnt {
+    padding: 0px 0px 0px 0px;
+}

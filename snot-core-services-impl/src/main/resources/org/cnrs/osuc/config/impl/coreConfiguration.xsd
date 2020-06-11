@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 (http://www.altova.com) by tcherniatinsky (inra) -->
+<schema 
+	targetNamespace="http://orei.inra.fr/configuration"
+	elementFormDefault="qualified" 
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://orei.inra.fr/configuration">
+
+	<element name="configuration" type="tns:configurationType"/>
+	<complexType name="configurationType">
+		<annotation>
+			<documentation>identifie l'application portail parent</documentation>
+		</annotation>
+		<sequence>
+			<element name="coreConfiguration" type="tns:coreConfigurationType"  />
+			<any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="abstractConfigurationType">
+		<annotation>
+			<documentation>abstract element configuration l'application portail parent</documentation>
+		</annotation>
+	</complexType>
+	<complexType name="coreConfigurationType">
+		<complexContent>
+			<extension base="tns:abstractConfigurationType">
+				<annotation>
+					<documentation>propriétés générales de l'application l'application portail parent</documentation>
+				</annotation>
+				<sequence>
+					<element name="id" type="string" minOccurs="1" maxOccurs="1"/>
+					<element name="siteSeparatorForFileNames" type="string" default="-" minOccurs="0" maxOccurs="1"/>
+					<element name="name" type="tns:name" minOccurs="1" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Le nom du plugin...nécessaire à l'affichage par
+						l'interface de gestion des plugins
+					</documentation>
+						</annotation>
+					</element>
+					<element name="mailAdmin" type="string" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation>Le mail de l'administrateur du systeme
+					</documentation>
+						</annotation>
+					</element>
+					<element name="mailHost" type="string" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation>L'adresse du serveur de mail</documentation>
+						</annotation>
+					</element>
+					<element name="repositoryURI" type="string" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="internationalizableString">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="language" type="string" default="fr"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="name">
+		<simpleContent>
+			<extension base="tns:internationalizableString"/>
+		</simpleContent>
+	</complexType>
+	<complexType name="description">
+		<simpleContent>
+			<extension base="tns:internationalizableString"/>
+		</simpleContent>
+	</complexType>
+</schema>

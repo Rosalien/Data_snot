@@ -1,0 +1,23 @@
+Rappel des paramètres liés à votre requête:
+------------------------------------------
+
+
+Sites choisis:;
+
+	 -Hesse 1
+Variables de flux choisies:;
+
+	 -CO2 (CO2)
+	 -H2O (H2O)
+	 -LE (LE)
+	 -T (T)
+
+Fréquence:;
+	-sh
+
+Date:;
+	 du 01/01/2010 au 31/03/2010 ;
+
+Commentaire:
+	;extraction de flux tours semi-horaireHesse hesse1
+

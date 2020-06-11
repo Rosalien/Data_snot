@@ -1,0 +1,268 @@
+ ** VFS = /tmp
+[0m2019-01-28 14:19:19,066 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                   JAX-RS - STABLE          org.wildfly.swarm:jaxrs:2017.3.2
+[0m[0m2019-01-28 14:19:19,079 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:          JPA EclipseLink - STABLE          org.wildfly.swarm:jpa-eclipselink:2017.3.2
+[0m[0m2019-01-28 14:19:19,080 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                  Logging - STABLE          org.wildfly.swarm:logging:2017.3.2
+[0m[0m2019-01-28 14:19:19,081 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:          Bean Validation - STABLE          org.wildfly.swarm:bean-validation:2017.3.2
+[0m[0m2019-01-28 14:19:19,081 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:        CDI Configuration - STABLE          org.wildfly.swarm:cdi-config:2017.3.2
+[0m[0m2019-01-28 14:19:19,081 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                      JCA - STABLE          org.wildfly.swarm:jca:2017.3.2
+[0m[0m2019-01-28 14:19:19,082 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                      JPA - STABLE          org.wildfly.swarm:jpa:2017.3.2
+[0m[0m2019-01-28 14:19:19,082 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                 Keycloak - STABLE          org.wildfly.swarm:keycloak:2017.3.2
+[0m[0m2019-01-28 14:19:19,082 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:               Management - STABLE          org.wildfly.swarm:management:2017.3.2
+[0m[33m2019-01-28 14:19:19,083 WARN  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:       Management Console - UNSTABLE        org.wildfly.swarm:management-console:2017.3.2
+[0m[0m2019-01-28 14:19:19,083 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                      EJB - STABLE          org.wildfly.swarm:ejb:2017.3.2
+[0m[0m2019-01-28 14:19:19,084 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                      CDI - STABLE          org.wildfly.swarm:cdi:2017.3.2
+[0m[0m2019-01-28 14:19:19,084 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:              Datasources - STABLE          org.wildfly.swarm:datasources:2017.3.2
+[0m[0m2019-01-28 14:19:19,084 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:             Transactions - STABLE          org.wildfly.swarm:transactions:2017.3.2
+[0m[0m2019-01-28 14:19:19,085 INFO  [org.wildfly.swarm] (main) WFSWARM0018: Installed fraction:                 Undertow - STABLE          org.wildfly.swarm:undertow:2017.3.2
+[0m[0m2019-01-28 14:19:22,420 INFO  [org.wildfly.swarm.datasources] (main) WFSWARM1003: Auto-detected JDBC driver for postgresql
+[0m[0m2019-01-28 14:19:23,943 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.6.Final
+[0m[0m2019-01-28 14:19:24,056 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0049: WildFly Swarm 2017.3.2 (WildFly Core 2.2.1.CR1) starting
+[0m[0m2019-01-28 14:19:24,154 INFO  [org.wildfly.swarm] (MSC service thread 1-2) WFSWARM0029: Install MSC service for command line args: []
+[0m[0m2019-01-28 14:19:27,675 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 24) WFLYNAM0001: Activating Naming Subsystem
+[0m[33m2019-01-28 14:19:27,744 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 32) WFLYTX0013: Node identifier property is set to the default value. Please make sure it is unique.
+[0m[0m2019-01-28 14:19:27,848 INFO  [org.jboss.as.naming] (MSC service thread 1-1) WFLYNAM0003: Starting Naming Service
+[0m[0m2019-01-28 14:19:28,020 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 26) WFLYSEC0002: Activating Security Subsystem
+[0m[0m2019-01-28 14:19:28,078 INFO  [org.jboss.as.security] (MSC service thread 1-1) WFLYSEC0001: Current PicketBox version=4.9.6.Final
+[0m[0m2019-01-28 14:19:28,114 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 18) WFLYIO001: Worker 'default' has auto-configured to 4 core threads with 32 task threads based on your 2 available processors
+[0m[0m2019-01-28 14:19:28,178 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 31) WFLYJCA0005: Deploying non-JDBC-compliant driver class org.postgresql.Driver (version 9.4)
+[0m[0m2019-01-28 14:19:28,285 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 31) WFLYJCA0005: Deploying non-JDBC-compliant driver class org.postgresql.Driver (version 9.4)
+[0m[0m2019-01-28 14:19:28,417 INFO  [org.jboss.as.connector] (MSC service thread 1-2) WFLYJCA0009: Starting JCA Subsystem (WildFly/IronJacamar 1.3.4.Final)
+[0m[0m2019-01-28 14:19:28,547 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-3) WFLYJCA0018: Started Driver service with driver-name = postgresql
+[0m[0m2019-01-28 14:19:28,533 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0018: Started Driver service with driver-name = org.postgresql
+[0m[0m2019-01-28 14:19:28,599 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0003: Undertow 1.4.0.Final starting
+[0m[0m2019-01-28 14:19:28,772 INFO  [org.xnio] (MSC service thread 1-2) XNIO version 3.4.0.Final
+[0m[0m2019-01-28 14:19:28,910 INFO  [org.xnio.nio] (MSC service thread 1-2) XNIO NIO Implementation Version 3.4.0.Final
+[0m[0m2019-01-28 14:19:29,206 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0012: Started server default-server.
+[0m[0m2019-01-28 14:19:29,671 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0006: Undertow HTTP listener default listening on 127.0.0.1:8081
+[0m[0m2019-01-28 14:19:29,856 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
+[0m[0m2019-01-28 14:19:30,017 INFO  [org.jboss.remoting] (MSC service thread 1-2) JBoss Remoting version 4.0.21.Final
+[0m[0m2019-01-28 14:19:30,119 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0001: Bound data source [java:jboss/datasources/Scheduler]
+[0m[0m2019-01-28 14:19:30,928 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
+[0m[0m2019-01-28 14:19:30,935 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0054: Admin console is not enabled
+[0m[0m2019-01-28 14:19:30,940 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Swarm 2017.3.2 (WildFly Core 2.2.1.CR1) started in 7031ms - Started 160 of 173 services (36 services are lazy, passive or on-demand)
+[0m[0m2019-01-28 14:19:35,786 INFO  [org.wildfly.swarm.runtime.deployer] (main) deploying management-console-ui.war
+[0m[0m2019-01-28 14:19:35,847 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "management-console-ui.war" (runtime-name: "management-console-ui.war")
+[0m[33m2019-01-28 14:19:36,876 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-3) WFLYSRV0018: Deployment "deployment.management-console-ui.war" is using a private module ("org.jboss.ironjacamar.jdbcadapters:main") which may be changed or removed in future versions without notice.
+[0m[33m2019-01-28 14:19:36,877 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-3) WFLYSRV0018: Deployment "deployment.management-console-ui.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[0m2019-01-28 14:19:37,034 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0018: Host default-host starting
+[0m[0m2019-01-28 14:19:37,278 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 2) WFLYUT0021: Registered web context: /console
+[0m[0m2019-01-28 14:19:37,321 INFO  [org.jboss.as.server] (main) WFLYSRV0010: Deployed "management-console-ui.war" (runtime-name : "management-console-ui.war")
+[0m[0m2019-01-28 14:19:42,986 INFO  [org.wildfly.swarm.runtime.deployer] (main) deploying jax-d.war
+[0m[0m2019-01-28 14:19:42,991 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "jax-d.war" (runtime-name: "jax-d.war")
+[0m[33m2019-01-28 14:19:45,561 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0059: Class Path entry jaxb-api.jar in /jax-d.war/WEB-INF/lib/jaxb-impl-2.0.14070363108011913264.jar  does not point to a valid jar for a Class-Path reference.
+[0m[33m2019-01-28 14:19:45,561 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0059: Class Path entry activation.jar in /jax-d.war/WEB-INF/lib/jaxb-impl-2.0.14070363108011913264.jar  does not point to a valid jar for a Class-Path reference.
+[0m[33m2019-01-28 14:19:45,562 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0059: Class Path entry jsr173_1.0_api.jar in /jax-d.war/WEB-INF/lib/jaxb-impl-2.0.14070363108011913264.jar  does not point to a valid jar for a Class-Path reference.
+[0m[33m2019-01-28 14:19:45,578 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0059: Class Path entry jaxb1-impl.jar in /jax-d.war/WEB-INF/lib/jaxb-impl-2.0.14070363108011913264.jar  does not point to a valid jar for a Class-Path reference.
+[0m[0m2019-01-28 14:19:46,994 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) WFLYJPA0002: Read persistence.xml for MyPU
+[0m[33m2019-01-28 14:19:47,700 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) WFLYSRV0018: Deployment "deployment.jax-d.war" is using a private module ("org.jboss.ironjacamar.jdbcadapters:main") which may be changed or removed in future versions without notice.
+[0m[33m2019-01-28 14:19:47,703 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) WFLYSRV0018: Deployment "deployment.jax-d.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[0m2019-01-28 14:19:47,728 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 2) WFLYJPA0003: Starting Persistence Unit Service 'jax-d.war#MyPU'
+[0m[0m2019-01-28 14:19:48,272 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.VariableSnot] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,296 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field datatypeUniteVariableSnotVdtCollection] is being defaulted to: class moulinette.entity.DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,303 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field variable] is being defaulted to: class moulinette.entity.Variable.
+[0m[0m2019-01-28 14:19:48,307 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.MethodeCalcul] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,309 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field periodeApplicationMethodeCollection] is being defaulted to: class moulinette.entity.PeriodeApplicationMethode.
+[0m[0m2019-01-28 14:19:48,311 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Theme] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,312 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field compositeNodeable] is being defaulted to: class moulinette.entity.CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,314 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field jeuCollection] is being defaulted to: class moulinette.entity.Jeu.
+[0m[0m2019-01-28 14:19:48,315 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Localisation] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,315 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Datatype] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,316 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field compositeNodeable] is being defaulted to: class moulinette.entity.CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,316 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field datatypeUniteVariableSnotVdtCollection] is being defaulted to: class moulinette.entity.DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,317 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Instrument] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,318 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field instrumentReferenceCollection] is being defaulted to: class moulinette.entity.InstrumentReference.
+[0m[0m2019-01-28 14:19:48,321 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field periodeUtilisationInstrumentCollection] is being defaulted to: class moulinette.entity.PeriodeUtilisationInstrument.
+[0m[0m2019-01-28 14:19:48,321 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Site] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,322 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field parentSiteId] is being defaulted to: class moulinette.entity.Site.
+[0m[0m2019-01-28 14:19:48,322 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field compositeNodeable] is being defaulted to: class moulinette.entity.CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,323 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field siteCollection] is being defaulted to: class moulinette.entity.Site.
+[0m[0m2019-01-28 14:19:48,323 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field siteSnot] is being defaulted to: class moulinette.entity.SiteSnot.
+[0m[0m2019-01-28 14:19:48,323 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.SiteSnot] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,324 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field tzeId] is being defaulted to: class moulinette.entity.TypesZoneEtudeTze.
+[0m[0m2019-01-28 14:19:48,328 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field site] is being defaulted to: class moulinette.entity.Site.
+[0m[0m2019-01-28 14:19:48,329 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field datatypeUniteVariableSnotVdtCollection] is being defaulted to: class moulinette.entity.DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,329 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field jeuCollection] is being defaulted to: class moulinette.entity.Jeu.
+[0m[0m2019-01-28 14:19:48,330 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.DatatypeUniteVariableSnotVdt] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,330 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field jeuId] is being defaulted to: class moulinette.entity.Jeu.
+[0m[0m2019-01-28 14:19:48,332 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field dtyId] is being defaulted to: class moulinette.entity.Datatype.
+[0m[0m2019-01-28 14:19:48,332 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field compositeNodeable] is being defaulted to: class moulinette.entity.CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,332 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field siteId] is being defaulted to: class moulinette.entity.SiteSnot.
+[0m[0m2019-01-28 14:19:48,333 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field id] is being defaulted to: class moulinette.entity.VariableSnot.
+[0m[0m2019-01-28 14:19:48,335 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field uniId] is being defaulted to: class moulinette.entity.Unite.
+[0m[0m2019-01-28 14:19:48,335 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Jeu] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,337 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field datatypeUniteVariableSnotVdtCollection] is being defaulted to: class moulinette.entity.DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,337 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field siteId] is being defaulted to: class moulinette.entity.SiteSnot.
+[0m[0m2019-01-28 14:19:48,338 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field periodeUtilisationInstrumentCollection] is being defaulted to: class moulinette.entity.PeriodeUtilisationInstrument.
+[0m[0m2019-01-28 14:19:48,338 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field id] is being defaulted to: class moulinette.entity.Theme.
+[0m[0m2019-01-28 14:19:48,338 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Realnode] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,339 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field realnodeCollection1] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,339 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field idAncestor] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,339 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field realnodeCollection] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,340 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field periodeUtilisationInstrumentCollection] is being defaulted to: class moulinette.entity.PeriodeUtilisationInstrument.
+[0m[0m2019-01-28 14:19:48,341 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field periodeApplicationMethodeCollection] is being defaulted to: class moulinette.entity.PeriodeApplicationMethode.
+[0m[0m2019-01-28 14:19:48,341 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field idParentNode] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,342 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field idNodeable] is being defaulted to: class moulinette.entity.CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,342 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.PeriodeApplicationMethode] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,343 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field stdtvarId] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,344 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field mcalcId] is being defaulted to: class moulinette.entity.MethodeCalcul.
+[0m[0m2019-01-28 14:19:48,344 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.InstrumentReference] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,345 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field instrId] is being defaulted to: class moulinette.entity.Instrument.
+[0m[0m2019-01-28 14:19:48,345 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field refId] is being defaulted to: class moulinette.entity.Reference.
+[0m[0m2019-01-28 14:19:48,346 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Reference] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,346 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field instrumentReferenceCollection] is being defaulted to: class moulinette.entity.InstrumentReference.
+[0m[0m2019-01-28 14:19:48,347 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.TypesZoneEtudeTze] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,349 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field siteSnotCollection] is being defaulted to: class moulinette.entity.SiteSnot.
+[0m[0m2019-01-28 14:19:48,349 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.PeriodeUtilisationInstrument] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,352 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field jeuId] is being defaulted to: class moulinette.entity.Jeu.
+[0m[0m2019-01-28 14:19:48,354 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field stdtvarId] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,355 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the many to one mapping element [field instrId] is being defaulted to: class moulinette.entity.Instrument.
+[0m[0m2019-01-28 14:19:48,355 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Variable] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,356 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field compositeNodeable] is being defaulted to: class moulinette.entity.CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,358 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field variableSnot] is being defaulted to: class moulinette.entity.VariableSnot.
+[0m[0m2019-01-28 14:19:48,360 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.Unite] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,361 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field datatypeUniteVariableSnotVdtCollection] is being defaulted to: class moulinette.entity.DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,362 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The access type for the persistent class [class moulinette.entity.CompositeNodeable] is set to [FIELD].
+[0m[0m2019-01-28 14:19:48,362 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field site] is being defaulted to: class moulinette.entity.Site.
+[0m[0m2019-01-28 14:19:48,365 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field datatypeUniteVariableSnotVdt] is being defaulted to: class moulinette.entity.DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,366 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field datatype] is being defaulted to: class moulinette.entity.Datatype.
+[0m[0m2019-01-28 14:19:48,368 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field variable] is being defaulted to: class moulinette.entity.Variable.
+[0m[0m2019-01-28 14:19:48,369 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to many mapping element [field realnodeCollection] is being defaulted to: class moulinette.entity.Realnode.
+[0m[0m2019-01-28 14:19:48,372 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The target entity (reference) class for the one to one mapping element [field theme] is being defaulted to: class moulinette.entity.Theme.
+[0m[0m2019-01-28 14:19:48,373 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.VariableSnot] is being defaulted to: VariableSnot.
+[0m[0m2019-01-28 14:19:48,392 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.MethodeCalcul] is being defaulted to: MethodeCalcul.
+[0m[0m2019-01-28 14:19:48,393 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Theme] is being defaulted to: Theme.
+[0m[0m2019-01-28 14:19:48,394 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Localisation] is being defaulted to: Localisation.
+[0m[0m2019-01-28 14:19:48,395 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Datatype] is being defaulted to: Datatype.
+[0m[0m2019-01-28 14:19:48,396 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Instrument] is being defaulted to: Instrument.
+[0m[0m2019-01-28 14:19:48,397 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Site] is being defaulted to: Site.
+[0m[0m2019-01-28 14:19:48,398 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.SiteSnot] is being defaulted to: SiteSnot.
+[0m[0m2019-01-28 14:19:48,402 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.DatatypeUniteVariableSnotVdt] is being defaulted to: DatatypeUniteVariableSnotVdt.
+[0m[0m2019-01-28 14:19:48,404 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Jeu] is being defaulted to: Jeu.
+[0m[0m2019-01-28 14:19:48,406 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Realnode] is being defaulted to: Realnode.
+[0m[0m2019-01-28 14:19:48,407 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.PeriodeApplicationMethode] is being defaulted to: PeriodeApplicationMethode.
+[0m[0m2019-01-28 14:19:48,409 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.InstrumentReference] is being defaulted to: InstrumentReference.
+[0m[0m2019-01-28 14:19:48,410 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Reference] is being defaulted to: Reference.
+[0m[0m2019-01-28 14:19:48,412 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.TypesZoneEtudeTze] is being defaulted to: TypesZoneEtudeTze.
+[0m[0m2019-01-28 14:19:48,413 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.PeriodeUtilisationInstrument] is being defaulted to: PeriodeUtilisationInstrument.
+[0m[0m2019-01-28 14:19:48,415 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Variable] is being defaulted to: Variable.
+[0m[0m2019-01-28 14:19:48,416 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.Unite] is being defaulted to: Unite.
+[0m[0m2019-01-28 14:19:48,417 INFO  [org.eclipse.persistence.metadata] (ServerService Thread Pool -- 2) The alias name for the entity class [class moulinette.entity.CompositeNodeable] is being defaulted to: CompositeNodeable.
+[0m[0m2019-01-28 14:19:48,903 INFO  [org.hibernate.validator.internal.util.Version] (ServerService Thread Pool -- 2) HV000001: Hibernate Validator 5.2.4.Final
+[0m[0m2019-01-28 14:19:49,012 INFO  [org.eclipse.persistence] (ServerService Thread Pool -- 2) EclipseLink, version: Eclipse Persistence Services - 2.6.2.v20151217-774c696
+[0m[0m2019-01-28 14:19:49,350 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 2) connecting(DatabaseLogin(
+	platform=>PostgreSQLPlatform
+	user name=> ""
+	connector=>JNDIConnector datasource name=>null
+))
+[0m[0m2019-01-28 14:19:49,351 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 2) Connected: jdbc:postgresql://localhost:5432/sno
+	User: snouser
+	Database: PostgreSQL  Version: 10.6 (Ubuntu 10.6-0ubuntu0.18.04.1)
+	Driver: PostgreSQL Native Driver  Version: PostgreSQL 9.4 JDBC4.2 (build 1206)
+[0m[0m2019-01-28 14:19:49,351 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 2) connecting(DatabaseLogin(
+	platform=>PostgreSQLPlatform
+	user name=> ""
+	connector=>JNDIConnector datasource name=>null
+))
+[0m[0m2019-01-28 14:19:49,352 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 2) Connected: jdbc:postgresql://localhost:5432/sno
+	User: snouser
+	Database: PostgreSQL  Version: 10.6 (Ubuntu 10.6-0ubuntu0.18.04.1)
+	Driver: PostgreSQL Native Driver  Version: PostgreSQL 9.4 JDBC4.2 (build 1206)
+[0m[0m2019-01-28 14:19:49,762 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 2) /vfs:/jax-d.war/WEB-INF/classes/_MyPU login successful
+[0m[0m2019-01-28 14:19:50,231 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) WFLYWELD0003: Processing weld deployment jax-d.war
+[0m[0m2019-01-28 14:19:50,353 INFO  [org.jboss.as.ejb3.deployment] (MSC service thread 1-4) WFLYEJB0473: JNDI bindings for session bean named 'ServicesManager' in deployment unit 'deployment "jax-d.war"' are as follows:
+
+	java:global/jax-d/ServicesManager!com.rac021.jax.api.root.ServicesManager
+	java:app/jax-d/ServicesManager!com.rac021.jax.api.root.ServicesManager
+	java:module/ServicesManager!com.rac021.jax.api.root.ServicesManager
+	java:global/jax-d/ServicesManager
+	java:app/jax-d/ServicesManager
+	java:module/ServicesManager
+
+[0m[0m2019-01-28 14:19:50,353 INFO  [org.jboss.as.ejb3.deployment] (MSC service thread 1-4) WFLYEJB0473: JNDI bindings for session bean named 'CustomSignOn' in deployment unit 'deployment "jax-d.war"' are as follows:
+
+	java:global/jax-d/CustomSignOn!com.rac021.jax.api.security.ISignOn
+	java:app/jax-d/CustomSignOn!com.rac021.jax.api.security.ISignOn
+	java:module/CustomSignOn!com.rac021.jax.api.security.ISignOn
+	java:global/jax-d/CustomSignOn
+	java:app/jax-d/CustomSignOn
+	java:module/CustomSignOn
+
+[0m[0m2019-01-28 14:19:50,355 INFO  [org.jboss.as.ejb3.deployment] (MSC service thread 1-4) WFLYEJB0473: JNDI bindings for session bean named 'DbSingOn' in deployment unit 'deployment "jax-d.war"' are as follows:
+
+	java:global/jax-d/DbSingOn!com.rac021.jax.api.security.ISignOn
+	java:app/jax-d/DbSingOn!com.rac021.jax.api.security.ISignOn
+	java:module/DbSingOn!com.rac021.jax.api.security.ISignOn
+	java:global/jax-d/DbSingOn
+	java:app/jax-d/DbSingOn
+	java:module/DbSingOn
+
+[0m[0m2019-01-28 14:19:50,701 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-1) WFLYJCA0005: Deploying non-JDBC-compliant driver class org.postgresql.Driver (version 9.4)
+[0m[0m2019-01-28 14:19:50,728 INFO  [org.jboss.weld.Version] (MSC service thread 1-1) WELD-000900: 2.3.5 (Final)
+[0m[0m2019-01-28 14:19:50,749 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0018: Started Driver service with driver-name = jax-d.war_org.postgresql.Driver_9_4
+[0m[0m2019-01-28 14:19:54,358 INFO  [stdout] (ServerService Thread Pool -- 2)  Building SQL Object Query ... 
+[0m[0m2019-01-28 14:19:54,428 INFO  [stdout] (ServerService Thread Pool -- 2)  OrderElementsList = [jeu_id, code_jeu, description, titre]
+[0m[0m2019-01-28 14:19:55,385 INFO  [org.jboss.resteasy.resteasy_jaxrs.i18n] (ServerService Thread Pool -- 2) RESTEASY002225: Deploying javax.ws.rs.core.Application: class com.rac021.jax.api.root.RestConfig$Proxy$_$$_WeldClientProxy
+[0m[0m2019-01-28 14:19:55,444 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 2) WFLYUT0021: Registered web context: /
+[0m[0m2019-01-28 14:19:55,464 INFO  [org.jboss.as.server] (main) WFLYSRV0010: Deployed "jax-d.war" (runtime-name : "jax-d.war")
+[0m[0m2019-01-28 14:19:55,466 INFO  [org.wildfly.swarm] (main) WFSWARM99999: WildFly Swarm is Ready
+[0m[0m2019-01-28 14:20:16,151 INFO  [stdout] (default task-1) *************************************************************************************
+[0m[0m2019-01-28 14:20:16,151 INFO  [stdout] (default task-1) codeJeu : frn-ges-eddycovariance
+[0m[0m2019-01-28 14:20:16,168 INFO  [stdout] (default task-1) realNodeVariablePath : [frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-FC-μmolCO2/m2/s, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-H-W/m2, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-ETR-mm/h, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-LE-W/m2, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-FCH4-μmol/m2/s]
+[0m[0m2019-01-28 14:20:16,169 INFO  [stdout] (default task-1) codeJeu : frn-ges-eddycovariance
+[0m[0m2019-01-28 14:20:16,169 INFO  [stdout] (default task-1) realNodeVariablePath : frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-FC-μmolCO2/m2/s
+[0m[0m2019-01-28 14:20:16,170 INFO  [stdout] (default task-1) codeJeu : frn-ges-eddycovariance
+[0m[0m2019-01-28 14:20:16,170 INFO  [stdout] (default task-1) realNodeVariablePath : frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-H-W/m2
+[0m[0m2019-01-28 14:20:16,170 INFO  [stdout] (default task-1) codeJeu : frn-ges-eddycovariance
+[0m[0m2019-01-28 14:20:16,170 INFO  [stdout] (default task-1) realNodeVariablePath : frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-ETR-mm/h
+[0m[0m2019-01-28 14:20:16,171 INFO  [stdout] (default task-1) codeJeu : frn-ges-eddycovariance
+[0m[0m2019-01-28 14:20:16,171 INFO  [stdout] (default task-1) realNodeVariablePath : frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-LE-W/m2
+[0m[0m2019-01-28 14:20:16,173 INFO  [stdout] (default task-1) codeJeu : frn-ges-eddycovariance
+[0m[0m2019-01-28 14:20:16,173 INFO  [stdout] (default task-1) realNodeVariablePath : frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-FCH4-μmol/m2/s
+[0m[0m2019-01-28 14:20:16,173 INFO  [stdout] (default task-1) *************************************************************************************
+[0m[0m2019-01-28 14:20:16,174 INFO  [stdout] (default task-1) codes : {frn-ges-eddycovariance=[frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-FC-μmolCO2/m2/s, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-H-W/m2, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-ETR-mm/h, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-LE-W/m2, frn/ec1,ges,eddycovariance_sh,frn/ec1-eddycovariance_sh-FCH4-μmol/m2/s]}
+[0m[0m2019-01-28 14:20:16,174 INFO  [stdout] (default task-1) /home/jbparoissien/sie-sno-tourbiere/Developpement/SI/app_snot/src/main/resources/inputs_files
+[0m[0m2019-01-28 14:20:16,174 INFO  [stdout] (default task-1) false
+[0m[31m2019-01-28 14:20:16,175 ERROR [moulinette.DAO.FileDAOObject] (default task-1) /home/jbparoissien/sie-sno-tourbiere/Developpement/SI/app_snot/src/main/resources/inputs_files/Producer.csv (Aucun fichier ou dossier de ce type)
+[0m[0m2019-01-28 14:20:16,204 INFO  [org.wildfly.swarm.runtime.server] (Thread-3) Shutdown requested ...
+[0m[0m2019-01-28 14:20:16,220 INFO  [org.jboss.as.server] (Thread-4) WFLYSRV0220: Server shutdown has been requested via an OS signal
+[0m[0m2019-01-28 14:20:16,240 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0019: Stopped Driver service with driver-name = jax-d.war_org.postgresql.Driver_9_4
+[0m[0m2019-01-28 14:20:16,241 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-4) WFLYJCA0019: Stopped Driver service with driver-name = postgresql
+[0m[0m2019-01-28 14:20:16,268 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0008: Undertow HTTP listener default suspending
+[0m[0m2019-01-28 14:20:16,274 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 39) WFLYUT0022: Unregistered web context: /
+[0m[0m2019-01-28 14:20:16,274 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 40) WFLYUT0022: Unregistered web context: /console
+[0m[0m2019-01-28 14:20:16,279 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0007: Undertow HTTP listener default stopped, was bound to 127.0.0.1:8081
+[0m[0m2019-01-28 14:20:16,310 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0019: Host default-host stopping
+[0m[0m2019-01-28 14:20:16,325 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0004: Undertow 1.4.0.Final stopping
+[0m[0m2019-01-28 14:20:16,341 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0028: Stopped deployment management-console-ui.war (runtime-name: management-console-ui.war) in 113ms
+[0m[0m2019-01-28 14:20:16,406 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 43) WFLYJPA0004: Stopping Persistence Unit Service 'jax-d.war#MyPU'
+[0m[0m2019-01-28 14:20:16,436 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 43) disconnect
+[0m[0m2019-01-28 14:20:16,438 INFO  [org.eclipse.persistence.connection] (ServerService Thread Pool -- 43) /vfs:/jax-d.war/WEB-INF/classes/_MyPU logout successful
+[0m[0m2019-01-28 14:20:16,446 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0010: Unbound data source [java:jboss/datasources/Scheduler]
+[0m[31m2019-01-28 14:20:16,474 ERROR [org.xnio.listener] (default I/O-2) XNIO001007: A channel event listener threw an exception: java.util.concurrent.RejectedExecutionException: XNIO007007: Thread is terminating
+	at org.xnio.nio.WorkerThread.executeAfter(WorkerThread.java:623)
+	at io.undertow.util.DateUtils.getCurrentDateTime(DateUtils.java:251)
+	at io.undertow.util.DateUtils.addDateHeaderIfRequired(DateUtils.java:235)
+	at io.undertow.server.protocol.http.HttpTransferEncoding.createSinkConduit(HttpTransferEncoding.java:203)
+	at io.undertow.server.protocol.http.HttpServerConnection.getSinkConduit(HttpServerConnection.java:209)
+	at io.undertow.server.HttpServerExchange.getResponseChannel(HttpServerExchange.java:1281)
+	at io.undertow.servlet.spec.ServletOutputStreamImpl.close(ServletOutputStreamImpl.java:599)
+	at io.undertow.servlet.spec.HttpServletResponseImpl.closeStreamAndWriter(HttpServletResponseImpl.java:478)
+	at io.undertow.servlet.core.ServletBlockingHttpExchange.close(ServletBlockingHttpExchange.java:92)
+	at io.undertow.server.HttpServerExchange.endExchange(HttpServerExchange.java:1581)
+	at io.undertow.server.AbstractServerConnection$CloseSetter.handleEvent(AbstractServerConnection.java:316)
+	at io.undertow.server.AbstractServerConnection$CloseSetter.handleEvent(AbstractServerConnection.java:296)
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92)
+	at org.xnio.StreamConnection.invokeCloseListener(StreamConnection.java:80)
+	at org.xnio.Connection.writeClosed(Connection.java:117)
+	at org.xnio.nio.AbstractNioStreamConnection.writeClosed(AbstractNioStreamConnection.java:47)
+	at org.xnio.nio.NioSocketConduit.terminateWrites(NioSocketConduit.java:182)
+	at org.xnio.nio.NioSocketConduit.truncateWrites(NioSocketConduit.java:198)
+	at org.xnio.conduits.ConduitStreamSinkChannel.close(ConduitStreamSinkChannel.java:186)
+	at org.xnio.IoUtils.safeClose(IoUtils.java:152)
+	at org.xnio.conduits.WriteReadyHandler$ChannelListenerHandler.forceTermination(WriteReadyHandler.java:57)
+	at org.xnio.nio.NioSocketConduit.forceTermination(NioSocketConduit.java:108)
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:496)
+
+[0m[0m2019-01-28 14:20:16,499 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0019: Stopped Driver service with driver-name = org.postgresql
+[0m[0m2019-01-28 14:20:16,486 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0028: Stopped deployment jax-d.war (runtime-name: jax-d.war) in 258ms
+[0m

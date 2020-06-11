@@ -1,0 +1,215 @@
+@CHARSET "UTF-8";
+
+h3 {
+    border-bottom: 1px solid #CDCDCD;
+    color: #787878;
+    text-align: right;
+    margin-top: 32px;
+}
+
+p {
+    text-indent: 15px;
+}
+
+.present {
+    color: green;
+}
+
+.absent {
+    color: red;
+}
+
+.subcontainer h3 span.right {
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+    color: green;
+    float: none;
+}
+
+p.intro {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+}
+
+.subcontainer .rf-trn-ico,.rf-trn-hnd,.rf-trn-hnd-ldn-fct {
+    vertical-align: top;
+}
+
+.selectionPanel {
+    border: 1px solid #CDCDCD;
+}
+
+.tree {
+    position: relative;
+}
+.zeroColumn{
+    display : none;
+    width:0px;
+}
+
+.selected {
+    color: green;
+    font-style: italic;
+}
+
+.datasetSelectedDatatable {
+    margin-top: 25px;
+}
+
+.emptySelection {
+    color: red;
+    font-weight: bold;
+}
+
+.leafNode {
+    line-height: 20px;
+}
+
+.subcontainer .leafNode {
+    width: 100%;
+}
+
+.subcontainer .leafNode .img {
+    width: 50px;
+    float: none;
+    position: absolute;
+    right: 0px;
+}
+
+.rf-fu {
+    text-align: left;
+    width: 100%;
+    margin-top: 20px;
+    min-height: 192px;
+}
+
+.subcontainer .dataTable {
+    width: 100%;
+}
+
+.subcontainer .dataTable td {
+    text-align: center;
+    width: 25%;
+    vertical-align: middle;
+}
+
+.disabled {
+    opacity: 0.4;
+    filter: alpha(opacity =     40);
+    cursor: default;
+}
+
+.subcontainer a {
+    text-decoration: none;
+}
+
+.subcontainer a:first-letter {
+    text-transform: capitalize;
+}
+
+/*Fenêtre popup pour déposer un fichier*/
+.uploadFilesToCheckPopup span.intro {
+    /*text-indent: 30px;*/
+    /*display: block;*/
+    /*text-align: left;*/
+    /*font-size:14px !important;*/
+}
+
+/*Ajout de cette config pour résoudre un problème de taille de texte (ici c'est 14px)*/
+.ui-fileupload-buttonbar .ui-fileupload-choose input {
+    position:absolute;
+    top:0;
+    right:0;
+    margin:0;
+    opacity:0;
+    filter:alpha(opacity=0);
+    font-size:14px;
+    direction:ltr;
+    cursor:pointer
+}
+
+/*Config de l'affichage du fichier en dépôt dans le popup*/
+.ui-fileupload-row > div {
+    display: inline-flex;
+    padding: 2px 2px 2px 2px;
+}
+
+.even-row {
+    background-color: #FCFFFE;
+}
+
+.odd-row {
+    background-color: #ECF3FE;
+}
+
+.active-row {
+    background-color: #FFEBDA !important;
+    cursor: pointer;
+}
+
+.abstractVersionSelected {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.abstractVersionSelected .left {
+    font-weight: bold;
+}
+
+.important {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.dataTable td.numberVersion {
+    width: 5%;
+    max-width: 50px;
+}
+
+.dataTable td.dateVersion {
+    width: 20%;
+}
+
+.dataTable td.uploadUser {
+    width: 30%;
+    max-width: 50px;
+}
+
+.dataTable td.actionPublication {
+    width: 5%;
+    max-width: 20px;
+}
+
+.dataTable td.actionsPossibles {
+    width: 5%;
+    min-width: 50px;
+}
+div.warning {
+    padding: 12px;
+    border: 1px solid #FFF012;
+    background-color: #FFFFC0;
+    margin: 15px 15px 15px 15px;
+    overflow: hidden;
+}
+
+div.warning p {
+    margin-top: 0px;
+    font-weight: bold;
+}
+div.leafNode:hover{
+    background-color: rgba(54, 8, 176, 0.16);
+}
+.ui-fileupload .start {
+    display: none;
+}
+.ui-fileupload .cancel {
+    display: none;
+}
+.ui-fileupload .progress {
+    display: none;
+}

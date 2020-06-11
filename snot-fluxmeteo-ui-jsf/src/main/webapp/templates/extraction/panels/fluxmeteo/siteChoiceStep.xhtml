@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:outputStylesheet library="css/extraction" name="#{css}" />
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+                  var="choiceStep" />
+    <a4j:jsFunction name="selectSite" execute="@this,parametersRequest"
+                    action="#{uiBean.selectSite}" status="statusWaitSimple"
+                    render="listSites,parametersRequest,messageWarningStep1,validImage,nextStepButton"
+                    limitRender="true">
+        <a4j:param name="param1" assignTo="#{uiBean.idSiteSelected}" />
+    </a4j:jsFunction>
+
+    <h:panelGroup id="messageWarningStep1">
+        <h:outputText value="#{choiceStep.MSG_SITE_STEP_CHOOSE_SITE}"
+                      rendered="#{not uiBean.parametersRequest.siteStepIsValid}"
+                      styleClass="selectionEmpty" />
+    </h:panelGroup>
+
+    <h:panelGroup styleClass="panelControlsWrapper" layout="block">
+        <h:panelGroup styleClass="panelControls">
+            <h:panelGroup styleClass="control">
+                <a4j:commandLink execute="@this,parametersRequest,tree" styleClass="buttonStepNext" limitRender="true" action="#{uiBean.addAllSites}"
+                                 render="listSites,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep1,tree">
+                    <h:graphicImage value="#{resource['images:add.png']}" />
+                    <h:outputText value="#{choiceStep.MSG_PANEL_CONTROL_ADD}" />
+                </a4j:commandLink>
+            </h:panelGroup>
+            <h:panelGroup styleClass="control">
+                <a4j:commandLink execute="@this,parametersRequest,tree" styleClass="buttonStepNext" limitRender="true"
+                                 action="#{uiBean.removeAllSites}"
+                                 render="listSites,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep1,tree">
+                    <h:graphicImage value="#{resource['images:remove_selection.png']}" />
+                    <h:outputText value="#{choiceStep.MSG_PANEL_CONTROL_SUPP}" />
+                </a4j:commandLink>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <h:panelGroup id="listSites">
+        <p:tree value="#{uiBean.siteTree}" var="node"
+                selectionMode="">
+            <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                <h:outputText value="#{node.name} root"/>
+            </p:treeNode>
+            <p:treeNode type="node" >
+                <h:outputText value="#{node.site.nom}" />
+            </p:treeNode>
+            <p:treeNode type="leaf" >
+                <h:outputLink value="#" onclick="selectSite(#{node.site.id})">
+                    <h:outputText value="#{node.site.nom}"
+                                  styleClass="#{node.selected ? 'selected':''}" />
+                    <h:graphicImage name="check.png" library="images"
+                                    rendered="#{node.selected}" />
+                </h:outputLink>
+            </p:treeNode>
+        </p:tree>
+    </h:panelGroup>
+</html>

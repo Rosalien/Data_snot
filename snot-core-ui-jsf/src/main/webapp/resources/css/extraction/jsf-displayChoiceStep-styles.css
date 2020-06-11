@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+
+.listPlateformes, .listSites {
+	margin-left: 50px;
+	line-height: 20px;
+}
+
+.listPlateformes a {
+	display: block;
+}
+
+.listSites a, .listSites span{
+	display: block;
+	margin-left: 15px;
+}
+
+.selected {
+	font-weight: bold;
+}
+
+.listPlateformes img ,.listSites img{
+	margin-left: 5px;
+}
+
+.listPlateformes .disabled, .listSites .disabled{
+	font-size: 11px;
+	font-family: Arial, Verdana, sans-serif;
+		
+	}
+.listPlateformes span.disabled{
+	display:block;
+}
+
+.message{
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 15px;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <composite:interface>
+        <composite:attribute name="nom" required="false" />
+        <composite:attribute name="configurationNumber" required="true" />
+    </composite:interface>
+
+    <composite:implementation id="compositeImplDatasetCurrentSelectionID">
+
+
+        <h:form id="formSelectionDatatable">
+            <p:dataTable id="selectionDatatableID" var="selectedNode" value="#{uiBeanActionTree.selectedTreeNode}"
+                         emptyMessage="#{msg.PARAM_MSG_NO_RECORD}" >
+                <p:columns value="#{uiBeanActionTree.dynamicColumnsNames(cc.attrs.configurationNumber, uiBeanActionTree.selectedTreeNode.data)}" var="column" columnIndexVar="colIndex">
+                    <f:facet name="header">
+                                #{entities.containsKey(column)?entities.get(column):column}
+                    </f:facet>
+                    <h:outputText value="#{uiBeanActionTree.getColumnName(colIndex)} " style="overflow-wrap: break-word;}"/>
+                    <p:graphicImage value="#{resource['images/accepted.png']}" rendered="#{uiBeanActionTree.getColumnName(colIndex) != null }" />
+                </p:columns>
+            </p:dataTable>
+        </h:form>
+    </composite:implementation>
+</html>

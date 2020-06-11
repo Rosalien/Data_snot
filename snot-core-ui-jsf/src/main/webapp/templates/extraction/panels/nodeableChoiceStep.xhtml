@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:outputStylesheet library="css/extraction" name="#{css}" />
+    <p:remoteCommand name="updateTreenodes" update="listNodeables,#{p:component('parametersRequest')},messageWarningSiteStep,nextStepButton" />
+
+    <f:param name="panelNumber"></f:param>
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.jsf.panels.nodeableChoiceStep" var="nodeableChoiceStep"/>
+    <ui:param name="stepBuilderNodeable" value="#{uiBean.getStepBuilder(panelNumber-1)}" />	
+    <ui:param name="nodeables" value="#{stepBuilderNodeable.availableNodes}" />	
+
+    <h:panelGroup id="messageWarningSiteStep">
+<!--        <p:accordionPanel activeIndex="-1" 
+                          rendered="#{not stepBuilderNodeable.stepValid and not empty nodeables}"
+                          styleClass="help-panel">
+            <p:tab  >
+                <f:facet name="title">
+                    <p class="intro-main">
+                        <h:outputText
+                            value="#{nodeableChoiceStep.PARAM_MSG_WARNING}"
+                            styleClass="selectionEmpty" 
+                            escape="false" />
+                    </p>
+                </f:facet>
+                <p class="intro-main">
+                    <p class="intro-main">
+                        <h:outputText
+                            value="#{nodeableChoiceStep.PARAM_MSG_INTRO}"
+                            styleClass="selectionEmpty" 
+                            escape="false" />
+                    </p>
+                </p>
+            </p:tab>
+        </p:accordionPanel>-->
+        <h:outputText
+            value="#{nodeableChoiceStep.PARAM_MSG_NO_RESULT_FOR_SELECTION}"
+            rendered="#{empty nodeables}" styleClass="selectionEmpty" />
+    </h:panelGroup>
+
+    <h:panelGroup styleClass="panelControlsWrapper" layout="block">
+        <h:panelGroup styleClass="panelControls">
+            <h:panelGroup styleClass="control">
+                <p:commandLink process="@this,#{p:component('parametersRequest')},listNodeables" styleClass="buttonStepNext" 
+                               action="#{stepBuilderNodeable.addAllNodeables}"
+                               oncomplete="updateTreenodes()" >
+                    <h:graphicImage value="#{resource['images:add.png']}" />
+                    <h:outputText value="#{nodeableChoiceStep.PARAM_MSG_ADD_ALL}" />
+                </p:commandLink>
+            </h:panelGroup>
+            <h:panelGroup styleClass="control">
+                <p:commandLink process="@this,#{p:component('parametersRequest')},listNodeables" styleClass="buttonStepNext"
+                               action="#{stepBuilderNodeable.removeAllNodeables}"
+                               oncomplete="updateTreenodes()" >
+                    <h:graphicImage value="#{resource['images:remove_selection.png']}" />
+                    <h:outputText value="#{nodeableChoiceStep.PARAM_MSG_DELETE_ALL}" />
+                </p:commandLink>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <p:tree id="listNodeables" var="node" styleClass="tree" value="#{nodeables}" selectionMode="single" selection="#{stepBuilderNodeable.selectedNode}"
+            rendered="#{not empty nodeables}" >
+        <p:ajax event="select" listener="#{stepBuilderNodeable.selectNodeable}" oncomplete="updateTreenodes()"/>
+        <p:treeNode type="other" >
+            <h:outputText value="#{node.localizedAffichage}" />
+        </p:treeNode>
+        <p:treeNode class="traitementLeaf" type="leaf" >
+            <h:outputText value="#{node.localizedAffichage}" />
+            <h:graphicImage class="traitementCheck" name="images/check.png"  rendered="#{node.selected}"/>
+        </p:treeNode>
+    </p:tree>	
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+    <name>site</name>
+    <column>
+        <name>type de site</name>
+        <not-null>true</not-null>
+        <localizable fieldName="tze_type_nom">false</localizable>
+    </column>
+    <column>
+        <name>nom</name>
+        <key>true</key>
+        <not-null>true</not-null>
+        <localizable fieldName="nom">true</localizable>
+    </column>
+    <column>
+        <name>description</name>
+        <not-null>false</not-null>
+        <localizable fieldName="description">true</localizable>
+    </column>
+    <column>
+        <name>date début</name>
+        <not-null>true</not-null>
+        <localizable fieldName="zet_date_debut">false</localizable>
+    </column>
+    <column>
+        <name>date fin</name>
+        <not-null>false</not-null>
+        <localizable fieldName="zet_date_fin">false</localizable>
+    </column>
+    <column>
+        <name>coordonnees_bbox</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>surface</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>altitude</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>climat</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>geologie</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>dir_vent</name>
+        <not-null>false</not-null>
+        <localizable>true</localizable>
+    </column>
+    <column>
+        <name>pays</name>
+        <not-null>false</not-null>
+        <localizable>true</localizable>
+    </column>
+    <column>
+        <name>parent</name>
+        <not-null>false</not-null>
+        <localizable fieldName="zet_chemin_parent">false</localizable>
+    </column>
+</dataset-descriptor>

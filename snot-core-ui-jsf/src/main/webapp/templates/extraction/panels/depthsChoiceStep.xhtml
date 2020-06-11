@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:outputStylesheet library="css/extraction" name="#{css}" />
+    <f:param name="panelNumber"></f:param>
+    <ui:param name="stepBuilderDepth" value="#{uiBean.getStepBuilder(panelNumber-1)}" />	
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.meteosol.jsf.extraction-meteosol-jsf" 
+                  var="depthsChoiceStep" />
+    <p:remoteCommand name="updateDepths" update="panelChoiceDepth,#{p:component('parametersRequest')}, prevStepButton, nextStepButton, validImage, messageWarningDepthStep" />
+
+    <ui:param name="depths"
+              value="#{stepBuilderDepth.depthsAvailables}" />
+
+    <h:panelGroup id="messageWarningDepthStep">
+        <h:outputText
+            value="#{depthsChoiceStep.MSG_PROFONDEUR_STEP_CHOOSE_PROFONDEUR}"
+            styleClass="message"/>
+    </h:panelGroup>
+
+    <h:panelGroup id="panelChoiceDepth">
+        <p:accordionPanel activeIndex="#{stepBuilderDepth.interval}">
+            <p:ajax oncomplete="updateDepths()"/>
+            <p:tab title="#{depthsChoiceStep.MSG_PROFONDEUR_STEP_CHOOSE_INTERVAL}" >
+                #{stepBuilderDepth.depthMin} - #{stepBuilderDepth.depthMax}
+                #{stepBuilderDepth.min} -  #{stepBuilderDepth.max}
+
+                <h:panelGrid columns="1" style="margin-bottom: 10px">
+                    <h:outputText id="displayRange" value="Profondeur entre #{stepBuilderDepth.min} et #{stepBuilderDepth.max}" />
+                    <p:slider for="minInterval,maxInterval" style="width: 400px"  display="displayRange"
+                              minValue="#{stepBuilderDepth.min}"
+                              maxValue="#{stepBuilderDepth.max}"
+                              range="true" displayTemplate="Profondeur entre {min} et {max}" >
+                        <p:ajax event="slideEnd" process="@this, minInterval, maxInterval" oncomplete="updateDepths()" />
+                    </p:slider>
+                </h:panelGrid>
+                <h:inputHidden id="minInterval" value="#{stepBuilderDepth.depthMin}" immediate="true"/>
+                <h:inputHidden id="maxInterval" value="#{stepBuilderDepth.depthMax}"  immediate="true"/>
+            </p:tab>
+            <p:tab title="#{depthsChoiceStep.MSG_PROFONDEUR_STEP_CHOOSE_ONE_MANY}" >
+                <p:selectManyCheckbox id="grid2" value="#{stepBuilderDepth.selectedDepthArray}" layout="responsive" columns="3">
+                    <f:selectItems value="#{stepBuilderDepth.depthsAvailables}" var="depth" itemLabel="#{depth}" itemValue="#{depth}" />
+                    <p:ajax process="grid2" oncomplete="updateDepths()"/>
+                </p:selectManyCheckbox>
+            </p:tab>
+        </p:accordionPanel>
+    </h:panelGroup>
+</html>

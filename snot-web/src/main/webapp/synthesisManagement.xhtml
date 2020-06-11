@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:synthesis="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/synthesis">
+
+
+    <body>
+        <ui:composition template="/templates/template.xhtml">
+
+            <ui:define name="title">
+                <f:loadBundle basename="org.inra.ecoinfo.synthesis.jsf.messages"
+                              var="synthesisPanel" />
+                #{synthesisPanel.PARAM_MSG_TITLE}
+            </ui:define>
+            <ui:define name="body">
+                <p:layout id="subcontainerSynthesis" styleClass="subcontainer" widgetVar="subcontainerSynthesis" stateful="false">
+                    <p:layoutUnit position="north"  minSize="50">
+                        <h1>
+                            <h:panelGroup styleClass="navigation">
+                                <h:panelGroup styleClass="navigationItem">
+                                    <p:graphicImage name="images/home.png" />
+                                    <h:outputLink value="index.jsf">#{index.PARAM_MSG_BREADCRUMBS}</h:outputLink>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="navigationItem">#{synthesisPanel.PARAM_MSG_BREAD_CRUMS}</h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="title">
+                                <p:graphicImage name="images/synthesis.png" />
+                                #{synthesisPanel.PARAM_MSG_TITLE}
+                            </h:panelGroup>
+                        </h1>
+<!--                        <h:form>
+                            <p:accordionPanel activeIndex="-1"
+                                              styleClass="help-panel">
+                                <p:tab  >
+                                    <f:facet name="title">
+
+                                        <p class="intro-main">
+                                            <h:outputText
+                                                value="#{synthesisPanel.PARAM_MSG_INTRO_MAIN_FIRST_LINE}"
+                                                escape="false" />
+                                        </p>
+                                    </f:facet>
+                                    <p class="intro-main">
+                                        <h:outputText value="#{synthesisPanel.PARAM_MSG_INTRO_MAIN}"
+                                                      escape="false" />
+                                    </p>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </h:form>-->
+                    </p:layoutUnit>
+                    <!--<synthesis:synthesisManagementPanel id="synthesisManagementPanel" configurationNumber="#{uiMenu.configurationNumber}" />-->
+                    <synthesis:synthesisManagementPanel id="synthesisManagementPanel"/>
+                </p:layout>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

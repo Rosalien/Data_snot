@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:outputStylesheet library="css/extraction" name="#{css}" />
+<f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+		var="choiceStep" />
+<a4j:jsFunction name="deSelectVariable" execute="@this,parametersRequest" action="#{uiBean.selectVariable}"
+	render="listVariables,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2" limitRender="true">
+	<a4j:param name="param1" assignTo="#{uiBean.idVariableSelected}" />
+</a4j:jsFunction>
+<a4j:jsFunction name="selectVariable" execute="@this,parametersRequest" action="#{uiBean.selectVariable}"
+	render="listVariables,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2" limitRender="true">
+	<a4j:param name="param1" assignTo="#{uiBean.idVariableSelected}" />
+</a4j:jsFunction>
+<h:panelGroup id="messageWarningStep2">
+	<h:outputText value="#{choiceStep.MSG_VARIABLE_STEP_CHOOSE_VARIABLE}" rendered="#{not uiBean.parametersRequest.variableStepIsValid}"
+		styleClass="selectionEmpty" />
+</h:panelGroup>
+
+<h:panelGroup styleClass="panelControlsWrapper" layout="block">
+	<h:panelGroup styleClass="panelControls">
+		<h:panelGroup styleClass="control">
+			<a4j:commandLink execute="@this,parametersRequest,tree" styleClass="buttonStepNext" limitRender="true" action="#{uiBean.addAllVariables}"
+				render="listVariables,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2,tree">
+				<h:graphicImage value="#{resource['images:add.png']}" />
+				<h:outputText value="#{choiceStep.MSG_PANEL_CONTROL_ADD}" />
+			</a4j:commandLink>
+		</h:panelGroup>
+		<h:panelGroup styleClass="control">
+			<a4j:commandLink execute="@this,parametersRequest,tree" styleClass="buttonStepNext" limitRender="true"
+				action="#{uiBean.removeAllVariables}"
+				render="listVariables,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2,tree">
+				<h:graphicImage value="#{resource['images:remove_selection.png']}" />
+				<h:outputText value="#{choiceStep.MSG_PANEL_CONTROL_SUPP}" />
+			</a4j:commandLink>
+		</h:panelGroup>
+	</h:panelGroup>
+</h:panelGroup>
+
+<!--<p class="intro">Veuillez choisir la ou les variables qui concerne votre recherche.</p>  -->
+
+
+<h:panelGroup id="listVariables" styleClass="listVariables">
+		<h3>#{choiceStep.MSG_VARIABLES_FLUX}</h3>
+		<ui:param name="variablesFlux" value="#{uiBean.variablesFluxAvailable}"/>
+		<c:forEach items="#{variablesFlux}" var="variable">
+			<h:outputLink value="#" onclick="selectVariable(#{variable.key})">
+				<h:outputText value="#{variable.value.variable.nom} (#{variable.value.variable.definition})"
+					styleClass="#{variable.value.selected ? 'selected':''}" />
+				<h:graphicImage name="check.png" library="images"
+					rendered="#{variable.value.selected}" />
+			</h:outputLink>
+			<br />
+		</c:forEach>
+		<h3>#{choiceStep.MSG_VARIABLES_METEO}</h3>
+		<ui:param name="variablesMeteo" value="#{uiBean.variablesMeteoAvailable}"/>
+		<c:forEach items="#{variablesMeteo}" var="variable">
+			<h:outputLink value="#" onclick="selectVariable(#{variable.key})">
+				<h:outputText value="#{variable.value.variable.nom} (#{variable.value.variable.definition})"
+					styleClass="#{variable.value.selected ? 'selected':''}" />
+				<h:graphicImage name="check.png" library="images"
+					rendered="#{variable.value.selected}" />
+			</h:outputLink>
+			<br />
+		</c:forEach>
+</h:panelGroup>
+</html>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/infoComplementaire/infoComplementaire-beans.xml" />
+    <import resource="classpath:/org/cnrs/osuc/snot/dataset/outilrecorder/outilrecorder-beans.xml" />
+
+    <task:annotation-driven executor="myExecutor" />
+    <task:executor id="myExecutor" pool-size="5" />
+    <bean id="versionFileHelperResolver"
+          class="org.cnrs.osuc.snot.dataset.SNOTVersionFileHelperResolver">
+        <property name="datatypesVersionFileHelpersMap">
+            <map>
+                <entry key="meteosol_sh" value-ref="defaultVersionFileHelper" />
+                <entry key="meteosol_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="meteosol_j" value-ref="defaultVersionFileHelper" />
+                <entry key="meteosol_m" value-ref="defaultVersionFileHelper" />
+                <entry key="eddycovariance_sh" value-ref="defaultVersionFileHelper" />
+                <entry key="eddycovariance_j" value-ref="defaultVersionFileHelper" />
+                <entry key="eddycovariance_m" value-ref="defaultVersionFileHelper" />
+                <entry key="chambreco2_sh" value-ref="defaultVersionFileHelper" />
+                <entry key="chambreco2_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="chambreco2_m" value-ref="defaultVersionFileHelper" />
+                <entry key="chambreco2_j" value-ref="defaultVersionFileHelper" />
+                <entry key="docpoc_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="debit_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="piezo_sh" value-ref="defaultVersionFileHelper" />
+                <entry key="piezo_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="ges" value-ref="defaultVersionFileHelper" />
+<!--                <entry key="flux_sh" value-ref="defaultVersionFileHelper" />
+                <entry key="flux_j" value-ref="defaultVersionFileHelper" />
+                <entry key="flux_m" value-ref="defaultVersionFileHelper" />
+                <entry key="swc_j" value-ref="defaultVersionFileHelper" />
+                <entry key="swc_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="cms_m" value-ref="defaultVersionFileHelper" />
+                <entry key="ts_j" value-ref="defaultVersionFileHelper" />
+                <entry key="ts_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="g_j" value-ref="defaultVersionFileHelper" />
+                <entry key="g_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="smp_j" value-ref="defaultVersionFileHelper" />
+                <entry key="smp_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="gwd_j" value-ref="defaultVersionFileHelper" />
+                <entry key="gwd_infraj" value-ref="defaultVersionFileHelper" />
+                <entry key="chambrefluxsol_j" value-ref="defaultVersionFileHelper" />
+                <entry key="chambrefluxsol_m" value-ref="defaultVersionFileHelper" />
+                <entry key="chambrefluxsol_infraj" value-ref="defaultVersionFileHelper" />-->
+            </map>
+        </property>
+
+    </bean>
+<!--    <bean id="datatypeVariableUniteSnotDAO" class="org.cnrs.osuc.snot.refdata.datatypevariableunite.JPADatatypeVariableUniteSnotDAO">
+    </bean>-->
+	
+    <bean id="fileNameCheckerSnotddmmyyyy" class="org.cnrs.osuc.snot.dataset.impl.fileNameCheckers.FileNameCheckerddmmyyyy" parent="abstractFileNameChecker">
+        <property name="datatypeDAO" ref="datatypeDAO" />
+        <property name="siteDAO" ref="siteSnotDAO" />
+        <property name="datasetConfiguration" ref="datasetConfiguration" />
+    </bean>
+    <bean id="fileNameCheckerSnotmmyyyy" class="org.cnrs.osuc.snot.dataset.impl.fileNameCheckers.FileNameCheckermmyyyy" parent="abstractFileNameChecker">
+        <property name="datatypeDAO" ref="datatypeDAO" />
+        <property name="siteDAO" ref="siteSnotDAO" />
+        <property name="datasetConfiguration" ref="datasetConfiguration" />
+    </bean>
+	
+    <bean id="utilisateurSnotDAO" class="org.cnrs.osuc.snot.identification.jpa.JPAUtilisateurSnotDAO" parent="utilisateurDAO">
+    </bean>
+	
+    <bean id ="depublicationDAO" class="org.cnrs.osuc.snot.dataset.jpa.JPAPublicationDAO"/>
+	
+    <bean id="SNOTRecorder" class="org.cnrs.osuc.snot.dataset.impl.SNOTRecorder" abstract="true">
+        <property name="versionFileDAO" ref="versionFileDAO" />
+        <property name="siteSnotDAO" ref="siteSnotDAO" />
+        <property name="datatypeDAO" ref="datatypeDAO" />
+        <property name="variableDAO" ref="variableDAO" />
+        <property name="utilisateurDAO" ref="utilisateurDAO" />
+        <property name="themeDAO" ref="themeDAO" />
+        <property name="uniteDAO" ref="uniteDAO" />
+        <property name="datatypeVariableUniteSnotDAO" ref="datatypeVariableUniteSnotDAO" />
+	
+    </bean>
+    <bean id="requestProperties" scope="request" class="org.cnrs.osuc.snot.dataset.impl.RequestProperties">
+        <property name="datasetConfiguration" ref="datasetConfiguration" />
+    </bean>
+    <bean id="genericTestValue" class="org.cnrs.osuc.snot.dataset.impl.GenericTestValues">
+        <property name="datatypeVariableUniteSnotDAO" ref="datatypeVariableUniteSnotDAO"/>
+    </bean>
+    <bean id="genericTestFormat" class="org.cnrs.osuc.snot.dataset.impl.GenericTestFormat" />
+    <bean id="abstractProcessRecord" class="org.cnrs.osuc.snot.dataset.impl.AbstractProcessRecordSnot" abstract="true">
+        <property name="localizationManager" ref="localizationManager"/>
+        <property name="variableDAO" ref="variableDAO"/>
+        <property name="versionFileDAO" ref="versionFileDAO"/>
+        <property name="traitementDAO" ref="traitementDAO"/>
+        <property name="datatypeVariableUniteSnotDAO" ref="datatypeVariableUniteSnotDAO"/>
+    </bean>
+
+    <bean id="abstractTestHeader" class="org.cnrs.osuc.snot.dataset.impl.AbstractVerificateurEntete" abstract="true">
+        <property name="datatypeDAO" ref="datatypeDAO"/>
+        <property name="siteSnotDAO" ref="siteSnotDAO"/>
+        <property name="uniteDAO" ref="uniteDAO"/>
+        <property name="utilisateurDAO" ref="utilisateurDAO"/>
+        <property name="variableDAO" ref="variableDAO"/>
+        <property name="localizationManager" ref="localizationManager"/>
+        <property name="policyManager" ref="policyManager"/>
+        <property name="datasetConfiguration" ref="datasetConfiguration"/>
+        <property name="datatypeVariableUniteSnotDAO" ref="datatypeVariableUniteSnotDAO"/>
+    </bean>
+    <bean id="deleteRecord" class="org.cnrs.osuc.snot.dataset.impl.DeleteRecord" abstract="true">
+        <property name="versionFileDAO" ref="versionFileDAO" />
+    </bean>
+</beans>

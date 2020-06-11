@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.1.xsd"
+>
+    
+    <!--Importation du service web d'intégration des données-->
+    <import resource="classpath:/org/inra/ecoinfo/dataset/ws/ws-publish-beans.xml" />
+    
+    <bean id="rootService" class="org.inra.ecoinfo.ws.identification.RootService"
+          parent="MO" scope="prototype"
+    >
+        <property name="endPointChecker" ref="endPointChecker" />
+        <property name="mapSubServices">
+            <map>
+                <entry key="inspect" value-ref="serviceInspector" />
+                <entry key="servicePublish" value-ref="servicePublish" />
+            </map>
+        </property>
+    </bean>
+
+    
+    <import resource="classpath:/META-INF/spring/persistence.xml" />
+    <!--<import resource="classpath:/org/cnrs/osuc/snot/extraction-fluxmeteo-beans.xml" />-->
+    <!--<import resource="classpath:/org/cnrs/osuc/snot/snot-meteosol-beans.xml" />-->
+    <import resource="classpath:/org/cnrs/osuc/snot/snot-beans.xml" />
+    <import resource="classpath:/org/cnrs/osuc/snot/synthesis/synthesis-beans.xml" />
+    <import resource="classpath:/org/cnrs/osuc/snot/snot-fluxmeteo-beans.xml"/>
+    <aop:aspectj-autoproxy />
+   
+    <bean id="configurationFactory" class="org.inra.ecoinfo.config.ConfigurationFactory">
+        <property name="modulesConfiguration">
+            <map>
+                <entry key="coreConfiguration">
+                    <bean class="org.inra.ecoinfo.config.impl.CoreConfiguration" />
+                </entry>
+                <entry key="internationalisationConfiguration">
+                    <bean
+                        class="org.inra.ecoinfo.config.impl.InternationalisationConfiguration" />
+                </entry>
+                <entry key="metadataConfiguration">
+                    <bean class="org.inra.ecoinfo.refdata.config.impl.MetadataConfiguration" />
+                </entry>
+                <entry key="datasetConfiguration">
+                    <bean class="org.inra.ecoinfo.dataset.config.impl.DatasetConfiguration" />
+                </entry>
+                <entry key="extractionConfiguration">
+                    <bean
+                        class="org.inra.ecoinfo.extraction.config.impl.ExtractionConfiguration" />
+                </entry>
+                <entry key="fileCompConfiguration">
+                    <bean class="org.inra.ecoinfo.filecomp.config.impl.FileCompConfiguration" />
+                </entry>
+                <entry key="systemConfiguration">
+                    <bean
+                        class="org.inra.ecoinfo.system.config.impl.SystemConfiguration" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="notificationsManager" class="org.inra.ecoinfo.notifications.impl.JSFNotificationManager">
+        <property name="utilisateurDAO" ref="utilisateurDAO"/>
+        <property name="notificationDAO" ref="notificationDAO"/>
+        <property name="messageProducer" ref="messageProducer"/>
+        <property name="configuration" ref="coreConfiguration"/>
+    </bean>
+    <bean id="chartFabrique" class="org.cnrs.osuc.snot.synthesis.impl.jfreechart.ChartFabrique">
+    </bean>
+    
+    <bean id="requestManager" class="org.cnrs.osuc.snot.identification.impl.RequestManager" parent="MO" >
+        <property name="configuration" ref="coreConfiguration"/>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="rightRequestDAO" ref="rightRequestSnotDAO"/>
+        <property name="utilisateurDAO" ref="utilisateurSnotDAO"/>
+    </bean>
+    <bean id="messageProducer" class="org.inra.ecoinfo.notifications.impl.PrimeFacesMessageProducer"/>
+    <bean id="mgaIOConfigurator" class="org.cnrs.osuc.snot.mga.configurator.MgaIOConfigurator" />
+
+    <!--JBP pour supprimer la partie extraction métadonnées-->
+    <!--    <bean id="helloFIFI" class="org.cnrs.osuc.snot.extraction.fluxmeteo.impl.HelloFifi">
+        <property name="jeuDAO" ref="jeuDAO" />
+    </bean> -->
+    
+    <!--    <util:list id="integrators" value-type="org.inra.ecoinfo.utils.AbstractIntegrator" >
+                <ref bean="fileCompIntegrator" />
+        <ref bean="genericDatatypeExtractionIntegrator" />
+        <ref bean="helloFIFI" />
+    </util:list>-->
+
+
+    <!--Ajout pour la 1912.01-->
+<!--    <util:map id="usersDeletionManagersMap" value-type="org.inra.ecoinfo.identification.IUsersDeletion">
+        <entry key="Notifications" value-ref="notificationsManager" />
+        <entry key="RightRequest" value-ref="requestManager" />
+        <entry key="Extraction" value-ref="extractionManager" />
+        <entry key="FileComp" value-ref="fileCompManager" />
+        <entry key="Dataset" value-ref="datasetManager" />
+    </util:map>-->
+
+
+</beans>

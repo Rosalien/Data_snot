@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+div.custom-rf-p table.footer {
+    width: 100%;
+}
+
+div.custom-rf-p {
+    color: #96B7D6;
+    border-width: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 320px;
+    margin-top: 20px;
+    box-shadow: 0px 0px 15px #898989;
+}
+
+.message {
+    text-align: left;
+    color: red;
+}
+
+form input[type="text"],form td {
+    text-align: left;
+}
+
+div.image-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    position: relative;
+}
+
+div.image-container img {
+    float: right;
+}

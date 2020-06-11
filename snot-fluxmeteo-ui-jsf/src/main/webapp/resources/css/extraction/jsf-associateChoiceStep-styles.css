@@ -1,0 +1,240 @@
+@CHARSET "UTF-8";
+
+.hidden {
+    display: none
+}
+
+.privilegesMapRights {
+    display: none !important;
+}
+
+.selectedRow {
+    background-color: rgba(243, 188, 115, 0.36) !important;
+}
+
+.even-row {
+    background-color: #FCFFFE;
+}
+
+.odd-row {
+    background-color: #ECF3FE;
+}
+
+.dataTable .collapsibleHeaderLeft  a{
+    display: inline;
+    margin-right: 10px;
+}
+
+.active-row {
+    background-color: #FFEBDA;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.important {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+table#fileCompComponent:filePanelManager:filesTable {
+    border: solid 2px rgb(163, 188, 224);
+}
+
+#fileCompComponent:filePanelManager:filesTable:h th {
+    text-align: left;
+    font-size: 16px;
+    padding-left: 22px;
+    border-bottom: solid 2px rgb(163, 188, 224);
+    border-top: solid 2px rgb(163, 188, 224);
+}
+
+.selectionFilter {
+    text-align: left;
+}
+
+.fileCompButtons {
+    float: right;
+}
+
+th td img {
+    vertical-align: middle;
+}
+
+th td * {
+    margin: 5px, 2px, 0px, 0px;
+}
+
+#mainPageTemplateContainer {
+    padding: 5px;
+}
+
+/*formulaire*/
+form[id$=filePanelManager] {
+    border: solid 3px rgb(182, 208, 230);
+}
+/*  header de filtres et recherche*/
+.filters {
+    width: 100%;
+}
+
+.filters td * {
+    margin: 5px;
+}
+
+.filters td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.filters .filterLeft {
+    width: 75%;
+    text-align: left;
+}
+
+.filters .filterRight {
+    width: 25%;
+    text-align: right;
+}
+/*  header de collapsible panel*/
+table[id$=filesTable],.subcontainer table[id$=filesTable].dataTable .rf-dt-c,table[id$=filesTable] *.rf-dt-c,table[id$=filesTable] *.rf-cp
+{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.collapsibleHeader {
+    width: 100%;
+}
+
+.collapsibleHeader td * {
+    margin: 5px, 2px, 0px, 0px;
+}
+
+.collapsibleHeader td {
+    padding: 5px, 5px, 0px, 0px;
+}
+
+.collapsibleHeader .collapsibleHeaderLeft {
+    width: 80%;
+    text-align: left;
+}
+
+.collapsibleHeader .collapsibleHeaderLeft .bold {
+    font-size: 120%;
+    font-weight: bold
+}
+
+.collapsibleHeader .collapsibleHeaderLeft .light {
+    color: #2F4357;
+    font-style: italic;
+    font-weight: normal
+}
+
+.collapsibleHeader .collapsibleHeaderRight {
+    width: 20%;
+    text-align: center;
+}
+/*  header de collapsible panel cotnent*/
+.collapsedItem {
+    width: 100%;
+}
+
+.collapsedItem td * {
+    margin: 5px;
+}
+
+.collapsedItem td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.collapsedItem .collapsedItemLeft {
+    width: 20%;
+    text-align: right;
+    font-size: 120%;
+    font-weight: bold
+}
+
+.collapsedItem .collapsedItemRight {
+    width: 80%;
+    text-align: left;
+    color: #2F4357;
+    font-style: italic;
+    font-weight: normal
+}
+/* titre*/
+.tableTitle {
+
+}
+
+.tableTitleText {
+    text-align: center;
+    position: relative;
+    background-color: white;
+    margin: 10px;
+    font-size: 135%;
+    font-weight: bolder;
+}
+
+.datatable {
+    border: none;
+}
+
+*.rf-p-hdr {
+    background-color: transparent;
+}
+
+.file-comp_even-row *.rf-p-hdr {
+    background-image:
+        url("#{resource['images/org/inra/ecoinfo/filecomp:gradientB.png']}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.file-comp_odd-row *.rf-p-hdr {
+    background-image:
+        url("#{resource['images/org/inra/ecoinfo/filecomp:gradientA.png']}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.file-comp_odd-row:HOVER *.rf-p-hdr {
+    background-position: initial;
+}
+
+.file-comp_even-row:HOVER *.rf-p-hdr {
+    background-position: initial;
+}
+
+label.mandatory:before, span.mandatory:before {
+    content: "*";
+    color: red;
+    margin: 9px;
+    font-size: 200%;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.buttonPopupNewFile span.rf-fu-btn-add:after {
+    content: "*";
+    color: red;
+    margin: 9px;
+    font-size: 174%;
+    vertical-align: text-bottom;
+    font-weight: bold;
+}
+
+.togglePanel div.rf-p-b:NOT(.show){
+    display: none;
+}
+.datatble{
+    width: :100%;
+}
+.filterRight ,td.collapsibleHeaderRight {
+    width: 10%;
+    text-align: center;
+}

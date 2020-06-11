@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Test_bddprod</actionName>
+            <displayName>Test_bddprod</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <tests.jdbc.url>jdbc:postgresql://localhost:5432/sno</tests.jdbc.url>
+                <tests.jdbc.username>snouser</tests.jdbc.username>
+                <tests.jdbc.password>sno001</tests.jdbc.password>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>only-concordion</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

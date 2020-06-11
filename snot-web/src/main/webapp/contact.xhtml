@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="/templates/template.xhtml">
+
+            <ui:define name="title">
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.mentions" var="mentions" />
+                #{mentions.PROPERTY_MSG_MENTION_LEGALE}
+            </ui:define>
+            <ui:define name="body">
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.mentions" var="mentions" />
+                <h1>
+                    <h:panelGroup styleClass="navigation">
+
+                        <h:panelGroup styleClass="navigationItem">
+                            <p:graphicImage name="images/home.png" />
+                            <h:outputLink value="index.jsf">#{index.PARAM_MSG_BREADCRUMBS}</h:outputLink>
+                        </h:panelGroup>
+                        <h:panelGroup styleClass="navigationItem">#{mentions.PARAM_MSG_CONTACT_BREADCRUMBS}</h:panelGroup>
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="title">
+                        <p:graphicImage name="images/refdata.png" />
+                        <h:outputText value="#{mentions.PARAM_MSG_CONTACT_TITLE}" />
+                    </h:panelGroup>
+                </h1>
+                <h:form class="intro">
+                    <h:panelGroup layout="block">
+                        <p>#{mentions.PARAM_MSG_CONTACT_SOERE} <h:outputLink style="display: inline" value="mailto:#{mentions.PARAM_MSG_MAIL_SOERE}"><h:outputText value="#{mentions.PARAM_MSG_MAIL_SOERE}" /></h:outputLink></p>
+                        <p>#{mentions.PARAM_MSG_CONTACT_SI} <h:outputLink style="display: inline" value="mailto:#{mentions.PARAM_MSG_MAIL_SI}"><h:outputText value="#{mentions.PARAM_MSG_MAIL_SI}" /></h:outputLink></p>					
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+
+</html>

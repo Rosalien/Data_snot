@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:outputStylesheet library="css/extraction" name="#{css}" />
+<f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+		var="choiceStep" />
+<f:loadBundle var="datesStep"
+	basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.datesStep"></f:loadBundle>
+<f:param name="panelNumber"></f:param>
+
+<a4j:jsFunction name="changeFormat"
+	execute="@this, myRadio"
+	render="format,panelChoiceDate,parametersRequest,step3Valid,messageWarningStep3,nextStepButton"
+	limitRender="true">
+</a4j:jsFunction>
+<a4j:jsFunction name="changeDate"
+	execute="@this,dateStart, dateEnd"
+	render="format,panelChoiceDate,parametersRequest,step3Valid,messageWarningStep3,nextStepButton"
+	limitRender="true">
+</a4j:jsFunction>
+<h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_CHOOSE_FREQUENCE}" />
+<h:selectOneRadio id="myRadio" onchange="changeFormat()"
+	value="#{uiBean.parametersRequest.datesForm1ParamVO.rythme}">
+	<f:selectItems
+		value="#{uiBean.parametersRequest.datesForm1ParamVO.frequences}"
+		var="frequence" itemLabel="#{frequence.key}"
+		itemValue="#{frequence.value}" />
+</h:selectOneRadio>
+
+<h:panelGroup id="panelChoiceDate">
+	<h:panelGroup id="messageWarningStep3"
+		rendered="#{not uiBean.parametersRequest.dateStepIsValid}">
+		<h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_CHOOSE_DATES}"
+			styleClass="selectionEmpty" />
+		<h:outputText value=" : " />
+		<h:outputText id="format"
+			value="  #{choiceStep.MSG_FREQ_DATE_STEP_FORMAT_DATEBis} #{uiBean.parametersRequest.datesForm1ParamVO.dateFormatPatternToLowerCase}" />
+	</h:panelGroup>
+	<h:panelGrid styleClass="wrapper" columns="3">
+		<h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_DATE_DEBUT}" />
+		<h:outputText value=" : " />
+		<h:inputText id="dateStart"
+			onkeyup="if($('[input[id$=dateStart]')[0].value.length == ('m'==$(&quot;:radio[checked='checked']&quot;)[0].value?7:10) &amp;&amp; $('[input[id$=dateEnd]')[0].value.length == ('m'==$(&quot;:radio[checked='checked']&quot;)[0].value?7:10)) changeDate()"
+			onchange="changeDate()"
+			value="#{uiBean.parametersRequest.datesForm1ParamVO.dateStart}" />
+		<h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_DATE_FIN}" />
+		<h:outputText value=" : " />
+		<h:inputText id="dateEnd"
+			onkeyup="if($('[input[id$=dateStart]')[0].value.length == ('m'==$(&quot;:radio[checked='checked']&quot;)[0].value?7:10) &amp;&amp; $('[input[id$=dateEnd]')[0].value.length == ('m'==$(&quot;:radio[checked='checked']&quot;)[0].value?7:10)) changeDate()"
+			onchange="changeDate()"
+			value="#{uiBean.parametersRequest.datesForm1ParamVO.dateEnd}" />
+	</h:panelGrid>
+</h:panelGroup>
+</html>

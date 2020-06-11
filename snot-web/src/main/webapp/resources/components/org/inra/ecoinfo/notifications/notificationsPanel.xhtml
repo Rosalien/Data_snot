@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+        <composite:attribute name="nom" required="false" />
+    </composite:interface>
+    <composite:implementation id="notificationPanel" >
+        <f:loadBundle
+            basename="org.inra.ecoinfo.notifications.jsf.notification"
+            var="notificationPanel" />
+        <!--<h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-notificationsPanel-stylesSnot.css" />-->
+        <h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-notificationsPanel-stylesAdmin.css" />
+
+
+        <h:form id="notificationsPanelMain" >
+            <p:remoteCommand name="reloadNotificationsInformations"
+                             async="false"
+                             actionListener="#{uiNotifications.reloadNotifications()}"
+                             />
+        </h:form>
+
+        <!--Popup confirmation de la suppression des messages        -->
+        <p:dialog id="popupConfirmationDeleteAllNotifications"  modal="true" widgetVar="notificationDeleteAll" appendTo="@(body)">
+            <h:form id="notificationsPanelForm">
+                <f:facet name="header">
+                    <h:outputText escape="false"
+                                  value="#{notificationPanel.PARAM_MSG_ALERT_CONFIRM}" />
+                </f:facet>
+                <f:facet name="controls">
+                    <p:graphicImage name="images/close.png"
+                                    styleClass="logout"
+                                    onclick="PF('notificationDeleteAll').hide();
+                                            return false;" />
+                </f:facet>
+                <p:panel >
+                    <p>
+                        <h:outputText
+                            value="#{notificationPanel.PARAM_MSG_ALERT_DELETE_ALL}"
+                            escape="false" />
+                    </p>
+                    <p:panel  styleClass="logoutButtons">
+                        <p:commandButton value="#{notificationPanel.PARAM_MSG_CONFIRM}"
+                                         action="#{uiNotifications.deleteAllNotifications}" process="@this"
+                                         partialSubmit="true"
+                                         update="#{p:component('notificationsPanel')},#{p:component('mailCounter')}"
+                                         onstart="PF('notificationDeleteAll').hide()" />
+                        <p:commandButton value="#{notificationPanel.PARAM_MSG_CANCEL}"
+                                         oncomplete="PF('notificationDeleteAll').hide(); return false;"
+                                         process="@none" update="@none" partialSubmit="true" />
+                    </p:panel>
+                </p:panel>
+            </h:form>
+        </p:dialog><!--Fin du popup confirmation de la suppression des messages        -->
+
+
+        <p:socket onMessage="handleNewNotification" channel="/notify/#{uiIdentification.connectedLogin}"
+                  fallbackTransport="websocket" onTransportFailure="console.log(xhr)"
+                  transport="long-polling"
+                  autoConnect="true" />
+
+        <!--Voir l'effet de ces dimensions-->
+        <p:dialog id="messagesDashboard" modal="true" widgetVar="notificationMessage"
+                  minWidth="400" minHeight="200"
+                  styleClass="messagesDashboard" appendTo="@(body)">
+            <f:facet name="header">
+                <h:outputText escape="false"
+                              value="#{notificationPanel.PARAM_MSG_INTERFACE_NOTIF}" />
+            </f:facet>
+
+            <!--Pour fermer la fenêtre-->
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png"
+                                styleClass="logout"
+                                onclick="PF('notificationMessage').hide();
+                                        return false;" />
+            </f:facet>
+
+
+            <!--Panneau pour gérer les messages-->
+            <h:form id="notificationsPanelmessagesDashboard">
+                <p:panel styleClass="notificationsPanel"
+                         id="notificationsPanel">
+
+                    <!--<p:panel styleClass="controlsNotificationsPanel" >-->
+                    <!-- Pour supprimer les messages-->
+                    <p:panel visible="true" header= "#{notificationPanel.PARAM_MSG_MANAGMENT_NOTIF}" style="font-size: 16px" styleClass="panelControlsRefdataNotifications" >
+                        
+                        <p:panel styleClass="control"
+                                 rendered="#{not empty uiNotifications.notifications}" >
+
+                            <!-- Pour afficher uniquement les nouveaux messages-->
+
+                            <h:form id="metadataManagement"  >
+                                <p:selectBooleanCheckbox
+                                    label="#{notificationPanel.PARAM_MSG_SHOW_ONLY_NEW_MSGS}"
+                                    itemLabel="#{notificationPanel.PARAM_MSG_SHOW_ONLY_NEW_MSGS}"
+                                    valueChangeListener="#{uiNotifications.switchMessagesDisplay}"
+                                    id="displayAllMessagesCheckbox" >
+                                    <p:ajax event="valueChange" process="displayAllMessagesCheckbox"
+                                            update="#{p:component('notificationsPanel')}" />
+                                </p:selectBooleanCheckbox>
+                            </h:form> 
+                         
+                            <p:graphicImage value="#{resource['images/check.png']}" />
+                            <p:commandLink process="@this"
+                                           update="#{p:component('notificationsPanel')},#{p:component('mailCounter')}"
+                                           action="#{uiNotifications.markAllAsRead}" partialSubmit="true"
+                                           value="#{notificationPanel.PARAM_MSG_MARK_ALL_AS_READ}">
+                                <p:tooltip styleClass="tooltip" showDelay="0">
+                                    <h:outputText
+                                        value="#{notificationPanel.PARAM_MSG_MARK_ALL_AS_READ}" />
+                                </p:tooltip>
+                            </p:commandLink>                         
+                        </p:panel>
+
+                        <p:panel styleClass="control disabled"
+                                 rendered="#{empty uiNotifications.notifications}" >
+                            <p:graphicImage
+                                value="#{resource['images/remove_selection.png']}" />
+                            <h:outputText value="#{notificationPanel.PARAM_MSG_DELETE_ALL}" />
+                        </p:panel>
+                        
+<!--                        Panel pour supprimer les messages            -->
+                        <p:panel styleClass="control"
+                                 rendered="#{not empty uiNotifications.notifications}" >
+                                                        <p:graphicImage
+                                value="#{resource['images/remove_selection.png']}" />
+                            <p:commandLink process="@none"
+                                           update="selectedNotificationBody"
+                                           oncomplete="PF('notificationDeleteAll').show()"
+                                           partialSubmit="true"
+                                           value="#{notificationPanel.PARAM_MSG_DELETE_ALL}">
+                                <p:tooltip styleClass="tooltip" showDelay="0">
+                                    <h:outputText
+                                        value="#{notificationPanel.PARAM_MSG_DELETE_ALL_MESSAGES}" />
+                                </p:tooltip>
+                            </p:commandLink>
+                        </p:panel>
+
+                        <p:panel styleClass="control disabled"
+                                 rendered="#{empty uiNotifications.notifications}" >
+                            <p:graphicImage value="#{resource['images/check.png']}" />
+                            <h:outputText
+                                value="#{notificationPanel.PARAM_MSG_MARK_AS_READ}" />
+                        </p:panel>
+                    </p:panel><!--Fin du Panneau pour la gestion des messages-->   
+
+                    <h:panelGrid columns="2" style="width: 100%" columnClasses="forty-percent top-alignment, sixty-percent top-alignment">
+                        <p:panel id="panellistmessage" header="#{notificationPanel.PARAM_MSG_LIST_NOTIF}" style="min-height: 350px; font-size: 16px ">
+                            <!--Table contenant les messages-->                    
+                            <p:panel visible = "true" styleClass="main" id="leftNotificationsPanel">
+                                <p:dataTable var="notification" rows="10" scrollable="true" reflow="true" resizableColumns="true"
+                                             value="#{uiNotifications.notifications}" id="notificationsTable" scrollHeight="true" 
+                                             styleClass="dataTable"
+                                             emptyMessage="#{uiNotifications.displayNewMessages? notificationPanel.PARAM_MSG_NO_NEW_MSG:notificationPanel.PARAM_MSG_NO_MSG}" >
+                                    <!--                                Colonne "date"-->
+                                    <p:column id="dateColumn" styleClass="date" style="width: 100px">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{notificationPanel.PARAM_MSG_DATE}" />
+                                        </f:facet>
+                                        <h:outputText value="#{notification.date}" style="white-space:none !important;"
+                                                      styleClass="message #{notification.archived ?'notification-archived':'new-notification'}" />
+                                    </p:column>
+                                    <!--                                Colonne "entête de message"-->
+                                    <p:column id="abstractColumn" style="width: 275px"
+                                              styleClass="message #{notification.level == 'error'?'red':''} #{not empty notification.body ?'detail':''}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                value="#{notificationPanel.PARAM_MSG_HEADER_MESSAGE}"
+                                                escape="false" />
+                                        </f:facet>
+                                        <p:commandLink id="messageNotArchived"
+                                                       update="#{p:component('leftNotificationsPanel')},#{p:component('mailCounter')},#{p:component('messageDetails')}"
+                                                       rendered="#{!notification.archived}" process="@this"
+                                                       action="#{uiNotifications.markAsRead}">
+                                            <p:tooltip styleClass="tooltip" showDelay="0">
+                                                <h:outputText value="#{notificationPanel.PARAM_MSG_MSG_READ}" />
+                                            </p:tooltip>
+                                            <h:outputText value="#{notification.message}"
+                                                          styleClass="message new-notification" />
+                                            <f:setPropertyActionListener
+                                                target="#{uiNotifications.selectedNotification}"
+                                                value="#{notification}" />
+                                        </p:commandLink>
+
+                                        <p:commandLink id="messageArchived" update="#{p:component('messageDetails')}"
+                                                       rendered="#{notification.archived}" process="@this">
+                                            <p:tooltip styleClass="tooltip" showDelay="0">
+                                                <h:outputText value="#{notificationPanel.PARAM_MSG_MSG_READ}" />
+                                            </p:tooltip>
+                                            <h:outputText value="#{notification.message}"
+                                                          class="notification-archived"/>
+                                            <f:setPropertyActionListener
+                                                target="#{uiNotifications.selectedNotification}"
+                                                value="#{notification}" />
+                                        </p:commandLink>
+                                    </p:column>
+                                    <p:tooltip for="abstractColumn" value="#{notification.message}"  showDelay="1000" hideDelay="2500"/>
+                                    <!--                                Colonne "actions possibles"-->
+                                    <p:column style="width: 60px;font-size: 16px"  id="bodyColumn">
+                                        <f:facet name="header">
+                                            <h:outputText style="white-space: pre-line;"
+                                                          value="#{notificationPanel.PARAM_MSG_POSSIBLES_ACTIONS}" />
+                                        </f:facet>
+                                        <div  class="ui-g">
+                                            <span class="ui-g-6 ui-md-3">
+                                                <p:graphicImage name="images/info.png"
+                                                                styleClass="disabled" rendered="#{empty notification.body}" />
+
+                                                <p:commandLink id="infoNotification" update="#{p:component('messageDetails')}"
+                                                               rendered="#{not empty notification.body}" process="@this">
+                                                    <p:graphicImage name="images/info.png" />
+
+                                                    <f:setPropertyActionListener
+                                                        target="#{uiNotifications.selectedNotification}"
+                                                        value="#{notification}" />
+                                                </p:commandLink>
+                                                <p:tooltip styleClass="tooltip" rendered="#{not empty notification.body}"
+                                                           value="#{notificationPanel.PARAM_MSG_SHOW_DETAIL}"
+                                                           showDelay="0" for="infoNotification" />
+                                            </span>
+                                            <span class="ui-g-6 ui-md-3">
+                                                <p:graphicImage name="images/attach.png"
+                                                                rendered="#{notification.attachment == ''}"
+                                                                styleClass="disabled" />
+                                                <h:outputLink id="linkAttachment" rendered="#{notification.attachment != ''}"
+                                                              value="downloadAttachmentNotification">
+                                                    <f:param name="idnotification" value="#{notification.id}" />
+
+                                                    <p:graphicImage name="images/attach.png" />
+
+                                                    <p:tooltip styleClass="tooltip" 
+                                                               showDelay="0" for="#{p:component('linkAttachment')}">
+                                                        <h:outputText
+                                                            value="#{notificationPanel.PARAM_MSG_DOWNLOAD} #{uiNotifications.selectedNotification.bodyTroncate?notificationPanel.PARAM_MSG_WHOLE:''} #{notificationPanel.PARAM_MSG_BODY_CONTENT}" />
+                                                    </p:tooltip>
+                                                </h:outputLink>
+                                            </span>
+                                            <!--                                        A priori, panneau de la table date/entete/actionsPossibles-->
+                                            <span class="ui-g-6 ui-md-3">
+                                                <p:commandLink id="deleteNotification"
+                                                               update="#{p:component('leftNotificationsPanel')},#{p:component('selectedNotificationBody')},#{p:component('mailCounter')}"
+                                                               process="@this"
+                                                               action="#{uiNotifications.deleteNotification}">
+                                                    <p:tooltip styleClass="tooltip"
+                                                               showDelay="0" for="deleteNotification">
+                                                        <h:outputText value="#{notificationPanel.PARAM_MSG_DELETE}" />
+                                                    </p:tooltip>
+                                                    <p:graphicImage name="images/delete.png" />
+
+                                                    <f:setPropertyActionListener
+                                                        target="#{uiNotifications.selectedNotification}"
+                                                        value="#{notification}" />
+                                                </p:commandLink>
+                                            </span>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:panel>
+                        <p:panel id="selectedNotificationBody" header="#{notificationPanel.PARAM_MSG_BODY}" style="min-height: 350px; font-size: 16px">                            
+                            <!--Panneau "contenu du message"-->                                                                          
+                            <p:panel styleClass="messageDetails"
+                                     id="messageDetails" >
+                                <h:outputText styleClass="messageDetailsBody"
+                                              value="#{uiNotifications.selectedNotificationTroncateText}"
+                                              escape="false" />
+                                <h:outputText
+                                    value="#{uiNotifications.selectedNotification.bodyTroncate and  '' ne uiNotifications.selectedNotificationTroncateText?'...':''}"
+                                    escape="false" styleClass="body" />                                
+                                <p:panel styleClass="messageDetailsButtonsBar" rendered="#{uiNotifications.selectedNotification.bodyLength>10}">
+                                    <h:outputLink id="linkBodyAttachment"
+                                                  value="downloadBodyNotification">
+                                        <f:param name="idnotification"
+                                                 value="#{uiNotifications.selectedNotification.id}" />
+                                        <f:param name="language"
+                                                 value="#{uiLocalization.locale.language}" />
+                                        <h:outputText
+                                            value="#{notificationPanel.PARAM_MSG_DOWNLOAD} #{uiNotifications.selectedNotification.bodyTroncate?notificationPanel.PARAM_MSG_WHOLE:''} #{notificationPanel.PARAM_MSG_BODY_CONTENT}"
+                                            escape="false" />
+                                        <p:graphicImage name="images/attach.png" />
+                                    </h:outputLink>
+                                </p:panel>
+                            </p:panel>
+                            <!--Fin du panneau "contenu du message"-->
+                        </p:panel>
+                    </h:panelGrid>    
+                    <!--Fin de la table contenant les messages-->
+
+
+                </p:panel>
+            </h:form>
+        </p:dialog>
+
+    </composite:implementation>
+</html>

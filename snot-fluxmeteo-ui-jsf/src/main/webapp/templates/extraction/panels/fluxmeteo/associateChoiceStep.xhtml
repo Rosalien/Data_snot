@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:notifications="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/notifications"
+      xmlns:identification="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/identification"
+      xmlns:popups="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/popups">
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+                  var="choiceStep" />
+    <h:outputStylesheet library="css/extraction" name="#{css}" />
+    <h:outputStylesheet library="css/extraction" name="jsf-associateChoiceStep-styles.css" />
+
+    <script language="javascript" type="">
+        var PARAM_MSG_COLLAPSE="#{securityTreePanel.PARAM_MSG_COLLAPSE}";
+        var PARAM_MSG_EXPAND="#{securityTreePanel.PARAM_MSG_EXPAND}";
+        var togglePanel=function(link, event){
+        link=$(link);
+        var img = link.find('img');
+        if(img.prop('src').match('collapsed')!=null){
+        img.prop('src',img.prop('src').replace('collapsed','expanded'))
+        }else{
+        img.prop('src',img.prop('src').replace('expanded','collapsed'))
+        }
+        link.parents('.togglePanel').find('.rf-p-b').toggleClass('show');
+        };
+    </script>
+    <f:loadBundle
+        basename="org.inra.ecoinfo.filecomp.jsf.fileCompManagementPanel"
+        var="fileCompManagementPanel" />
+
+    <a4j:jsFunction name="selectAssociate" execute="@this,parametersRequest"
+                    action="#{uiBean.selectAssociate}"
+                    render="listAssociates,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2"
+                    limitRender="true">
+        <a4j:param name="param1" assignTo="#{uiBean.idAssociateSelected}" />
+    </a4j:jsFunction>
+
+    <h:panelGroup id="messageWarningStep5">
+        <h:outputText value="choisissez des fichiers associés"
+                      rendered="#{not uiBean.parametersRequest.variableStepIsValid}"
+                      styleClass="selectionEmpty" />
+    </h:panelGroup>
+
+    <h:panelGroup styleClass="panelControlsWrapper" layout="block">
+        <h:panelGroup styleClass="panelControls">
+            <h:panelGroup styleClass="control">
+                <a4j:commandLink execute="@this,parametersRequest"
+                                 styleClass="buttonStepNext" limitRender="true"
+                                 action="#{uiBean.addAllAssociates}"
+                                 render="listAssociates,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2">
+                    <h:graphicImage value="#{resource['images:add.png']}" />
+                    <h:outputText value="#{choiceStep.MSG_PANEL_CONTROL_ADD}" />
+                </a4j:commandLink>
+            </h:panelGroup>
+            <h:panelGroup styleClass="control">
+                <a4j:commandLink execute="@this,parametersRequest"
+                                 styleClass="buttonStepNext" limitRender="true"
+                                 action="#{uiBean.removeAllAssociates}"
+                                 render="listAssociates,parametersRequest, prevStepButton, nextStepButton, validImage, messageWarningStep2">
+                    <h:graphicImage value="#{resource['images:remove_selection.png']}" />
+                    <h:outputText value="#{choiceStep.MSG_PANEL_CONTROL_SUPP}" />
+                </a4j:commandLink>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <p class="intro">choisissez les fichier associés à l'extraction.</p>
+
+    <h:panelGroup id="listAssociates">
+        <h:panelGroup id="panelListFiles">
+            <rich:dataTable var="fileComp" value="#{uiBean.associatesAvailables}"
+                            rendered="#{uiBean.parametersRequest.variableStepIsValid}"
+                            id="filesTable" styleClass="dataTable"
+                            rowClasses="file-comp_odd-row, file-comp_even-row"
+                            onrowclick="$(this.parentElement).find('.file-comp_even-row, .file-comp_odd-row').removeClass('selected-row'); $(this).addClass('selected-row');">
+
+                <f:facet name="header">
+                    <h:panelGroup styleClass="tableTitle" layout="block">
+                        <!--h:outputText styleClass="tableTitleText"
+                                value="#{fileCompManagementPanel.PARAM_MSG_YOUR_SELECTION}" /-->
+                    </h:panelGroup>
+                </f:facet>
+                <rich:column headerClass="selectionFilter" styleClass="nom">
+                    <f:facet name="header">
+                        <h:panelGrid styleClass="filters" columns="2"
+                                     columnClasses="filterLeft, filterRight"
+                                     rowClasses="odd-row, even-row">
+                            <h:panelGroup layout="inline">
+                                <h:outputText styleClass="tableTitleText"
+                                              value="#{fileCompManagementPanel.PARAM_MSG_YOUR_SELECTION}" />
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="nom" layout="inline">
+                                Obtenir le fichier avec l'extraction
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </f:facet>
+                    <rich:panel id="togglePanel" styleClass="togglePanel collapsed"
+                                rendered="#{fileComp.code!=''}">
+                        <f:facet name="header">
+                            <h:panelGrid columns="2" styleClass="collapsibleHeader"
+                                         columnClasses="collapsibleHeaderLeft,collapsibleHeaderRight">
+                                <h:panelGroup>
+                                    <a4j:commandLink styleClass="imageLink"
+                                                     onclick="togglePanel(this, event)">
+                                        <h:graphicImage
+                                            value="#{resource['images:icon_collapsed.png']}" />
+                                    </a4j:commandLink>
+                                    <h:outputText styleClass="bold"
+                                                  value="#{fileComp.originalFileName}" />
+                                    <h:outputText styleClass="light"
+                                                  value=" &gt; #{fileComp.shortDescription}" />
+                                </h:panelGroup>
+                                <h:panelGroup id="checkBoxesPanel" styleClass="img" style="text-align:left">
+                                    <h:selectBooleanCheckbox value="#{fileComp.selected}" rendered="#{not fileComp.mandatory}"
+                                                             onclick="selectAssociate(#{fileComp.id})" />
+                                    <h:outputText value="#{fileCompManagementPanel.PARAM_MSG_MANDATORY_SIMPLE}" rendered="#{fileComp.mandatory}" />
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </f:facet>
+                        <h:panelGrid styleClass="collapsedItem" columns="2"
+                                     columnClasses="collapsedItemLeft,collapsedItemRight">
+
+                            <h:outputLabel>#{fileCompManagementPanel.PROPERTY_MSG_DESCRIPTION}</h:outputLabel>
+                            <h:outputText value="#{fileComp.description}" />
+                            <h:outputLabel>#{fileCompManagementPanel.PARAM_MSG_VALIDITY_FROM} </h:outputLabel>
+                            <h:outputText rendered="#{fileComp.dateDebut!=null}"
+                                          value="#{fileComp.dateDebut}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText rendered="#{fileComp.dateDebut==null}"
+                                          value="date de début de validité non définie " />
+                            <h:outputLabel>#{fileCompManagementPanel.PARAM_MSG_VALIDITY_TO} </h:outputLabel>
+                            <h:outputText rendered="#{fileComp.dateFin!=null}"
+                                          value="#{fileComp.dateFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText rendered="#{fileComp.dateFin==null}"
+                                          value="date de fin de validité non définie " />
+                            <h:outputLabel>#{fileCompManagementPanel.PARAM_MSG_UPLOADER}</h:outputLabel>
+                            <h:outputText value="#{fileComp.createUserName}" />
+                            <h:outputLabel>#{fileCompManagementPanel.PARAM_MSG_DATE}</h:outputLabel>
+                            <h:outputText value="#{fileComp.createDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputLabel>#{fileCompManagementPanel.PARAM_MSG_LAST_UPLOADER}</h:outputLabel>
+                            <h:outputText value="#{fileComp.lastModifyUserName}" />
+                            <h:outputLabel>#{fileCompManagementPanel.PARAM_MSG_LAST_MODIFY_DATE} </h:outputLabel>
+                            <h:outputText value="#{fileComp.lastModifyDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputLabel>#{fileCompManagementPanel.PROPERTY_MSG_SIZE_FILE}</h:outputLabel>
+                            <h:outputText value="#{fileComp.size}" />
+                            <h:outputLabel>&nbsp;</h:outputLabel>
+                            <h:outputText rendered="#{fileComp.mandatory}"
+                                          value="#{fileComp.mandatory?fileCompManagementPanel.PARAM_MSG_MANDATORY:fileCompManagementPanel.PARAM_MSG_NOT_MANDATORY}" />
+                        </h:panelGrid>
+                    </rich:panel>
+                </rich:column>
+            </rich:dataTable>
+
+            <h:panelGroup layout="block" styleClass="dataTable-scroller">
+                <rich:dataScroller for="filesTable" />
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+</html>

@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+.summary .right {
+    font-weight: bold;
+}
+
+.summary {
+    float: right;
+    border: 1px #96B7D6 solid;
+    background-color: #F5F9FE;
+    padding: 5px 5px 5px 5px;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.summary .login {
+    color: green;
+}

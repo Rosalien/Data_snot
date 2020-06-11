@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:outputStylesheet library="css/extraction" name="#{css}" />
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+                  var="choiceStep" />
+    <f:loadBundle var="datesStep"
+                  basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.datesStep"></f:loadBundle>
+    <f:param name="panelNumber"></f:param>
+
+    <a4j:jsFunction name="changeFormat"
+                    execute="@this, myRadio"
+                    render="format,panelChoiceDate,parametersRequest,step3Valid,messageWarningStep3,nextStepButton"
+                    limitRender="true">
+        <a4j:param name="param1" assignTo="#{uiBean.parametersRequest.datesForm1ParamVO.dateStart}"></a4j:param>
+        <a4j:param name="param2" assignTo="#{uiBean.parametersRequest.datesForm1ParamVO.dateEnd}"></a4j:param>
+    </a4j:jsFunction>
+
+    <a4j:jsFunction name="changeCalendarDateStart"
+                    execute="@this,dateStart"
+                    render="format,panelTextFieldDate1,parametersRequest,step2Valid,messageWarningStep3,nextStepButton"
+                    limitRender="true">
+    </a4j:jsFunction>
+
+    <a4j:jsFunction name="changeCalendarDateEnd"
+                    execute="@this,dateEnd"
+                    render="format,panelChoiceDate,parametersRequest,step2Valid,messageWarningStep3,nextStepButton"
+                    limitRender="true">
+    </a4j:jsFunction>
+
+    <h:panelGroup>
+        <h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_CHOOSE_FREQUENCE}" styleClass="message"/>
+        <h:selectOneRadio id="myRadio" onchange="changeFormat('', '')"
+                          value="#{uiBean.parametersRequest.datesForm1ParamVO.rythme}" styleClass="message">
+            <f:selectItems
+                value="#{uiBean.parametersRequest.datesForm1ParamVO.frequences}"
+                var="frequence" itemLabel="#{frequence.key}"
+                itemValue="#{frequence.value}" />
+        </h:selectOneRadio>
+    </h:panelGroup>
+    <h:panelGroup id="panelChoiceDate">
+        <br/>
+        <h:panelGroup id="messageWarningStep3">
+            <h:panelGrid styleClass="wrapper" columns="4" columnClasses="message,dateFormat1, dateFormat,dateFormat1">	
+                <h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_CHOOSE_DATES}" />		
+                <h:outputLabel id="formatLabelDeb"
+                               value="#{choiceStep.MSG_FREQ_DATE_STEP_FORMAT_DATE}"/>
+                <h:outputText id="format" value="#{uiBean.parametersRequest.datesForm1ParamVO.dateFormatPattern}" />
+                <h:outputLabel value=")" id="formatlabelFin"/>
+            </h:panelGrid>
+        </h:panelGroup>
+        <h:panelGrid styleClass="wrapper" columns="4">
+            <h:panelGroup id="panelCalendarDateStart" >
+                <h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_DATE_DEBUT}" styleClass="message"/>
+                <rich:calendar id="dateStart" 
+                               value="#{uiBean.parametersRequest.datesForm1ParamVO.dateStart}"
+                               popup="true"	
+                               enableManualInput="true"
+                               showFooter="true"
+                               horizontalOffset="140"
+                               verticalOffset="-165"
+                               showInput="true"
+                               showWeekDaysBar="true"
+                               showWeeksBar="false"
+                               datePattern="#{uiBean.parametersRequest.datesForm1ParamVO.rythme=='m'?'MM/yyyy':'dd/MM/yyyy'}"
+                               converter="#{uiBean.converter}"
+                               oninputblur="changeCalendarDateStart()"
+                               timeZone="#{uiBean.timeZone}">	
+                </rich:calendar>
+            </h:panelGroup>
+
+            <h:panelGroup id="panelCalendarDateEnd" >		
+                <h:outputText value="#{choiceStep.MSG_FREQ_DATE_STEP_DATE_FIN}"  styleClass="message"/>
+
+                <rich:calendar id="dateEnd" value="#{uiBean.parametersRequest.datesForm1ParamVO.dateEnd}" 
+                               popup="true"	
+                               enableManualInput="true"
+                               showFooter="true"
+                               horizontalOffset="140"
+                               verticalOffset="-165"
+                               showInput="true"
+                               showWeekDaysBar="true"
+                               showWeeksBar="false"
+                               datePattern="#{uiBean.parametersRequest.datesForm1ParamVO.rythme=='m'?'MM/yyyy':'dd/MM/yyyy'}"
+                               converter="#{uiBean.converter}"
+                               oninputblur="changeCalendarDateEnd()"
+                               timeZone="#{uiBean.timeZone}">	
+                </rich:calendar>
+            </h:panelGroup>	
+
+        </h:panelGrid>
+    </h:panelGroup>
+</html>

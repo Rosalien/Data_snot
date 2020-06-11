@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    
+    <!--<menuEntry label="PROPERTY_LABEL_DATA_SYNTHESIS_TITLE" icon="icon_search_menu.png">-->
+        <!--<menuEntry label="PROPERTY_LABEL_DATA_SYNTHESIS" icon="synthesis.png" comment="PROPERTY_COMMENT_DATA_SYNTHESIS" permissions="synthese" action="uiSynthesis.navigate" directAction="synthesis" resources="*" codeConf="5"/>-->
+                <!--Nouvelle synthèse avec sortie organisation par variable-->
+        <!--<menuEntry label="Synthèse par type de données" icon="synthesis.png" comment="Synthèse par type de données" permissions="synthese" action="uiSynthesis.navigate" directAction="synthesis" resources="*" codeConf="500"/>-->            
+    <!--</menuEntry>-->
+    
+    <!--<menuEntry label="PROPERTY_LABEL_CONSULTATION_DATA" icon="icon_search_menu.png">-->
+        <!--<menuEntry label="PROPERTY_LABEL_REQUEST_RIGHTS" icon="security-users.png" comment="PROPERTY_COMMENT_REQUEST_RIGHTS" action="uiRequestRights.navigate" directAction="requestRights"/>-->
+        <!--<menuEntry label="PROPERTY_LABEL_EXTRACT_FLOW_AND_METEO_LABEL" comment="PROPERTY_LABEL_EXTRACT_FLOW_AND_METEO_COMMENT" resources="*" permissions="extraction" codeConf="0" action="uiFluxMeteo.navigate" directAction="fluxMeteo"/>-->
+        <!--<menuEntry label="PROPERTY_LABEL_EXTRACTION_CLIMATSOL_DATASET" comment="PROPERTY_COMMENT_EXTRACTION_CLIMATSOL_DATASET" resources="E->(lgt/ec1:site/station||ldm/ec1:site/station||frn/ec1:site/station)" permissions="extraction" codeConf="0" action="uiMeteoSol.navigate"  directAction="meteosol"/>-->
+
+        <!--        Travail en cours-->
+        <!--<menuEntry label="Accès aux variables par site" comment="PROPERTY_COMMENT_EXTRACTION_CLIMATSOL_DATASET" resources="E->(lgt/ec1:site/station||ldm/ec1:site/station||frn/ec1:site/station)" permissions="extraction" codeConf="6" action="uiGenericdatatype.navigate"  directAction="genericDatatype"/>-->        
+        
+        <!--<menuEntry label="PROPERTY_LABEL_EXTRACTION_RESULTS" icon="search_results.png" comment="PROPERTY_COMMENT_EXTRACTION_RESULTS" resources="*" permissions="extraction" action="uiExtraction.navigate" directAction="extraction"/>-->        
+    <!--</menuEntry>-->
+ 
+    <menuEntry label="PROPERTY_LABEL_DATA_ADMIN" icon="dataset.png">
+        <menuEntry label="PROPERTY_LABEL_REF_DATA_MANAGEMENT" icon="refdata.png" comment="PROPERTY_COMMENT_REF_DATA_MANAGEMENT" action="uiRefdata.navigate" resources="*" permissions="telechargement,edition,suppression,administration" codeConf="3" directAction="refdata"/>
+        <menuEntry label="PROPERTY_LABEL_DATA_MANAGEMENT" icon="dataset.png" action="uiDataset.navigate" comment="PROPERTY_COMMENT_DATA_MANAGEMENT" permissions="administration,depot,publication,suppression" codeConf="200" directAction="dataset"/>            
+        <!--<menuEntry label="PROPERTY_LABEL_FILECOMP_MANAGEMENT" icon="dataset.png" comment="PROPERTY_COMMENT_FILECOMP_MANAGEMENT" action="uiFileComp.navigate" resources="*"  permissions="administration,depot,publication,suppression" codeConf="4" directAction="fileComp"/>-->
+    </menuEntry>
+
+    <menuEntry label="PROPERTY_LABEL_RIGHTS_AND_USERS_MANAGEMENT" icon="security-users.png">
+        <menuEntry label="PROPERTY_LABEL_USERS_MANAGEMENT" icon="security-users.png" comment="PROPERTY_COMMENT_USERS_MANAGEMENT" root="true" resources="*" permissions="administration" action="uiChangeProfile.navigateAll" directAction="changeProfiles"/>
+        <menuEntry label="PROPERTY_LABEL_REFDATA_RIGHTS_MANAGEMENT" icon="credential-user.png" comment="PROPERTY_COMMENT_REFDATA_RIGHTS_MANAGEMENT" resources="*" permissions="administration" codeConf="1" action="uiSecurityRefdata.navigate" directAction="securityRefdata"/>
+        <menuEntry label="PROPERTY_LABEL_DATA_RIGHTS_MANAGEMENT" icon="credential-user.png" comment="PROPERTY_COMMENT_DATA_RIGHTS_MANAGEMENT" resources="*" permissions="administration" codeConf="0" action="uiSecurityDataset.navigate" directAction="securityDataset"/>
+    </menuEntry>
+
+    <menuEntry label="PROPERTY_LABEL_USER_ACCOUNT" icon="security-users.png">
+        <menuEntry label="PROPERTY_LABEL_CHANGE_MY_PROFIL" icon="profile_user.png" comment="PROPERTY_COMMENT_CHANGE_MY_PROFIL" action="uiChangeProfile.navigate" directAction="changeProfile"/>
+        <menuEntry label="PROPERTY_LABEL_MANAGE_RIGHTS_DEMAND" icon="profile_user.png" comment="PROPERTY_COMMENT_MANAGE_RIGHTS_DEMAND" action="uiRequestRights.userNavigate" directAction="requestUsersRights"/>
+    </menuEntry>
+</menu>

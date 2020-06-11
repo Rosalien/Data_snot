@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor" >
+	<name>test</name>
+	<frequence>freq</frequence>
+	<en-tete>10</en-tete>
+        <variableName>variableName</variableName>
+        <undefined-column>3</undefined-column>
+        <sites>sites</sites>
+        <variableName>variable_name</variableName>
+        <undefined-column>2</undefined-column>
+	<column>
+		<name>date</name>
+		<not-null>false</not-null>
+		<value-type>date</value-type>
+		<variable>false</variable>
+		<format-type>dd/MM/yyyy</format-type>
+		<variable>false</variable>
+		<flag>true</flag>
+		<flag-type>date</flag-type>
+                <ref-variable-name>ref</ref-variable-name>
+	</column>
+	<column>
+		<name>CO2</name>
+		<not-null>true</not-null>
+		<value-type>float</value-type>
+		<variable>true</variable>
+		<flag>false</flag>
+		<flag-type>variable</flag-type>
+	</column>
+</dataset-descriptor>

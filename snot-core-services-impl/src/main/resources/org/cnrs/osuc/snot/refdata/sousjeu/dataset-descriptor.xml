@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+    <name>sousjeu</name>
+    <column>
+        <name>code_jeu</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>titre</name>
+        <not-null>false</not-null>
+    </column>
+    <column>
+        <name>doi</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>citation</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>titre_licence</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>url_licence</name>
+        <not-null>true</not-null>
+    </column>
+    
+    <column>
+        <name>date de début (JJ/MM/YYYY)</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>date de fin (JJ/MM/YYYY)</name>
+        <not-null>false</not-null>
+    </column>
+    
+</dataset-descriptor>

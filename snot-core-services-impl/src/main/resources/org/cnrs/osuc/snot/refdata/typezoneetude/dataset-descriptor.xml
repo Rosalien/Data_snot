@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+	<name>type_zone_etude</name>
+	<column>
+		<name>nom</name>
+		<not-null>true</not-null>
+		<localizable fieldName="tze_nom">true</localizable>
+	</column>
+	<column>
+		<name>définition</name>
+		<not-null>false</not-null>
+		<localizable fieldName="tze_definition">true</localizable>
+	</column>
+</dataset-descriptor>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+	<name>information complementaire</name>
+	<column>
+		<name>nom de l'information complémentaire</name>
+		<not-null>true</not-null>
+	</column>
+	<column>
+		<name>description de l'information complémentaire</name>
+		<not-null>false</not-null>
+		<localizable fieldName="description">true</localizable>
+	</column>
+	<column>
+		<name>nom de la liste de valeurs d'informations complémentaires</name>
+		<not-null>false</not-null>
+	</column>
+</dataset-descriptor>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <composite:interface>
+    </composite:interface>
+    <composite:implementation>
+
+        <!--<h:outputStylesheet name="css/org/inra/ecoinfo/menu/jsf-panelMenuDetails-stylesSnot.css" />-->
+        <h:outputStylesheet name="css/org/inra/ecoinfo/menu/jsf-panelMenuDetails-stylesAdmin.css" />
+        
+        <ui:repeat value="#{uiMenuDetails.menu(0).menuItems}" var="menuItem">
+
+            <h:panelGroup rendered="#{uiIdentification.currentUtilisateur!=null and  not menuItem.disabled}">
+                <p:panel styleClass="submenu"
+                     header="#{menuItem.label}">
+                    <ui:repeat value="#{menuItem.children}" var="menuItemLeaf">
+                        <p:outputPanel rendered="#{uiIdentification.currentUtilisateur!=null and  not menuItemLeaf.disabled}" styleClass="menuItem" layout="block">
+                            <h:form prependId="true">
+                                <h:commandLink action="#{menuItemLeaf.getDirectAction()}"
+                                               immediate="true" id="menuLink"
+                                               actionListener="#{uiMenu.menuListener}">
+
+                                    <p:graphicImage  name="images/./#{menuItemLeaf.icon}"
+                                                    rendered="#{menuItemLeaf.icon != null}" />
+                                    <h:outputText value="#{menuItemLeaf.label}" escape="false"/>
+                                    <f:attribute name="configurationNumber" value="#{menuItemLeaf.codeConf}" />
+                                    <f:attribute name="directAction" value="#{menuItemLeaf.getDirectAction()}" />
+                                </h:commandLink>
+
+                                <p:tooltip styleClass="tooltip" showDelay="500" trackMouse="true"
+                                           for="menuLink">
+                                    <h:outputText value="#{menuItemLeaf.comment}" />
+                                </p:tooltip>
+                            </h:form>
+
+                        </p:outputPanel>
+                    </ui:repeat>
+                </p:panel>
+
+
+            </h:panelGroup>
+        </ui:repeat>
+
+
+    </composite:implementation>
+
+</html>

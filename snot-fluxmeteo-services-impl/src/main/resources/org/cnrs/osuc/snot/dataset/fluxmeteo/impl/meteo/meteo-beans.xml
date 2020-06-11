@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    
+	<bean id="mesureMeteo_sh" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAMesureMeteo_shDAO" />
+	<bean id="mesureMeteo_j" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAMesureMeteo_jDAO" />
+	<bean id="mesureMeteo_m" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAMesureMeteo_mDAO" />
+	<bean id="valeurMeteo_sh" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAValeurMeteo_shTourDAO" />
+	<bean id="valeurMeteo_j" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAValeurMeteo_jTourDAO" />
+	<bean id="valeurMeteo_m" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAValeurMeteo_mTourDAO" />
+	<bean id="publicationMeteo_sh" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAPublicationMeteo_shDAO" />
+	<bean id="publicationMeteo_j" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAPublicationMeteo_jDAO" />
+	<bean id="publicationMeteo_m" class="org.cnrs.osuc.snot.dataset.meteo.jpa.JPAPublicationMeteo_mDAO" />
+
+        <bean id="expertEnteteMeteo" class="org.cnrs.osuc.snot.dataset.fluxmeteo.entete.SpecialisteEnteteMeteo" parent="fluxMeteoTestHeader">
+            <property name="siteSnotDAO" ref="siteSnotDAO" />
+            <property name="localizationManager" ref="localizationManager" />
+            <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).THEME_METEO}" />
+        </bean>
+               
+        <bean id="processRecordMeteo" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.meteo.ProcessRecordMeteo" parent="abstractProcessRecordFluxMeteo" abstract="true"/>
+        <!-- Pour Meteo_sh -->
+        <bean id="processRecordMeteo_if" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.meteo.ProcessRecordMeteo_if" parent="processRecordMeteo">
+            <property name="mesureMeteoDAO" ref="mesureMeteo_sh" />
+        </bean>
+        <bean id="deleteRecordMeteo_if" parent="deleteRecord">
+            <property name="publicationDAO" ref="publicationMeteo_sh" />
+        </bean>
+        
+    <bean id="expertEntetelMeteo_sh" parent="expertEnteteMeteo">
+        <property name="frequenceAttendu" value="#{T(org.cnrs.osuc.snot.utils.Constantes).FREQUENCE_NAME[0]}" />
+        <property name="formatRegexDate" value="#{T(org.cnrs.osuc.snot.utils.Constantes).REGEX_DATE}" />
+        <property name="nbColonnesIdentifiantes" >
+            <value type="int">2</value>
+        </property>
+    </bean>
+            
+    <bean id="expertEntetelMeteo_if" parent="expertEnteteMeteo">
+        <property name="frequenceAttendu" value="#{T(org.cnrs.osuc.snot.utils.Constantes).FREQUENCE_NAME[3]}" />
+        <property name="formatRegexDate" value="#{T(org.cnrs.osuc.snot.utils.Constantes).REGEX_DATE}" />
+        <property name="nbColonnesIdentifiantes" >
+            <value type="int">2</value>
+        </property>
+    </bean>
+           
+<!--	<bean id="verificateurDate_if" class="org.cnrs.osuc.snot.dataset.fluxmeteo.controle_dates.VerificateurDate_if" parent="abstractVerificateurDate">
+		<property name="localizationManager" ref="localizationManager" />
+	</bean>
+	
+    <bean id="expertDonneesMeteo_if" class="org.cnrs.osuc.snot.dataset.fluxmeteo.donnees.SpecialisteDonneesMeteo_if" >
+            <property name="verificateurDate" ref="verificateurDate_if" />
+            <property name="verificateurValeur" ref="verificateurValeur" />
+    </bean>-->
+    <bean id="datasetDescriptorMeteo_if"  class="org.cnrs.osuc.snot.dataset.impl.DatasetDescriptorBuilderSnots" factory-method="buildDescriptor">
+        <constructor-arg type="java.lang.Class" value="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.entity.DatasetDescriptorFluxMeteo"/>
+        <constructor-arg type="java.lang.String" value="fluxmeteo/impl/meteo/dataset-descriptor-infra-journalier.xml" />
+        <constructor-arg type="int" value="1" />
+    </bean>
+
+    <bean id="datasetDescriptorMeteo_sh"  class="org.cnrs.osuc.snot.dataset.impl.DatasetDescriptorBuilderSnots" factory-method="buildDescriptor">
+        <constructor-arg type="java.lang.Class" value="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.entity.DatasetDescriptorFluxMeteo"/>
+        <constructor-arg type="java.lang.String" value="fluxmeteo/impl/meteo/dataset-descriptor-semi-horaire.xml" />
+        <constructor-arg type="int" value="1" />
+    </bean>
+
+    <bean id="testFormatMeteo_sh"  parent="genericTestFormat">
+        <property name="testHeaders" ref="expertEntetelMeteo_sh" />
+        <property name="testValues" ref="genericTestValue" />
+        <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).DATATYPE_FREQUENCE_METEO[0]}" />
+    </bean>
+                                 
+    <bean id="testFormatMeteo_if"  parent="genericTestFormat">
+        <property name="testHeaders" ref="expertEntetelMeteo_if" />
+        <property name="testValues" ref="genericTestValue" />
+        <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).DATATYPE_FREQUENCE_METEO[1]}" />
+    </bean>
+
+    <bean id="recorderMeteo_if" parent="SNOTRecorder">
+        <property name="processRecord" ref="processRecordMeteo_if" />
+        <property name="testFormat" ref="testFormatMeteo_if" />
+        <property name="deleteRecord" ref="deleteRecordMeteo_if" />
+        <property name="requestProperties" value="requestPropertiesFluxMeteo_infraj" />
+        <property name="datasetDescriptor" ref="datasetDescriptorMeteo_if" />
+    </bean>
+
+    <bean id="recorderMeteo_sh" parent="SNOTRecorder">
+        <property name="processRecord" ref="processRecordMeteo_if" />
+        <property name="testFormat" ref="testFormatMeteo_sh" />
+        <property name="deleteRecord" ref="deleteRecordMeteo_if" />
+        <property name="requestProperties" value="requestPropertiesFluxMeteo_infraj" />
+        <property name="datasetDescriptor" ref="datasetDescriptorMeteo_sh" />
+    </bean>
+                        	
+    <!-- Pour meteo_j -->
+    <bean id="processRecordMeteo_j" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.meteo.ProcessRecordMeteo_j" parent="processRecordMeteo">
+        <property name="mesureMeteoDAO" ref="mesureMeteo_j" />
+    </bean>
+    <bean id="deleteRecordMeteo_j" parent="deleteRecord">
+        <property name="publicationDAO" ref="publicationMeteo_j" />
+    </bean>
+    <bean id="expertEntetelMeteo_j" parent="expertEnteteMeteo">
+        <property name="frequenceAttendu" value="#{T(org.cnrs.osuc.snot.utils.Constantes).FREQUENCE_NAME[1]}" />
+        <property name="formatRegexDate" value="#{T(org.cnrs.osuc.snot.utils.Constantes).REGEX_DATE}" />
+        <property name="nbColonnesIdentifiantes" >
+            <value type="int">2</value>
+        </property>
+    </bean>
+
+    <bean id="datasetDescriptorMeteo_j"  class="org.cnrs.osuc.snot.dataset.impl.DatasetDescriptorBuilderSnots" factory-method="buildDescriptor">
+        <constructor-arg type="java.lang.Class" value="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.entity.DatasetDescriptorFluxMeteo"/>
+        <constructor-arg type="java.lang.String" value="fluxmeteo/impl/meteo/dataset-descriptor-journalier.xml" />
+        <constructor-arg type="int" value="1" />
+    </bean>
+    <bean id="testFormatMeteo_j"  parent="genericTestFormat">
+        <property name="testHeaders" ref="expertEntetelMeteo_j" />
+        <property name="testValues" ref="genericTestValue" />
+        <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).DATATYPE_FREQUENCE_METEO[1]}" />
+    </bean>
+
+    <bean id="recorderMeteo_j" parent="SNOTRecorder">
+        <property name="processRecord" ref="processRecordMeteo_j" />
+        <property name="testFormat" ref="testFormatMeteo_j" />
+        <property name="deleteRecord" ref="deleteRecordMeteo_j" />
+        <property name="requestProperties" value="requestPropertiesFluxMeteo_j" />
+        <property name="datasetDescriptor" ref="datasetDescriptorMeteo_j" />
+    </bean>
+   	
+    <!-- Pour meteo_m -->
+    <bean id="processRecordMeteo_m" class="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.meteo.ProcessRecordMeteo_m" parent="processRecordMeteo">
+        <property name="mesureMeteoDAO" ref="mesureMeteo_m" />
+    </bean>
+    <bean id="deleteRecordMeteo_m" parent="deleteRecord">
+        <property name="publicationDAO" ref="publicationMeteo_m" />
+    </bean>
+    <bean id="expertEntetelMeteo_m" parent="expertEnteteMeteo">
+        <property name="frequenceAttendu" value="#{T(org.cnrs.osuc.snot.utils.Constantes).FREQUENCE_NAME[2]}" />
+        <property name="formatRegexDate" value="#{T(org.cnrs.osuc.snot.utils.Constantes).REGEX_DATE_MOIS}" />
+        <property name="nbColonnesIdentifiantes" >
+            <value type="int">2</value>
+        </property>
+    </bean>
+    <!--	<bean id="verificateurDate_m" class="org.cnrs.osuc.snot.dataset.fluxmeteo.controle_dates.VerificateurDate_m" parent="abstractVerificateurDate">
+            <property name="localizationManager" ref="localizationManager" />
+    </bean>
+    <bean id="expertDonneesMeteo_m" class="org.cnrs.osuc.snot.dataset.fluxmeteo.donnees.SpecialisteDonneesMeteo_m" >
+            <property name="verificateurDate" ref="verificateurDate_m" />
+            <property name="verificateurValeur" ref="verificateurValeur" />
+    </bean>-->
+    <bean id="datasetDescriptorMeteo_m"  class="org.cnrs.osuc.snot.dataset.impl.DatasetDescriptorBuilderSnots" factory-method="buildDescriptor">
+        <constructor-arg type="java.lang.Class" value="org.cnrs.osuc.snot.dataset.fluxmeteo.impl.entity.DatasetDescriptorFluxMeteo"/>
+        <constructor-arg type="java.lang.String" value="fluxmeteo/impl/meteo/dataset-descriptor-mensuel.xml" />
+        <constructor-arg type="int" value="1" />
+    </bean>
+    <bean id="testFormatMeteo_m"  parent="genericTestFormat">
+        <property name="testHeaders" ref="expertEntetelMeteo_m" />
+        <property name="testValues" ref="genericTestValue" />
+        <property name="datatypeName" value="#{T(org.cnrs.osuc.snot.utils.Constantes).DATATYPE_FREQUENCE_METEO[2]}" />
+    </bean>
+
+    <bean id="recorderMeteo_m" parent="SNOTRecorder">
+        <property name="processRecord" ref="processRecordMeteo_m" />
+        <property name="testFormat" ref="testFormatMeteo_m" />
+        <property name="deleteRecord" ref="deleteRecordMeteo_m" />
+        <property name="requestProperties" value="requestPropertiesFluxMeteo_m" />
+        <property name="datasetDescriptor" ref="datasetDescriptorMeteo_m" />
+    </bean>
+</beans>

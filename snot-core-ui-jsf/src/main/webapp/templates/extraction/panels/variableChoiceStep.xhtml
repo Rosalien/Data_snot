@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:outputStylesheet name="css/extraction/#{css}" />
+    <f:param name="panelNumber"></f:param>
+    <ui:param name="stepBuilderDate" value="#{uiBean.getStepBuilder(panelNumber-1)}" />	
+    <p:remoteCommand name="updateVariables" update="variableList,#{p:component('parametersRequest')}, prevStepButton, nextStepButton, validImage, messageWarningVariableStep" />
+    <ui:param name="variables" value="#{stepBuilderDate.variablesAvailables}" />
+
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.jsf.panels.variablesChoiceStep" var="variablesChoiceStep"/>
+    <h:panelGroup id="messageWarningVariableStep">
+        <h:outputText value="#{variablesChoiceStep.PARAM_MSG_INTRO}"
+                      rendered="#{not stepBuilderDate.stepValid and not empty variables}"
+                      styleClass="selectionEmpty" />
+        <h:outputText value="#{variablesChoiceStep.PARAM_MSG_NO_RESULT_FOR_SELECTION}"
+                      rendered="#{empty variables}"
+                      styleClass="selectionEmpty" />
+    </h:panelGroup>
+
+    <h:panelGroup styleClass="panelControlsWrapper" layout="block">
+        <h:panelGroup styleClass="panelControls">
+            <h:panelGroup styleClass="control">
+                <p:commandLink process="@this,#{p:component('parametersRequest')},variableList" styleClass="buttonStepNext" 
+                               action="#{stepBuilderDate.addAllVariables()}" oncomplete="updateVariables()" >
+                    <h:graphicImage value="#{resource['images:add.png']}" />
+                    <h:outputText value="#{variablesChoiceStep.PARAM_MSG_ADD_ALL}" />
+                </p:commandLink>
+            </h:panelGroup>
+            <h:panelGroup styleClass="control">
+                <p:commandLink process="@this,#{p:component('parametersRequest')},variableList" styleClass="buttonStepNext"
+                               action="#{stepBuilderDate.removeAllVariables()}" oncomplete="updateVariables()" >
+                    <h:graphicImage value="#{resource['images:remove_selection.png']}" />
+                    <h:outputText value="#{variablesChoiceStep.PARAM_MSG_DELETE_ALL}" />
+                </p:commandLink>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <p:dataList id="variableList" value="#{variables.entrySet()}" var="entryVariable" rendered="#{not empty variables}">
+        <p:panel header="#{entryVariable.key}"  rendered="#{not empty entryVariable.value}">
+            <p:dataList id="variableList" value="#{entryVariable.value}" var="variable" >
+                <p:commandLink value="#{variable.localizedVariableName} (#{variable.localizedVariableDefinition})" process="@this" 
+                               action="#{stepBuilderDate.selectVariable(variable)}" oncomplete="updateVariables()">
+                </p:commandLink>
+                <h:graphicImage name="images/check.png"  rendered="#{variable.selected}" />
+            </p:dataList>
+        </p:panel>
+    </p:dataList>
+</html>

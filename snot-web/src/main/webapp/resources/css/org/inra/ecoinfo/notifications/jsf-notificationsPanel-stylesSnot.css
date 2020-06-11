@@ -1,0 +1,214 @@
+@CHARSET "UTF-8";
+
+a img {
+    border: 0px none;
+}
+
+/*Pour dimensionner la fenêtre*/
+.notificationsPanel {
+    width: 100%;        
+    overflow: auto;
+    max-height: 500px;
+    max-width: 1200px;
+}
+
+/*Pour dimensionner les panneaux nord*/
+.forty-percent {
+    width: 60%;
+    font-size:12px;
+}
+
+.sixty-percent {
+    width: 40%;
+    font-size:12px;
+}
+
+.top-alignment {
+    vertical-align: top;
+}
+
+/*Pour dimensionner le tableau date/en tête/action possible*/
+.notificationsPanel .main .left {
+    width: 100%;
+    /*    float: left;*/
+    overflow: auto;
+}
+
+/*Pour dimensionner la partie sur le contenu du message*/
+.notificationsPanel .main .right {
+    width: 30%;
+    float: right;
+    overflow: auto;
+}
+
+.disabled {
+    opacity: 0.4;
+    filter: alpha(opacity =       40);
+    cursor: default;
+}
+
+/*Pas vraiment utile, voir pour supprimer*/
+.notificationsPanel .messageDetails,.controlsNotificationsPanel {
+    /*    border: 2px solid #D8DEE8;
+        background-color: white;
+        padding: 7px;*/
+}
+
+/*Block extérieur "Contenu du message"*/
+.mainMessageDetails{
+    width: 90%
+}
+
+
+/*Block intérieur "Contenu du message"*/
+.messageDetails {
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.messageDetailsBody {
+    max-height: 200px;
+}
+
+.messageDetailsButtonsBar {
+    display: block;
+    line-height: 14px;
+    padding: 2px;
+    border: solid lightBlue;
+    margin-top: 10px;
+    border-radius: 20px 20px 20px 20px;
+    text-align: center;
+    cursor: default;
+    width: auto;
+}
+
+.messageDetailsButtonsBar img {
+    vertical-align: middle;
+    margin-left: 10px;
+    min-height: none;
+}
+
+.messageDetailsButtonsBar a {
+    text-decoration: initial;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.notificationsPanel .dataTable {
+    cursor: default;
+    width: 100%;
+}
+
+.notificationsPanel .dataTable-scroller {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/*Colonne date*/
+.notificationsPanel .dataTable .date {
+    width: 20%;
+    text-align: left;
+    font-size:16px;
+}
+
+/*Colonne message*/
+.notificationsPanel .dataTable .message {
+    width: 70%;
+    text-align: left;
+    font-size:16px;
+}
+
+.notificationsPanel .dataTable .level {
+    width: 10%;
+}
+
+.notificationsPanel .dataTable td.red .notification-details-link {
+    color: white;
+}
+
+.notificationsPanel .dataTable td.red {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+.messagesDashboard .rf-pp-cnt-scrlr {
+    background-color: #EEF5FF;
+    text-align: left
+}
+/*Modif sur la partie nord (afficher les nouveaux messages + supprimer tout)*/
+.controlsNotificationsPanel {
+    text-align: left;
+    width: 38%;
+    /*    margin-top: 12px;*/
+    margin-bottom: 12px;
+    overflow: auto;    
+}
+
+.new-notification, .notification-archived {
+    white-space: pre-line;
+}
+
+.new-notification {
+    font-weight: bold;
+}
+
+.notificationsPanel .dataTable .detail {
+    cursor: pointer;
+}
+
+.messageDetailPopup .body {
+    text-align: left;
+}
+
+.controlsNotificationsPanel input,.controlsNotificationsPanel label {
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 11px;
+}
+
+.noMessage {
+    font-weight: bold;
+    color: red;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 13px;
+}
+
+/*Panneau gestion des messages*/
+.panelControlsRefdataNotifications {
+    /*border: 0px solid #96B7D6;*/
+    /*    background-color: #ECF3FE;
+        padding: 0px 0px 0px 0px;*/
+    text-align:center;       
+    /*    float: right; pose problème*/
+    /*    margin-top: 0px;*/
+    /*    margin-bottom: 0px;
+        width:-moz-max-content*/
+}
+
+/*Panneau pour supprimer les messages*/
+.panelControlsRefdataNotifications .control {
+    text-align:left;
+    margin-right: 0px;
+    margin-left: 5px;
+    color: black;
+    /*    font-weight: bold;*/
+    /*    font-size: 11px !important;*/
+    font-family: Arial, Verdana, sans-serif;
+    /*text-transform: capitalize;*/
+}
+
+/*Texte du panneau pour supprimer les messages*/
+.panelControlsRefdataNotifications .control a {
+    color: black;
+    margin-left: 5px;
+
+    /*font-weight: bold;*/
+    text-decoration: none;
+}
+
+.centering {
+    text-align: center;
+}

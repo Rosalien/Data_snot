@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset-descriptor xmlns="http://orei.inra.fr/dataset-descriptor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://orei.inra.fr/dataset-descriptor http://orei.inra.fr/dataset-descriptor ">
+    <name>période d'application méthode de calcul</name>
+    <column>
+        <name>Nom du Site-Thème-Type de données-Variable</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>Code_jeu</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>Code de la méthode de calcul</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>Date de début</name>
+        <not-null>true</not-null>
+    </column>
+    <column>
+        <name>Date de fin</name>
+        <not-null>false</not-null>
+    </column>
+</dataset-descriptor>
