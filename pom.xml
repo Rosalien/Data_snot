@@ -21,7 +21,7 @@
         <!-- kernel -->
         <soere.groupId>org.inra.ecoinfo</soere.groupId>
         <schuduled.synthesis.cron>0 21 1  * * *</schuduled.synthesis.cron>
-        <kernel.version>1709.09</kernel.version>
+        <kernel.version>1912.01</kernel.version>
         <!-- information de configuration -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -54,46 +54,53 @@
 
         <!--versions informations-->
         <!--plugins versions-->
-        <org.springframework.version>5.1.0.RELEASE</org.springframework.version>
+        <org.springframework.version>5.1.9.RELEASE</org.springframework.version>
         <logBack.version>1.2.1</logBack.version>
         <log4j.version>1.2.17</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.jboss.resteasy.version>3.1.0.Final</org.jboss.resteasy.version>
-        <jsf.version>2.2.17</jsf.version>
-        <version.hibernate>6.0.17.Final</version.hibernate>
-        <version.hibernate.common>6.0.17.Final</version.hibernate.common>
+        <org.jboss.resteasy.version>3.8.1.Final</org.jboss.resteasy.version>
+        <jsf.version>2.2.20</jsf.version>
+        <version.hibernate>5.4.4.Final</version.hibernate>
+        <version.hibernate.common>5.1.0.Final</version.hibernate.common>
         <version.hibernate.validator>6.0.17.Final</version.hibernate.validator>
-        <version.hibernate.search>6.0.17.Final</version.hibernate.search>
+        <version.hibernate.search>5.11.2.Final</version.hibernate.search>
+
         <ehcache.version>2.10.1</ehcache.version>
-        <postgreql.version>42.0.0.jre7</postgreql.version>
-        <jpaModel>5.2.8.Final</jpaModel>
+
+        <postgreql.version>42.2.8</postgreql.version>
+        <jpaModel>5.4.4.Final</jpaModel>
+
         <commons-dbcp>1.4</commons-dbcp>
         <javax.el.version>2.2</javax.el.version>
-        <javax.validation.version>1.1.0.Final</javax.validation.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
         <javax.transaction.version>1.1</javax.transaction.version>
         <javax.servlet.version>1.2</javax.servlet.version>
         <javax.servlet.jsp.api.version>2.2</javax.servlet.jsp.api.version>
+        <javax-web.version>8.0.1</javax-web.version>
         <servlet.version>4.0.1</servlet.version>
-        <guava.version>20.0</guava.version>
+        <guava.version>28.0-jre</guava.version>
         <digester.version>2.1</digester.version>
         <jaspi.version>1.9.2</jaspi.version>
         <ostermiller.version>1.07.00</ostermiller.version>
         <jmimmemagic.version>0.1.2</jmimmemagic.version>
-        <aspectjweaver.version>1.8.10</aspectjweaver.version>
+        <aspectjweaver.version>1.9.4</aspectjweaver.version>
         <common-lang.version>2.6</common-lang.version>
         <juniversalchardet.version>1.0.3</juniversalchardet.version>
         <jfrechart.version>1.5.0</jfrechart.version>
-        <persistence.moxy.version>2.6.4</persistence.moxy.version>
-        <commons-fileupload.version>1.3.2</commons-fileupload.version>
-        <commons-io.version>2.5</commons-io.version>
+        <persistence.moxy.version>2.7.4</persistence.moxy.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
+        <commons-io.version>2.6</commons-io.version>
+
         <javax.mail.version>1.4.7</javax.mail.version>
-        <atmosphere.version>2.4.9</atmosphere.version>
-        <assertj-core.version>3.6.2</assertj-core.version>
+        <atmosphere.version>2.5.4</atmosphere.version>
+        <assertj-core.version>3.13.2</assertj-core.version>
         <dbubit.version>2.5.3</dbubit.version>
         <json.version>20160212</json.version>
         <primefaces.version>6.1</primefaces.version>
         <cupertino.version>1.0.10</cupertino.version>
-        <jackson.version>2.8.7</jackson.version>
+        <opencsv.version>4.6</opencsv.version>
+        <jackson.version>2.9.9</jackson.version>
+
         <javax.inject.version>1</javax.inject.version>
         <asm.version>5.1</asm.version>
         <sonar.maven.report>0.1</sonar.maven.report>
@@ -104,51 +111,57 @@
 
         <!-- plugins versions -->
         <maven.changelog.version>2.3</maven.changelog.version>
-        <maven.changes.version>2.11</maven.changes.version>
+        <maven.changes.version>2.12.1</maven.changes.version>
         <maven.release.version>2.5.3</maven.release.version>
-        <maven.jar.version>3.0.2</maven.jar.version>
-        <maven.build-helper.version>1.11</maven.build-helper.version>
-        <maven.compiler.version>3.7.0</maven.compiler.version>
-        <maven.assembly.version>2.6</maven.assembly.version>
-        <maven.site.plugin>3.5.1</maven.site.plugin>
+        <maven.jar.version>3.1.2</maven.jar.version>
+        <maven.build-helper.version>3.0.0</maven.build-helper.version>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.assembly.version>3.1.1</maven.assembly.version>
+        <maven.site.plugin>3.8.2</maven.site.plugin>
+
         <maven.source.version>3.0.1</maven.source.version>
-        <maven.resources.version>3.0.2</maven.resources.version>
-        <maven.scm.version>1.9.5</maven.scm.version>
-        <maven.war.version>2.6</maven.war.version>
+        <maven.resources.version>3.1.0</maven.resources.version>
+        <maven.scm.version>1.11.2</maven.scm.version>
+        <maven.war.version>3.2.3</maven.war.version>
+
         <maven.wagon.version>2.8</maven.wagon.version>
+        <wagon-webdav-jackrabbit>3.3.3</wagon-webdav-jackrabbit>
         <maven.concordion.version>1.0.2</maven.concordion.version>
         <maven.antrun.plugin>1.8</maven.antrun.plugin>
         <maven.clean.plugin>3.0.0</maven.clean.plugin>
         <maven.deploy-plugin>2.8.2</maven.deploy-plugin>
         <maven.install.plugin>2.5.2</maven.install.plugin>
         <maven-deploy-plugin>2.8.2</maven-deploy-plugin>
-        <maven.project-info-reports.plugin>2.8</maven.project-info-reports.plugin>
-        <maven.invoker.version>2.0.0</maven.invoker.version>
+        <maven.invoker.version>3.2.0</maven.invoker.version>
         <maven-java-formatter-plugin>0.4</maven-java-formatter-plugin>
-        <maven.checkstyle.version>3.0.0</maven.checkstyle.version>
-        <maven.doxia.module.markdown.version>1.7</maven.doxia.module.markdown.version>
+        <maven.checkstyle.version>3.1.0</maven.checkstyle.version>
+        <maven.doxia.module.markdown.version>1.9</maven.doxia.module.markdown.version>
         <maven.docck.version>1.1</maven.docck.version>
         <!-- tests -->
-        <cobertura.version>2.6</cobertura.version>
-        <net.sourceforge.cobertura.datafile>target/cobertura.ser</net.sourceforge.cobertura.datafile>
-        <pmd.version>3.3</pmd.version>
-        <jxr.version>2.5</jxr.version>
-        <surefire.version>2.19.1</surefire.version>
+        <cobertura.version>2.7</cobertura.version>
+        <net.sourceforge.cobertura.datafile>target/cobertura.ser</net.sourceforge.cobertura.datafile>        
+        <pmd.version>3.12.0</pmd.version>
+        <jxr.version>3.0.0</jxr.version>
+        <surefire.version>2.22.2</surefire.version>
+
         <failsafe.version>2.19.1</failsafe.version>
-        <findbugs.version>3.0.0</findbugs.version>
-        <inforeport.version>2.8</inforeport.version>
+        <findbugs.version>3.0.5</findbugs.version>
+        <inforeport.version>3.0.0</inforeport.version>
+
         <taglistreport.version>2.4</taglistreport.version>
-        <javadocReport.version>2.10.4</javadocReport.version>
+        <javadocReport.version>3.1.1</javadocReport.version>
         <l10n.version>1.0-alpha-2</l10n.version>
         <junit.version>4.12</junit.version>
-        <dbunit.version>2.5.3</dbunit.version>
+        <dbunit.version>2.6.0</dbunit.version>
         <spring-dbunit.version>2.5.1</spring-dbunit.version>
-        <testNG.version>5.10</testNG.version>
+        <testNG.version>7.0.0</testNG.version>
         <concordion.version>1.1.1</concordion.version>
         <mockito.version>1.10.19</mockito.version>
-        <easymock.version>3.4</easymock.version>
+        <easymock.version>4.0.2</easymock.version>
         <mock-javamail.version>1.9</mock-javamail.version>
-        <powermockito.version>1.6.5</powermockito.version>
+        <powermockito.version>1.7.4</powermockito.version>
+        <powermockito-api.version>1.7.4</powermockito-api.version>
+
         <spring-test-dbunit.version>1.3.0</spring-test-dbunit.version>
         <jetty.version>6.1.26</jetty.version>
         <selenium.version>2.3</selenium.version>
@@ -165,9 +178,10 @@
         <it.jacoco.destFile>${project.basedir}/../target/jacoco.dump</it.jacoco.destFile>
         <sonar.language>java</sonar.language>
         <test.logging.comment />
-        <jacoco.version>0.8.2</jacoco.version>
+        <jacoco.version>0.8.4</jacoco.version>
         <h2.version>1.4.197</h2.version>
         <postgresql.embedded.version>0.12.1</postgresql.embedded.version>
+
     </properties>
 
     <distributionManagement>
@@ -177,7 +191,7 @@
         </repository>
         <snapshotRepository>
             <id>sourcesup</id>
-            <url>https://sourcesup.renater.fr/nexus/content/repositories/si-soere-kernel-snapshots</url>
+            <url>https://sourcesup.renater.fr/nexus/content/repositories/​si-soere-kernel-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
     
@@ -216,28 +230,15 @@
         </repository>
         <repository>
             <name>SOERE Maven renater repository</name>
-            <id>si-soere-kernel</id>
+            <id>renater</id>
             <url>https://sourcesup.renater.fr/nexus/content/repositories/si-soere-kernel-releases</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
+                <updatePolicy>${updatePolicy}</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <name>Maven SI-SNOT</name>
-            <id>renater-snot</id>
-            <url>https://sourcesup.renater.fr/nexus/repository/si-snot-releases</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
+                <updatePolicy>${updatePolicy}</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
@@ -253,28 +254,15 @@
         </pluginRepository>
         <pluginRepository>
             <name>SOERE Maven renater repository</name>
-            <id>renater-soere</id>
+            <id>renater</id>
             <url>https://sourcesup.renater.fr/nexus/content/repositories/si-soere-kernel-releases</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
+                <updatePolicy>${updatePolicy}</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <name>Maven SI-SNOT</name>
-            <id>renater-snot</id>
-            <url>http://sourcesup.renater.fr/nexus/repository/si-snot-releases</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>${update.policy}</updatePolicy>
+                <updatePolicy>${updatePolicy}</updatePolicy>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
@@ -284,7 +272,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-webdav-jackrabbit</artifactId>
-                <version>3.1.0</version>
+                <version>${wagon-webdav-jackrabbit}</version>
             </extension>  
             <!-- Enabling the use of FTP -->
             <extension>
@@ -444,31 +432,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven.source.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-jar</id>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>
-                                <exclude>META-INF**</exclude>
-                                <exclude>log4j**</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven.resources.version}</version>
                 <executions>
@@ -582,6 +545,11 @@
                     <locales>en,fr</locales>
                 </configuration>
                 <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-webdav-jackrabbit</artifactId>
+                        <version>${wagon-webdav-jackrabbit}</version>
+                    </dependency>
                     <!-- To use the Markdown format -->
                     <dependency>
                         <groupId>org.apache.maven.doxia</groupId>
@@ -591,7 +559,7 @@
                     <dependency>
                         <groupId>${soere.groupId}</groupId>
                         <artifactId>kernel-build-tools</artifactId>
-                        <version>LATEST</version>
+                        <version>2.2</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -621,7 +589,7 @@
                     <dependency>
                         <groupId>${soere.groupId}</groupId>
                         <artifactId>kernel-build-tools</artifactId>
-                        <version>LATEST</version>
+                        <version>2.2</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -697,9 +665,9 @@
                 </configuration>
             </plugin><!--
             <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-changelog-plugin</artifactId>
-                            <version>${maven.changelog.version}</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <version>${maven.changelog.version}</version>
             </plugin>
 -->            
             <plugin>
@@ -799,7 +767,7 @@
                     <aggregate>true</aggregate>
                     <includeTests>true</includeTests>
                     <excludes>
-                        <exclude>**/*Bean.java</exclude>>
+                        <exclude>**/*Bean.java</exclude>
                         <exclude>**/generated/*.java</exclude>
                     </excludes>
                     <excludeRoots>
@@ -866,59 +834,6 @@
     </reporting>
     <profiles>
         <profile>
-            <id>comment</id>
-            <properties>
-                <test.logging.comment>#</test.logging.comment>
-            </properties>
-        </profile>
-        <profile>
-            <id>checknull</id>
-            <properties>
-                <org.checkerframework.version>true</org.checkerframework.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.checkerframework</groupId>
-                    <artifactId>checker-qual</artifactId>
-                    <version>${org.checkerframework.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.checkerframework</groupId>
-                    <artifactId>checker</artifactId>
-                    <version>${org.checkerframework.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.checkerframework</groupId>
-                    <artifactId>jdk8</artifactId>
-                    <version>${org.checkerframework.version}</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>${maven.compiler.version}</version>
-                        <configuration>
-                            <source>${java.version}</source>
-                            <target>${java.version}</target>
-                            <fork>true</fork>
-                            <annotationProcessors>
-                                <annotationProcessor>
-                                    org.checkerframework.checker.nullness.NullnessChecker
-                                </annotationProcessor>
-                            </annotationProcessors>
-                            <compilerArgs>
-                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-                                <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-                                <arg>-J-Xbootclasspath/p:${typeAnnotationsJavac}</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>skiptest</id>
             <properties>
                 <maven.test.skip.exec>true</maven.test.skip.exec>
@@ -953,23 +868,21 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
-                        <!--version>2.16</version -->
-                        <configuration>
-                            <systemPropertyVariables>
-                                <propertyName>concordion.output.dir</propertyName>
-                                <buildDirectory>target/concordion</buildDirectory>
-                                <lib>${project.build.testOutputDirectory}/WEB-INF/lib</lib>                  
-                                <java.io.tmpdir>${project.basedir}/target</java.io.tmpdir>
-                            </systemPropertyVariables>
-                            <testFailureIgnore>false</testFailureIgnore>
-                        </configuration>
-                    </plugin>
-                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-failsafe-plugin</artifactId>
+                            <version>${failsafe.version}</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>integration-test</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
             </build>
         </profile>
         <profile>
@@ -991,7 +904,7 @@
                     <plugin>
                         <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
                         <artifactId>maven-java-formatter-plugin</artifactId>
-                        <version>0.4</version>
+                        <version>${maven-java-formatter-plugin}</version>
                         <configuration>
                             <compilerCompliance>${java.version}</compilerCompliance>
                             <compilerSource>${java.version}</compilerSource>
@@ -1010,7 +923,7 @@
                             <dependency>
                                 <groupId>${soere.groupId}</groupId>
                                 <artifactId>kernel-build-tools</artifactId>
-                                <version>LATEST</version>
+                                <version>2.2</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1026,19 +939,14 @@
     </profiles>
     <dependencyManagement>
         <dependencies>
-            <!--            <dependency>
+            <dependency>
                 <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
+                <artifactId>logback-classic</artifactId>
                 <version>${logBack.version}</version>
-            </dependency>-->
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!--        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.25</version> la dernière version est 1.7.25
-        </dependency>-->
         <dependency>
             <groupId>${soere.groupId}</groupId>
             <artifactId>kernel-extraction-ui-jsf</artifactId>
@@ -1053,52 +961,6 @@
             <groupId>${soere.groupId}</groupId>
             <artifactId>kernel-filecomp-ui-jsf</artifactId>
             <version>${kernel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.concordion</groupId>
-            <artifactId>concordion-extensions</artifactId>
-            <version>${concordion.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.springtestdbunit</groupId>
-            <artifactId>spring-test-dbunit</artifactId>
-            <version>${spring-test-dbunit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
-            <version>${dbunit.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ow2.spec.ee</groupId>
-            <artifactId>ow2-jta-1.1-spec</artifactId>
-            <version>${ow2-jta-1.1-spec.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>${soere.groupId}</groupId>
@@ -1142,33 +1004,40 @@
             <type>test-jar</type>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.inra.ecoinfo</groupId>
-            <artifactId>kernel-embedded-postgresql</artifactId>
-            <version>1.2</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--        Pour les logs-->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.concordion</groupId>
+            <artifactId>concordion-extensions</artifactId>
+            <version>${concordion.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>test</scope>
         </dependency>
-<!--        Ajout le 09/12/2019-->
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

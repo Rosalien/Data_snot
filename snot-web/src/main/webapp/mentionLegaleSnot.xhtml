@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="/templates/template.xhtml">
+
+            <ui:define name="title">
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.mentions" var="mentions" />
+                #{mentions.PROPERTY_MSG_MENTION_LEGALE}
+            </ui:define>
+            <ui:define name="body">
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.mentions" var="mentions" />
+                <h1>
+                    <h:panelGroup styleClass="navigation">
+
+                        <h:panelGroup styleClass="navigationItem">
+                            <p:graphicImage name="images/home.png" />
+                            <h:outputLink value="index.jsf">#{index.PARAM_MSG_BREADCRUMBS}</h:outputLink>
+                        </h:panelGroup>
+                        <h:panelGroup styleClass="navigationItem">#{mentions.PARAM_MSG_BREAD_CRUMBS}</h:panelGroup>
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="title">
+                        <p:graphicImage name="images/refdata.png" />
+                        <h:outputText value="#{mentions.PARAM_MSG_TITLE}" />
+                    </h:panelGroup>
+                </h1>
+
+                <h:form class="intro">
+                    <h:panelGroup layout="block">
+                        <h3>#{mentions.PARAM_MSG_RIGHT_TITLE}</h3>
+                        <p>#{mentions.PARAM_MSG_HEADER_MENTIONS} <h:outputLink style="display: inline" value="https://creativecommons.org/licenses/by-nc-sa/3.0/fr/"><h:outputText value="#{mentions.PARAM_MSG_CONDITIONS}" /></h:outputLink> :</p>
+                        <ul>
+                            <li>#{mentions.PARAM_MSG_MENTIONS_LINE_1}</li>
+                            <li>#{mentions.PARAM_MSG_MENTIONS_LINE_2}</li>
+                            <li>#{mentions.PARAM_MSG_MENTIONS_LINE_3}</li>
+                            <li>#{mentions.PARAM_MSG_MENTIONS_LINE_4}</li>
+                        </ul>
+                        <p>#{mentions.PARAM_MSG_VALID_MENTIONS_PARAPH_1}</p>
+                        <p>#{mentions.PARAM_MSG_VALID_MENTIONS_PARAPH_2}</p>
+                        <p>#{mentions.PARAM_MSG_VALID_MENTIONS_PARAPH_3} 
+                            <h:outputLink  style="display: inline" value="mailto:#{mentions.PARAM_MSG_MAILADMIN}"><h:outputText value="#{mentions.PARAM_MSG_MAILADMIN}" /></h:outputLink></p>
+                        <p>#{mentions.PARAM_MSG_VALID_MENTIONS_PARAPH_4}</p>
+                        <p>#{mentions.PARAM_MSG_VALID_MENTIONS_PARAPH_5}</p>
+                    </h:panelGroup>
+                </h:form>
+
+                <h:form class="intro">
+                    <h:panelGroup layout="block">
+                        <h3>#{mentions.PARAM_MSG_Charte_SUBTITLE1}</h3>
+                    </h:panelGroup>
+                    <h:outputText value="#{index.PARAM_MSG_DATA_1}" />
+                    <h:commandLink action="charter" immediate="true">#{index.PARAM_MSG_CHARTER}</h:commandLink>
+                </h:form>
+
+                <h:form class="intro">
+                    <h:panelGroup layout="block">
+                        <h3>#{mentions.PARAM_MSG_CREDIT_SUBTITLE1}</h3>
+                        <p>#{mentions.PARAM_MSG_CREDIT_PARAPH_1}</p>
+                        <p>#{mentions.PARAM_MSG_CREDIT_PARAPH_2}</p>
+                        <p>#{mentions.PARAM_MSG_CREDIT_PARAPH_3}</p>
+                    </h:panelGroup>
+                </h:form> 
+
+
+
+
+
+            </ui:define>
+        </ui:composition>
+    </body>
+
+</html>

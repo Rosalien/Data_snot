@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <composite:interface>
+    </composite:interface>
+    <composite:implementation>
+        <f:loadBundle basename="org.inra.ecoinfo.security.jsf.loginPanel"
+                      var="loginPanel" />
+        <f:loadBundle basename="org.inra.ecoinfo.identification.messages"
+                      var="msg" />
+        <p:dialog id="loginPopup" modal="true" styleClass="notOverflow" widgetVar="loginPopup"
+                  minWidth="400" appendTo="@(body)" >
+            <f:facet name="header">
+                <h:outputText value="#{loginPanel.PARAM_MSG_CONFIRM}" />
+            </f:facet>
+            <f:facet name="controls">
+                <p:graphicImage name="images/close.png" styleClass="logout"
+                                onclick="PF('loginPopup').hide();
+                                        return false;" />
+            </f:facet>
+            <h:form id="loginPopupForm">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{loginPanel.PROPERTY_MSG_MANDATORY_FIELDS}"
+                                   styleClass="mandatory" />
+                    <h:outputText value="&nbsp;" escape="false"/>
+                    <h:outputLabel value="#{loginPanel.PARAM_MSG_LOGIN}" for="login" styleClass="mandatory"/>
+                    <p:inputText id="login" value="#{uiIdentification.login}" placeholder="#{loginPanel.PARAM_MSG_ENTER_LOGIN}"
+                                 binding="#{uiIdentification.uiLogin}" required="true" />
+                    <h:outputText value="&nbsp;" escape="false"/>
+                    <p:message id="loginError" showSummary="true"
+                               showDetail="false" styleClass="message" for="login" />
+                    <h:outputLabel value="#{loginPanel.PARAM_MSG_PASSWORD}"
+                                   for="password" styleClass="mandatory" />
+                    <p:password id="password" value="#{uiIdentification.password}"
+                                binding="#{uiIdentification.uiPassword}" required="true"  placeholder="#{loginPanel.PARAM_MSG_ENTER_PASSWORD}"/>
+                    <h:outputText value="&nbsp;" escape="false"/>
+                    <p:message id="passwordError" showSummary="true"
+                               styleClass="message" showDetail="false" for="password" />
+
+                </h:panelGrid>
+                <h:panelGrid columns="3" styleClass="footer">
+                    <p:commandButton action="#{uiIdentification.connect}" process="@form"
+                                     update="@form"
+                                     value="#{loginPanel.PARAM_MSG_SEND}">
+                    </p:commandButton>
+                    <h:outputLink value="retrievePasswordSendEmail.jsf"
+                                  id="retrievePasswordSendEmail">
+                        <h:outputText value="#{loginPanel.PARAM_MSG_LOST_IDENT}" />
+                    </h:outputLink>
+                    <h:panelGroup layout="block" styleClass="image-container">
+<!--                        Image dans le block de connexion au SI-->
+<!--                        <p:graphicImage name="images/logo_snot_cnrs.png" />-->
+                    </h:panelGroup>
+                </h:panelGrid>
+                <p:remoteCommand name="hideLoginPopUp" oncomplete="PF('loginPopup').hide()" />
+            </h:form>
+        </p:dialog>
+
+        <p:outputPanel layout="inline">
+            <p:graphicImage id="loginIcon" name="images/login.png"
+                            styleClass="img-menu" onclick="PF('loginPopup').show()"
+                            rendered="#{not uiIdentification.logged}" />
+            <p:outputLabel value="Login"
+                           onclick="PF('loginPopup').show()"
+                           rendered="#{not uiIdentification.logged}" />
+        </p:outputPanel>
+
+    </composite:implementation>
+
+</html>

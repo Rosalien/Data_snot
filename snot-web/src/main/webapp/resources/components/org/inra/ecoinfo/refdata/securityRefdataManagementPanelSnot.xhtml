@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:treetable="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/mga/treetable">
+
+    <composite:interface>
+        <composite:attribute name="id"  default="CompositeAttribID" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <p:layoutUnit resizable="true" collapsible="true" position="center" >
+            <p:layout id="#{cc.attrs.id}" style="height: auto">
+
+                <h:outputScript name="scripts/tree.js" />
+
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.refdata.jsf.securityRefdataMnagementPanel"
+                    var="securityRefdataMnagementPanel" />
+
+                <!--<h:outputStylesheet name="css/org/inra/ecoinfo/refdata/jsf-securityRefdataManagementPanel-styles.css" />-->
+                <h:outputStylesheet name="css/org/inra/ecoinfo/refdata/jsf-securityRefdataManagementPanel-stylesAdmin.css" />
+
+
+                <p:layoutUnit position="west" resizable="true" collapsible="true"  minSize="200" size="320">
+                    <h:form id="usersForm" prependId="false" >
+                        <treetable:securityUserChoicePanelMGA configurationNumber="1"
+                                                              restrictionRoles="administration"
+                                                              whichUser="selectedUser"
+                                                              activityCondition="ALL">
+                            <ui:param name="uiBeanActionTree" value="#{uiBeanActionTree}" />
+                        </treetable:securityUserChoicePanelMGA>
+
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="center" resizable="true" collapsible="true" minSize="200">
+                    <p:panel style="width:  auto" >
+                        <treetable:securityTreePanelMGA id="securityTreePanelMGAID"  configurationNumber="1"/>
+                    </p:panel>
+                </p:layoutUnit>
+            </p:layout>
+        </p:layoutUnit>
+    </composite:implementation>
+
+</html>

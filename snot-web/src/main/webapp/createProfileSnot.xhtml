@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:identification="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/identification"
+      xmlns:menu="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/menu"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <body>
+        <ui:composition template="/templates/template.xhtml">
+
+            <f:loadBundle
+                basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+                var="changeProfil" />
+
+            <ui:define name="title">#{changeProfil.PARAM_MSG_TITLE_CHANGE_USER}</ui:define>
+            <ui:define name="body">
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+                    var="changeProfil" />
+                <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+                <f:loadBundle basename="org.inra.ecoinfo.identification.messages"
+                              var="msg" />
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.identification.jsf.requestRights"
+                    var="requestRights" />
+                <p:layout styleClass="subcontainerCreateProfile" stateful="true" id="subcontainerProfiles" widgetVar="subcontainerCreateProfile">
+                    <p:layoutUnit position="north" resizable="true" size="90">
+                        <h1>
+                            <h:panelGroup styleClass="navigation">
+                                <h:panelGroup styleClass="navigationItem">
+                                    <p:graphicImage name="images/home.png" />
+                                    <h:outputLink value="index.jsf">#{index.PARAM_MSG_BREADCRUMBS}</h:outputLink>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="navigationItem">#{changeProfil.PARAM_MSG_BREAD_CRUMBS_CREATE_USER}</h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="title">
+                                <p:graphicImage name="images/credential-user.png" />#{changeProfil.PARAM_MSG_TITLE_CREATE_USER}</h:panelGroup>
+                        </h1>
+                        <h:form>
+                            <p:accordionPanel activeIndex="-1" 
+                                              styleClass="help-panel">
+                                <p:tab  >
+                                    <f:facet name="title">
+                                        
+                                        <p class="intro-main">
+                                            <h:outputText
+                                                value="#{changeProfil.PARAM_MSG_INTRO_MAIN_FIRST_LINE}"
+                                                escape="false" />
+                                        </p>
+                                    </f:facet>
+                                    <p class="intro-main">
+                                        <h:outputText value="#{changeProfil.PARAM_MSG_INTRO_MAIN_CREATE}"
+                                                      escape="false" />
+                                    </p>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </h:form>
+                    </p:layoutUnit>
+
+
+                    <p:layoutUnit position="center" styleClass="right">
+
+
+                        <identification:createProfilePanel id="createProfilePanel"/>
+
+                    </p:layoutUnit>
+                </p:layout>
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+
+</html>

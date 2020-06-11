@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+   
+    <h:outputStylesheet name="css/extraction/#{css}" />
+    
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.jsf.panels.datesChoiceStep" var="datesChoiceStep"/>
+    <f:loadBundle basename="org.cnrs.osuc.snot.extraction.fluxmeteo.jsf.extraction-fluxmeteo-jsf" 
+                  var="freqDatesChoiceStep" />
+    <f:param name="panelNumber"></f:param>
+
+    <p:remoteCommand name="changeCalendarDateStart" 
+                     process="@this,dateStart"
+                     update="panelChoiceDate, #{p:component('parametersRequest')},messageWarningDates,nextStepButton" >
+    </p:remoteCommand>
+
+    <p:remoteCommand name="changeCalendarDateEnd"
+                     process="@this,dateEnd"
+                     update="panelChoiceDate, #{p:component('parametersRequest')},messageWarningDates,nextStepButton" >
+    </p:remoteCommand>
+
+    <p:remoteCommand name="changeFormat"
+                     process="@this, myRadio"
+                     update="panelChoiceDate,#{p:component('parametersRequest')},messageWarningDates,nextStepButton,dateStart,dateEnd" >
+    </p:remoteCommand>
+    <ui:param name="stepBuilderDate" value="#{uiBean.getStepBuilder(panelNumber-1)}" />		
+
+    <h:panelGroup id="messageWarningDates">
+        <h:outputText value="#{datesChoiceStep.PROPERTY_MSG_CHOOSE_DATE}"
+                      rendered="#{not stepBuilderDate.dateStepIsValid}"
+                      styleClass="selectionEmpty" />
+    </h:panelGroup>
+
+    <h:panelGroup id="panelChoiceDate">
+
+        <h:panelGroup layout="block" styleClass="wrapper indent">
+            <h:panelGroup id="panelChoiceFrequence">
+                <!--Modif pour mettre le semi-horaire par défaut-->
+<!--                <h:outputText value="#{freqDatesChoiceStep.MSG_FREQ_DATE_STEP_CHOOSE_FREQUENCE}" 
+                              styleClass="message"/>-->
+
+                <h:selectOneRadio id="myRadio" onchange="changeFormat('', '', '', '')"
+                                  value="semi-horaire"
+                                  styleClass="message">
+<!--                    <f:selectItems 
+                        value="#{stepBuilderDate.datesForm1ParamVO.frequences}"
+                        var="frequence" itemLabel="#{frequence.key}"
+                        itemValue="#{frequence.value}" />-->
+                </h:selectOneRadio>
+            </h:panelGroup>
+            <br />
+            
+            <h:outputText value="#{freqDatesChoiceStep.MSG_FREQ_DATE_STEP_CHOOSE_DATES}" />
+
+            <h:panelGroup layout="block" styleClass="wrapper">
+                <p:focus id="focus"  context="#{stepBuilderDate.datesForm1ParamVO.dateStart==null?'dateStart':'dateEnd'}" />
+                <p:calendar id="dateStart" widgetVar="dateStart" value="#{stepBuilderDate.datesForm1ParamVO.dateStart}" 
+                            mode="popup"
+                            showOn="button"
+                            showWeek="true"
+                            navigator="true"
+                            autocomplete="true"
+                            placeholder="dd/MM/yyyy"
+                            mask="99/99/9999"
+                            converter="localDateConverterDD_MM_YYYY"
+                            pattern="dd/MM/yyyy"                            
+                            onchange="changeCalendarDateStart()" >
+                            <!--placeholder="#{stepBuilderDate.datesForm1ParamVO.rythme=='m'?'MM/yyyy':'dd/MM/yyyy'}"-->
+                            <!--mask="#{stepBuilderDate.datesForm1ParamVO.rythme=='m'?'99/9999':'99/99/9999'}"-->                                                        
+                            <!--pattern="#{stepBuilderDate.datesForm1ParamVO.rythme=='m'?'MM/yyyy':'dd/MM/yyyy'}"-->
+                    <p:ajax event="dateSelect" listener="#{stepBuilderDate.datesForm1ParamVO.changeDateStart}" update="focus, #{p:component('parametersRequest')},messageWarningDates,nextStepButton" />
+                    <p:ajax event="change" listener="#{stepBuilderDate.datesForm1ParamVO.changeDateStart}"  update="focus, #{p:component('parametersRequest')},messageWarningDates,nextStepButton" />
+                </p:calendar>
+                <p:calendar id="dateEnd" widgetVar="dateEnd" value="#{stepBuilderDate.datesForm1ParamVO.dateEnd}" 
+                            mode="popup"
+                            showOn="button"
+                            showWeek="true"
+                            navigator="true"
+                            autocomplete="true"
+                            placeholder="dd/MM/yyyy"
+                            mask="99/99/9999"
+                            converter="localDateConverterDD_MM_YYYY"
+                            pattern="dd/MM/yyyy" 
+                            onchange="changeCalendarDateEnd()" >
+                            <!--placeholder="#{stepBuilderDate.datesForm1ParamVO.rythme=='m'?'MM/yyyy':'dd/MM/yyyy'}"-->
+                            <!--mask="#{stepBuilderDate.datesForm1ParamVO.rythme=='m'?'99/9999':'99/99/9999'}"-->                            
+                            <!--pattern="#{stepBuilderDate.datesForm1ParamVO.rythme=='m'?'MM/yyyy':'dd/MM/yyyy'}"-->                            
+                    <p:ajax event="dateSelect" listener="#{stepBuilderDate.datesForm1ParamVO.changeDateEnd}"  update="focus, #{p:component('parametersRequest')},messageWarningDates,nextStepButton" />
+                    <p:ajax event="change" listener="#{stepBuilderDate.datesForm1ParamVO.changeDateEnd}"  update="focus,#{p:component('parametersRequest')},messageWarningDates,nextStepButton" />
+                </p:calendar>
+            </h:panelGroup> 
+        </h:panelGroup>
+    </h:panelGroup>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:identification="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/identification">
+
+
+    <body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="title">
+            <f:loadBundle
+                basename="org.inra.ecoinfo.identification.jsf.requestRights"
+                var="requestRightsManagementPanel" />
+            #{requestRightsManagementPanel.PARAM_MSG_MANAGEMENT_TITLE}
+        </ui:define>
+        <ui:define name="body">
+            <f:loadBundle
+                basename="org.inra.ecoinfo.identification.jsf.requestRights"
+                var="requestRightsManagementPanel" />
+
+            <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+            <p:dialog id="popupSaveRequestConfirmation" appendTo="@(body)" widgetVar="popupSaveRequestConfirmation"
+                      modal="true">
+                <f:facet name="header">
+                    <h:outputText escape="false"
+                                  value="#{requestRightsManagementPanel.PARAM_MSG_ALERT_CONFIRM}" />
+                </f:facet>
+                <f:facet name="controls">
+                    <h:graphicImage  name="images/close.png"
+                                     styleClass="logout"
+                                     onclick="PF('popupSaveRequestConfirmation').hide();
+                                             return false;" />
+                </f:facet>
+                <h:panelGroup style="width:300px; text-align: left;" layout="block">
+                    <p class="intro">#{requestRightsManagementPanel.PROPERTY_MSG_CONFIRM_REQUEST_ALERT}</p>
+
+                    <p class="intro">#{requestRightsManagementPanel.PROPERTY_MSG_CONFIRM_CHANGE_REQUEST}</p>
+
+
+                    <h:panelGroup layout="block" styleClass="logoutButtons">
+                        <p:commandButton
+                            value="#{requestRightsManagementPanel.PARAM_MSG_CONFIRM}"
+                            action="#{uiBean.updateRights}" process="@this"
+                            status="statusSave"
+                            onstart="PF('popupSaveRequestConfirmation').hide();"
+                            data="#{uiBean.saveMessage}"
+                            immediate="false"/>
+
+                        <p:commandButton
+                            value="#{requestRightsManagementPanel.PARAM_MSG_CANCEL}"
+                            oncomplete="PF('popupSaveRequestConfirmation').hide(); return false;"
+                            process="@none" update="@none" />
+                    </h:panelGroup>
+                </h:panelGroup>
+            </p:dialog>
+            <p:layout styleClass="subcontainer" id="subcontainerProfiles" widgetVar="subcontainerProfiles">
+                <p:layoutUnit position="north" resizable="true" minSize="50">
+                    <ui:insert name="requestRightsManagementPanelHeader" >
+                        merci de définir un panneau
+                    </ui:insert>
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="center" styleClass="right">
+                    <p class="intro-main">#{requestRightsManagementPanel.PARAM_MSG_MANAGEMENT_INTRO_MAIN}</p>
+                    <h:form>
+                        <f:loadBundle
+                            basename="org.inra.ecoinfo.identification.jsf.requestRights"
+                            var="requestRights" />
+
+                        <h:outputStylesheet name="css/org/inra/ecoinfo/identification/jsf-changeProfilePanel-stylesAdmin.css" />
+
+                        <h:outputStylesheet name="css/org/inra/ecoinfo/identification/jsf-changeProfilePanel-stylesAdmin.css" />
+
+                        <f:loadBundle
+                            basename="org.inra.ecoinfo.identification.jsf.requestRights"
+                            var="requestRights" />
+                        <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
+                        <h:outputStylesheet name="css/org/inra/ecoinfo/identification/jsf-changeProfilePanel-stylesAdmin.css" />
+                        <p:panel id="requestForm"
+                                 styleClass="custom-rf-p profileForm">
+
+                            <ui:insert name="requestRightsManagementPanel" >
+                                merci de définir un panneau
+                            </ui:insert>
+                        </p:panel>
+                        <h:panelGrid columns="1" styleClass="footer">
+                            <p:commandButton id="buttonRequest" process="requestForm"
+                                             update="requestForm,@this"
+                                             value="#{requestRights.PROPERTY_MSG_REQUEST_SUBMIT}"
+                                             oncomplete="if($('.rf-msg-err').length==0){PF('popupSaveRequestConfirmation').show()}"
+                                             immediate="false">
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

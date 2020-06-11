@@ -109,7 +109,7 @@
         <dependency>
             <groupId>org.inra.ecoinfo</groupId>
             <artifactId>kernel-extraction-ui-jsf</artifactId>
-            <version>1709.09</version>
+            <version>1912.01</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.inra.ecoinfo</groupId>

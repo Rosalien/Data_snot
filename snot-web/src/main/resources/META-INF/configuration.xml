@@ -117,9 +117,10 @@
                 <spring-dao>
                     <class>siteThemeDatatypeDAO</class>
                 </spring-dao>
-<!--                <spring-dao>
-                    <class>datatypeVariableUniteSnotDAO</class>
-                </spring-dao>-->
+<!--                Pour la version 1912.01, à décommenter-->
+                <spring-dao>
+                    <class>datatypeVariableUniteDAO</class>
+                </spring-dao>
                 <spring-dao>
                     <class>siteDAO</class>
                 </spring-dao>
