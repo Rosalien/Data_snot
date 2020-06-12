@@ -14,7 +14,7 @@
 
         <!--<h:outputStylesheet name="css/org/inra/ecoinfo/menu/jsf-panelMenuDetails-stylesSnot.css" />-->
         <h:outputStylesheet name="css/org/inra/ecoinfo/menu/jsf-panelMenuDetails-stylesAdmin.css" />
-        
+        <f:event listener="#{uiMenuDetails.preRender}" type="preRenderView" />
         <ui:repeat value="#{uiMenuDetails.menu(0).menuItems}" var="menuItem">
 
             <h:panelGroup rendered="#{uiIdentification.currentUtilisateur!=null and  not menuItem.disabled}">
@@ -34,7 +34,7 @@
                                     <f:attribute name="directAction" value="#{menuItemLeaf.getDirectAction()}" />
                                 </h:commandLink>
 
-                                <p:tooltip styleClass="tooltip" showDelay="500" trackMouse="true"
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="500" trackMouse="true"
                                            for="menuLink">
                                     <h:outputText value="#{menuItemLeaf.comment}" />
                                 </p:tooltip>

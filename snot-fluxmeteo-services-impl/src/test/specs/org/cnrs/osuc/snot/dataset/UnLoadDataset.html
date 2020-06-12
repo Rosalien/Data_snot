@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Suppression des fichiers de données de flux des stations eddy-covariance</title>
+    </head>
+    <body
+        style="p: before .success, li:before .success{  
+            background-image:  
+                url(http://images4.wikia.nocookie.net/__cb20101013160837/sims/fr/images/d/dd/Ic%C3%B4ne_Valid.png); content: '&amp;gt;'">
+                <h3>On supprime les fichiers de données de flux des stations eddy-covariance.</h3>
+                <table
+                    concordion:execute="#unLoadVersion=unloadVersion(#nodePath, #filePath)">
+                    <tr>
+                        <th concordion:set="#nodePath">NodePath</th>
+                        <th concordion:set="#filePath">Chemin du fichier</th>
+                        <th concordion:assertEquals="#unLoadVersion">Fichier supprimé</th>
+                    </tr>
+                    <tr>
+                        <td>lgt/ec1,ges,eddycovariance_sh</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/dataset_for_tests/flux/semi-horaire/lgt-ec1_eddycovariance_sh_01-04-2017_30-04-2017.csv</td>
+                        <td>true</td>
+                    </tr>
+                </table>
+<!--                <h3>On supprime les fichiers de données de météorologie.</h3>
+                <table
+                    concordion:execute="#unLoadVersion=unloadVersion(#nodePath, #filePath)">
+                    <tr>
+                        <th concordion:set="#nodePath">NodePath</th>
+                        <th concordion:set="#filePath">Chemin du fichier</th>
+                        <th concordion:assertEquals="#unLoadVersion">Fichier supprimé</th>
+                    </tr>
+                    <tr>
+                        <td>hesse/hesse_1,meteorologie,meteo_j</td>
+                        <td>src/test/resources/org/cnrs/osuc/snot/fichier/dataset/meteo/journalier/hesse-hesse_1_meteo_j_01-01-2012_03-01-2012.csv</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>hesse/hesse_1,meteorologie,meteo_m</td>
+                        <td>src/test/resources/org/cnrs/osuc/snot/fichier/dataset/meteo/mensuel/hesse-hesse_1_meteo_m_01-2012_03-2012.csv</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>hesse/hesse_1,meteorologie,meteo_sh</td>
+                        <td>src/test/resources/org/cnrs/osuc/snot/fichier/dataset/meteo/semi-horaire/hesse-hesse_1_meteo_sh_01-01-2008_02-01-2008.csv</td>
+                        <td>true</td>
+                    </tr>
+                </table>-->
+            </body>
+        </html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Chargement des données de référence</title>
+    </head>
+    <body
+        style="p: before .success, li:before .success{  
+            background-image:  
+                url(http://images4.wikia.nocookie.net/__cb20101013160837/sims/fr/images/d/dd/Ic%C3%B4ne_Valid.png); content: '&amp;gt;'">
+                <h3>On charge les données de référence.</h3>
+                <table
+                    concordion:execute="#uploadMetadata=uploadMetadata(#metadata, #file)">
+                    <tr>
+                        <th concordion:set="#metadata">Type de données</th>
+                        <th concordion:set="#file">Chemin du fichier</th>
+                        <th concordion:assertEquals="#uploadMetadata">Chargé</th>
+                        <th concordion:assertEquals="isConformeFile(#metadata, #file)">Fichier conforme</th>
+                        <th concordion:assertEquals="getFirstLine(#metadata)">Première ligne</th>
+                    </tr>
+                    <tr>
+                        <td>arborescence/type_de_zones_d_etudes</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/type_de_zones_d_etudes.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>Site Site Niveau le plus large de découpage Widest level of division</td>
+                    </tr>
+                    <tr>
+                        <td>arborescence/sites</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/sites.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>Site bdz Bernadouze Bernadouze Tourbières de Bernadouze Bernadouze peatland 17/10/2016  [[[1.4218127277,42.8015178306],[1.4257394817,42.8015178306],[1.4257394817,42.8036432001],[1.4218127277,42.8036432001],[1.4218127277,42.8015178306]]] 3.3 1500 Mountain climate Quartenary soils   France France </td>
+                    </tr>
+                    <tr>
+                        <td>arborescence/theme</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/themes.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>ges GES Greenhouse gas Données de flux de GES Greenhouse gas data</td>
+                    </tr>
+                    <tr>
+                        <td>arborescence/valeurqualitative</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/variablequalitative.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>responsabilite_gestionnairejeu responsabilite_gestionnairejeu responsabilite_gestionnairejeu project_leader Chef de projet Project leader
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>arborescence/types_de_donnees_par_themes_de_sites</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/types_de_donnees_par_themes_de_sites.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>frn/ec1 ges eddycovariance_sh</td>
+                    </tr>
+                    <tr>
+                        <td>metadata/jeu</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/jeu.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>lgt-ges-eddycovariance lgt ges Jeu de données des flux de gaz à effet de serre par eddycovariance dans la tourbière de La Guette (23 ha), Loiret, France Le jeu de données comporte 5 variables : flux de CO2, flux de CH4, flux de chaleur sensible, flux de chaleur latente et l'évapotranspiration réelle L'objectif du jeu de données est d'estimer sur le long les émissions de gaz à effet de serre sur la tourbière de la Guette pour évaluer l'impact du changement climatique sur le cycle du carbone Les flux de gaz à effet de serre (GES) sont estimés avec les données provenant de la station eddy-covariance de la tourbière de la Guette. Le calcul du flux est réalisé avec un logiciel de calcul suivi d'un contrôle des flux par expertise
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>metadata/gestionnairejeu</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/gestionnairejeu.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>lgt-ges-eddycovariance Gogo Sebastien sebastien.gogo@univ-orleans.fr project_leader 01/06/2018 null
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>metrologie/variables</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/variables.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>ETR	Evapotranspiration réelle par eddy covariance Evapotranspiration réelle par eddy covariance https://w3id.org/ozcar-theia/atmosphericChemistry</td>
+                    </tr>
+                    <tr>
+                        <td>metrologie/unites</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/unites.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>% % % percentage pourcentage percentage</td>
+                    </tr>
+                    <tr>
+                        <td>metrologie/variables_par_types_de_donnees</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/variables_par_types_de_donnees.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>lgt-ges-eddycovariance lgt/ec1 eddycovariance_sh FC μmolCO2/m2/s -150.0 150.0 NA</td>
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/instruments</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/instruments.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>LI-7700 Analyseur de gaz CH4 Open Path CH4 Gas Analyzer LICOR LICOR</td>
+
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/methods</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/methodecalcul.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>eddypro EddyPro® EddyPro® Calcul des flux de gaz à effet de serre avec le logiciel EddyPro® Greenhouse gas flux with EddyPro®</td>
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/references</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/references.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>https://github.com/LI-COR/eddypro-engine LICOR null</td>
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/references_des_methodes</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/methode_calcul_reference.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>eddypro https://github.com/LI-COR/eddypro-engine</td>
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/references_des_instruments</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/instrument_reference.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>LI-7700 https://www.licor.com/documents/k8b90wiwdhietarx04qd   </td>
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/periodes_d_application_des_methodes</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/periode_application_methode.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>lgt/ec1-ges-eddycovariance_sh-ETR eddypro 19/01/2017 21/06/2018</td>
+                    </tr>
+                    <tr>
+                        <td>instruments_methods/periodes_d_utilisation_des_instruments</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/periode_utilisation_instrument.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>lgt/ec1-ges-eddycovariance_sh-FC lgt-ges-eddycovariance LI-7200/RS 19/01/2017 21/06/2018</td>
+                    </tr>
+                    <tr>
+                        <td>infocomplementaires/liste_de_valeurs_d_informations_complementaires</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/liste_valeur_info.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>ListeQualitative1 ListeQualitative1 Très Bien Very Good 0</td>
+                    </tr>
+                    <tr>
+                        <td>infocomplementaires/informations_complementaires</td>
+                        <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/information_complementaire.csv</td>
+                        <td>true</td>
+                        <td>true</td>
+                        <td>FCO2_sd écart_type de la variable FCO2 standard deviation for the variable FCO2</td>
+                    </tr>
+                    <!--		<tr>
+                                            <td>measure/informations_complementaires_par_site_theme_type_de_donnees_et_variable</td>
+                                            <td>../src/test/resources/org/cnrs/osuc/snot/fichiers/refdatas_for_tests/information_complementaire_par_stdt_variable.csv</td>
+                                            <td>true</td>
+                                            <td>true</td>
+                                            <td>   </td>
+                                    </tr>-->
+                </table>
+            </body>
+        </html>

@@ -66,7 +66,7 @@
         <version.hibernate.search>5.11.2.Final</version.hibernate.search>
 
         <ehcache.version>2.10.1</ehcache.version>
-
+        <!--<postgreql.version>42.0.0.jre7</postgreql.version>-->
         <postgreql.version>42.2.8</postgreql.version>
         <jpaModel>5.4.4.Final</jpaModel>
 
@@ -191,7 +191,7 @@
         </repository>
         <snapshotRepository>
             <id>sourcesup</id>
-            <url>https://sourcesup.renater.fr/nexus/content/repositories/​si-soere-kernel-snapshots</url>
+            <url>https://sourcesup.renater.fr/nexus/content/repositories/si-soere-kernel-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
     
@@ -230,15 +230,28 @@
         </repository>
         <repository>
             <name>SOERE Maven renater repository</name>
-            <id>renater</id>
+            <id>si-soere-kernel</id>
             <url>https://sourcesup.renater.fr/nexus/content/repositories/si-soere-kernel-releases</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>${updatePolicy}</updatePolicy>
+                <updatePolicy>${update.policy}</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>${updatePolicy}</updatePolicy>
+                <updatePolicy>${update.policy}</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <name>Maven SI-SNOT</name>
+            <id>renater-snot</id>
+            <url>http://sourcesup.renater.fr/nexus/repository/si-snot-releases</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>${update.policy}</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>${update.policy}</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
@@ -254,15 +267,28 @@
         </pluginRepository>
         <pluginRepository>
             <name>SOERE Maven renater repository</name>
-            <id>renater</id>
+            <id>renater-soere</id>
             <url>https://sourcesup.renater.fr/nexus/content/repositories/si-soere-kernel-releases</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>${updatePolicy}</updatePolicy>
+                <updatePolicy>${update.policy}</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>${updatePolicy}</updatePolicy>
+                <updatePolicy>${update.policy}</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <name>Maven SI-SNOT</name>
+            <id>renater-snot</id>
+            <url>https://sourcesup.renater.fr/nexus/repository/si-snot-releases</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>${update.policy}</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>${update.policy}</updatePolicy>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
@@ -272,7 +298,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-webdav-jackrabbit</artifactId>
-                <version>${wagon-webdav-jackrabbit}</version>
+                <version>3.1.0</version>
             </extension>  
             <!-- Enabling the use of FTP -->
             <extension>
@@ -432,6 +458,31 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-jar</id>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>META-INF**</exclude>
+                                <exclude>log4j**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven.resources.version}</version>
                 <executions>
@@ -545,11 +596,6 @@
                     <locales>en,fr</locales>
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.wagon</groupId>
-                        <artifactId>wagon-webdav-jackrabbit</artifactId>
-                        <version>${wagon-webdav-jackrabbit}</version>
-                    </dependency>
                     <!-- To use the Markdown format -->
                     <dependency>
                         <groupId>org.apache.maven.doxia</groupId>
@@ -665,9 +711,9 @@
                 </configuration>
             </plugin><!--
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changelog-plugin</artifactId>
-                <version>${maven.changelog.version}</version>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-changelog-plugin</artifactId>
+                            <version>${maven.changelog.version}</version>
             </plugin>
 -->            
             <plugin>
@@ -834,6 +880,59 @@
     </reporting>
     <profiles>
         <profile>
+            <id>comment</id>
+            <properties>
+                <test.logging.comment>#</test.logging.comment>
+            </properties>
+        </profile>
+        <profile>
+            <id>checknull</id>
+            <properties>
+                <org.checkerframework.version>true</org.checkerframework.version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.checkerframework</groupId>
+                    <artifactId>checker-qual</artifactId>
+                    <version>${org.checkerframework.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.checkerframework</groupId>
+                    <artifactId>checker</artifactId>
+                    <version>${org.checkerframework.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.checkerframework</groupId>
+                    <artifactId>jdk8</artifactId>
+                    <version>${org.checkerframework.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>${maven.compiler.version}</version>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
+                            <fork>true</fork>
+                            <annotationProcessors>
+                                <annotationProcessor>
+                                    org.checkerframework.checker.nullness.NullnessChecker
+                                </annotationProcessor>
+                            </annotationProcessors>
+                            <compilerArgs>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                                <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
+                                <arg>-J-Xbootclasspath/p:${typeAnnotationsJavac}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>skiptest</id>
             <properties>
                 <maven.test.skip.exec>true</maven.test.skip.exec>
@@ -868,21 +967,23 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>${failsafe.version}</version>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>integration-test</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${surefire.version}</version>
+                        <!--version>2.16</version -->
+                        <configuration>
+                            <systemPropertyVariables>
+                                <propertyName>concordion.output.dir</propertyName>
+                                <buildDirectory>target/concordion</buildDirectory>
+                                <lib>${project.build.testOutputDirectory}/WEB-INF/lib</lib>                  
+                                <java.io.tmpdir>${project.basedir}/target</java.io.tmpdir>
+                            </systemPropertyVariables>
+                            <testFailureIgnore>false</testFailureIgnore>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
         <profile>
@@ -904,7 +1005,7 @@
                     <plugin>
                         <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
                         <artifactId>maven-java-formatter-plugin</artifactId>
-                        <version>${maven-java-formatter-plugin}</version>
+                        <version>0.4</version>
                         <configuration>
                             <compilerCompliance>${java.version}</compilerCompliance>
                             <compilerSource>${java.version}</compilerSource>
@@ -939,14 +1040,19 @@
     </profiles>
     <dependencyManagement>
         <dependencies>
-            <dependency>
+            <!--            <dependency>
                 <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
+                <artifactId>logback-core</artifactId>
                 <version>${logBack.version}</version>
-            </dependency>
+            </dependency>-->
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!--        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version> la dernière version est 1.7.25
+        </dependency>-->
         <dependency>
             <groupId>${soere.groupId}</groupId>
             <artifactId>kernel-extraction-ui-jsf</artifactId>
@@ -962,6 +1068,53 @@
             <artifactId>kernel-filecomp-ui-jsf</artifactId>
             <version>${kernel.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.concordion</groupId>
+            <artifactId>concordion-extensions</artifactId>
+            <version>${concordion.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>${spring-test-dbunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>${dbunit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.spec.ee</groupId>
+            <artifactId>ow2-jta-1.1-spec</artifactId>
+            <version>${ow2-jta-1.1-spec.version}</version>
+        </dependency>
+        <!--        JBP-->
+        <!--        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>test</scope>
+        </dependency>-->
         <dependency>
             <groupId>${soere.groupId}</groupId>
             <artifactId>kernel-core-services-impl</artifactId>
@@ -1004,40 +1157,46 @@
             <type>test-jar</type>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${org.springframework.version}</version>
+            <groupId>org.inra.ecoinfo</groupId>
+            <artifactId>kernel-embedded-postgresql</artifactId>
+            <version>1.2</version>
             <scope>test</scope>
+        </dependency>
+        <!--        Pour les logs-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.concordion</groupId>
-            <artifactId>concordion-extensions</artifactId>
-            <version>${concordion.version}</version>
-            <scope>test</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>           
+        
+        <!--        test-->
+        <dependency>
+            <groupId>org.reactivestreams</groupId>
+            <artifactId>reactive-streams</artifactId>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>test</scope>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.8</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hamcrest-core</artifactId>
-                    <groupId>org.hamcrest</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.4-701.jdbc3</version>
+            <scope>provided</scope>
         </dependency>
-    </dependencies>
+                                                                                                                                                                                               
+    </dependencies>    
 </project>

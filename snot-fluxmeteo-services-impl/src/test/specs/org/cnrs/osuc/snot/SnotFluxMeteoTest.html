@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tests de chargement des données de références et des données expérimentales pour le module fluxmeteo-services-impl</title>
+    </head>
+    <body>
+        <p>Ce test permet de vérifier que toutes les données de référence et les données expérimentales peuvent être chargées</p>
+
+        <p>L'application est lancée.</p>
+        <p>
+            Au démarrage, l'utilisateur connecté est <span
+                concordion:assertEquals="getUtilisateurConnected()">vide</span> et il
+            y a <span concordion:assertEquals="getCountUsers()">0</span>
+            utilisateur dans la base.
+        </p>
+        <h2>On connecte le super administrateur pour créer un utilisateur <span concordion:set="#testeurAuto">testeurAuto</span>, lui affecter des droits pour gérer les données de référence</h2>
+        <ul>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/LoadUsers.html">On charge les utilisateurs </a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/ConnexionAdmin.html">On connecte l'utilisateur adminTest </a></li>
+            <li><a concordion:run="concordion" href="../menu/CheckMenu.html">On test les menus disponibles pour cet utilisateur</a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/notification/CheckNotification.html">On test les notifications pour cet utilisateur</a></li>
+            <li><a concordion:run="concordion"
+			href="../security/CheckRights.html">On place les activities sur les données de référence pour testeurAuto</a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/Deconnexion.html">On déconnecte l'utilisateur adminTest </a></li>
+        </ul>
+        <h2>Tests avec l'utilisateur testeurAuto</h2>
+        <ul>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/ConnexionTesteur.html">On connecte l'utilisateur testeurAuto </a></li>
+            <li><a concordion:run="concordion" href="../refdata/LoadRefdata.html">On charge les données de référence</a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/Deconnexion.html">On déconnecte l'utilisateur testeurAuto </a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/ConnexionAdmin.html">On connecte l'utilisateur adminTest </a></li>
+            <li><a concordion:run="concordion"
+                   href="../security/CheckTesteurRights.html">On test les droits de
+                    l'utilisateur testeurAuto</a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/Deconnexion.html">On déconnecte l'utilisateur adminTest </a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/ConnexionTesteur.html">On connecte l'utilisateur testeurAuto </a></li>
+            <li><a concordion:run="concordion" href="../menu/CheckUserMenu.html">On
+                    test les menus disponibles pour cet utilisateur</a></li>
+            <li><a concordion:run="concordion"
+                   href="dataset/LoadDataset.html">On charge les fichiers de données</a></li>
+            <li><a concordion:run="concordion"
+                   href="dataset/UnPublishDataset.html">On dépublie les données</a></li>
+            <li><a concordion:run="concordion"
+                   href="dataset/UnLoadDataset.html">On supprime les fichiers
+                    déposés</a></li>
+            <li><a concordion:run="concordion"
+                   href="../../../inra/ecoinfo/identification/Deconnexion.html">On déconnecte
+                    l'utilisateur testeurAuto </a></li>
+        </ul>
+    </body>
+</html>

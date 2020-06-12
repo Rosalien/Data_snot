@@ -18,6 +18,7 @@
         <h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-lastsNotificationsPanel-stylesAdmin.css" />
         
         <p:dataTable var="notification" rows="3" 
+                     emptyMessage="#{uiNotifications.displayNewMessages? notificationPanel.PARAM_MSG_NO_NEW_MSG:notificationPanel.PARAM_MSG_NO_MSG}"
                         value="#{uiNotifications.notifications}" styleClass="dataTable">
 
 

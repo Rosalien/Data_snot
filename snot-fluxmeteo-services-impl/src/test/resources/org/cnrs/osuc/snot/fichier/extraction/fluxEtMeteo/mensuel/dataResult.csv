@@ -1,0 +1,6 @@
+;;Flux de tours;;;;
+site;date;CO2;H2O;LE;T
+;;µmol_mol-1;mmol_mol-1;MJ_m-2_m-1;kg_m-1_s-1
+hesse/hesse_1;01/2008;386.0;6.845;7.591;1.34
+hesse/hesse_1;02/2008;386.1;7.312;7.714;0.5018
+hesse/hesse_1;03/2008;381.2;6.769;19.31;0.8916

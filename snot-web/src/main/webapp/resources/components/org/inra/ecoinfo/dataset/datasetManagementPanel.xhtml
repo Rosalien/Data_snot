@@ -54,7 +54,7 @@
                     sizeLimit="40000000"
                     fileLimit="30"
                     allowTypes="/(\.|\/)(csv|pdf|txt|doc?|xls|zip|od?|xml|)$/"
-                    label="test"
+                    label="#{datasetManagementPanel.PARAM_MSG_ADD_FILE}"
                     cancelLabel="#{datasetManagementPanel.PARAM_MSG_CANCEL}"
                     uploadLabel="#{datasetManagementPanel.PARAM_MSG_DO_UPLOAD}"
                     multiple="true"
@@ -84,6 +84,7 @@
                                         return false;" />
             </f:facet>
             <h:panelGroup style="width:500px">
+                checked = #{uiDataset.selectedVersion.checked}
                 <h:outputText
                     value="#{datasetManagementPanel.PARAM_MSG_ALERT_PUBLISH_FILE}"
                     styleClass="intro" rendered="#{uiDataset.selectedVersion.checked}" />
@@ -128,9 +129,9 @@
                                          action="#{uiDataset.publishCheckbox}"
                                          async="true"
                                          update="@widgetVar(confirmPublish),:#{p:component('datasetsDetailsPanel')},:#{p:component('selectedDatasetDetailsPanel')}"
-                                         onstart="PF('confirmPublish').hide();PF('beginProcessPopup').show()"
-                                         oncomplete="PF('beginProcessPopup').hide()"
-                                         onerror="PF('beginProcessPopup').hide()" />
+                                         onstart="PF('confirmPublish').hide();PF('popupWaitSimple').show()"
+                                         oncomplete="PF('popupWaitSimple').hide()"
+                                         onerror="PF('popupWaitSimple').hide()" />
 
 
                         <p:commandButton value="#{datasetManagementPanel.PARAM_MSG_CANCEL}"
@@ -193,7 +194,7 @@
 
 
         <p:dialog id="uploadFilesToSubmitPopup" widgetVar="uploadFilesToSubmitPopup" appendTo="@(body)"
-                  modal="true"
+                  width="500" height="350" modal="true"
                   styleClass="uploadFilesToCheckPopup">
             <f:facet name="header">
                 <h:outputText escape="false"
@@ -418,7 +419,7 @@
                                     <f:facet name="header">
                                         <p:commandLink>
                                             <h:outputText value="N°" />
-                                            <p:tooltip styleClass="tooltip" showDelay="0">
+                                            <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="0">
                                                 <h:outputText
                                                     value="#{datasetManagementPanel.PARAM_MSG_VERSION_NUMBER}" />
                                             </p:tooltip>
@@ -457,7 +458,7 @@
                                     <f:facet name="header">
                                         <h:outputText
                                             value="#{datasetManagementPanel.PARAM_MSG_PUBLISH}" />
-                                        <p:tooltip styleClass="tooltip" showDelay="0">
+                                        <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="0">
                                             <h:outputText
                                                 value="#{datasetManagementPanel.PARAM_MSG_PUBLISH_DESCRIPTION}" />
                                         </p:tooltip>
@@ -469,7 +470,7 @@
                                                        oncomplete="PF('confirmPublish').show();"
                                                        rendered="#{uiIdentification.currentUtilisateur.isRoot or uiBeanActionTree.hasActivity('publication')}">
                                         <f:setPropertyActionListener value="#{version}" target="#{uiDataset.selectedVersion}" />
-                                        <f:setPropertyActionListener value="#{not version.checked}" target="#{uiDataset.selectedVersion.checked}" />
+                                        <f:setPropertyActionListener value="#{not version.versionFile.published}" target="#{uiDataset.selectedVersion.checked}" />
                                     </p:commandButton>
                                     <p:commandButton   icon="#{version.versionFile.published?'published':'unpublished'}"
                                                        styleClass="invisibleButton"
@@ -486,13 +487,12 @@
                                     </p:remoteCommand>
                                     <p:commandButton id="imgDownloadVersion" ajax="false" 
                                                      styleClass="invisibleButton tooltip"
-                                                     icon="download" 
-                                                     onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                     icon="download" onclick="PrimeFaces.monitorDownload(start, stop);"
                                                      process="@this" update="@this">
                                         <p:fileDownload value="#{uiDataset.upload(version.versionFile)}"  />
                                     </p:commandButton>
 
-                                    <p:tooltip styleClass="tooltip" showDelay="500" for="imgDownloadVersion">
+                                    <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="500" for="imgDownloadVersion">
                                         <h:outputText
                                             value="#{datasetManagementPanel.PARAM_MSG_UPLOAD_THIS_VERSION}" />
                                     </p:tooltip>
@@ -504,7 +504,7 @@
                                                        oncomplete="PF('confirmDelete').show();"
                                                        rendered="#{uiIdentification.currentUtilisateur.isRoot or uiBeanActionTree.hasActivity('suppression')}">
                                         <f:setPropertyActionListener value="#{version}" target="#{uiDataset.selectedVersion}" />
-                                        <p:tooltip styleClass="tooltip" for="imgDeleteVersion"
+                                        <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" for="imgDeleteVersion"
                                                    showDelay="500">
                                             <h:outputText
                                                 value="#{datasetManagementPanel.PARAM_MSG_DELETE_THIS_VERSION}" />

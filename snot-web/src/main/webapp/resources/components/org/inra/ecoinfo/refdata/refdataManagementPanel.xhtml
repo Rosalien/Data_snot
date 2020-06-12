@@ -8,6 +8,8 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <composite:interface>
+        <composite:attribute name="nom" required="false" />
+        <composite:attribute name="configurationNumber" required="true" default="3"/>
     </composite:interface>
 
     <composite:implementation>
@@ -18,8 +20,25 @@
                     return '';
                 }
             };
+            var listModified = [];
             placeholderOnFind = function () {
                 $('input[id$=filter]').attr('placeholder', 'filter');
+            }
+            addModified = function (ajaxElement) {
+                listModified.push(ajaxElement.source);
+            }
+            resetModified = function () {
+                $('td.modified').removeClass('modified');
+                listModified = [];
+            }
+            markModified = function () {
+                $(listModified).each(
+                        function (index, element) {
+                            object = jQuery(PrimeFaces.escapeClientId(element)).parent('td');
+                            console.dir(object)
+                            object.addClass('modified');
+                        }
+                );
             }
         </script>
         <f:loadBundle
@@ -49,7 +68,7 @@
 
             <p:remoteCommand name="editColumn" process="@this"
                              async="false"
-                             update="#{p:component('panelValuesMetadatas')},#{p:component('saveButton')}"
+                             update="#{p:component('panelValuesMetadatas')},#{p:component('saveButton')},#{p:component('popupSaveDatasConfirmation')}"
                              oncomplete="PF('popupSaveDatasConfirmation').show()">
             </p:remoteCommand>
 
@@ -65,20 +84,16 @@
             </p:remoteCommand>
 
             <p:remoteCommand name="updateTable"  process="@this"
-                             oncomplete="placeholderOnFind()"
+                             oncomplete="placeholderOnFind();markModified();"
                              async="false"
-                             update="#{p:component('panelDetailsMetadata')},#{p:component('depotActivity')}"
+                             update="#{p:component('panelDetailsMetadata')}"
                              />
 
         </h:form>
-        <p:dialog id="popupSaveDatasConfirmation" modal="true" appendTo="@(body)" widgetVar="popupSaveDatasConfirmation">
+        <p:dialog id="popupSaveDatasConfirmation" modal="true" appendTo="@(body)" widgetVar="popupSaveDatasConfirmation" closable="false">
             <f:facet name="header">
                 <h:outputText escape="false"
                               value="#{refdataManagementPanel.PARAM_MSG_ALERT_CONFIRM}" />
-            </f:facet>
-            <f:facet name="controls">
-                <p:graphicImage name="images/close.png" styleClass="logout"
-                                onclick="PF('popupSaveDatasConfirmation').hide(); return false;" />
             </f:facet>
             <h:panelGroup style="width:300px; text-align: left;" >
                 <p class="intro">#{refdataManagementPanel.PARAM_MSG_ALERT_CONFIRM_CHANGE}</p>
@@ -103,6 +118,8 @@
                         action="#{uiRefdata.saveRefdatas}" process="@this"
                         update="popupSaveDatasConfirmation,panelValuesMetadatas,saveButton"
                         onstart="PF('popupSaveDatasConfirmation').hide()"
+                        onsuccess="resetModified()"
+                        onerror="markModified();"
                         oncomplete="updateTable()"/>
 
                     <p:commandButton
@@ -115,8 +132,8 @@
 
         </p:dialog>
 
-        <p:dialog id="popupUploadRefdata" appendTo="@(body)"
-                  modal="true" widgetVar="popupUploadRefdata"
+        <p:dialog id="popupUploadRefdata" width="500" appendTo="@(body)"
+                  height="350" modal="true" widgetVar="popupUploadRefdata"
                   styleClass="uploadFilesToCheckPopup">
             <f:facet name="header">
                 <h:outputText escape="false"
@@ -154,16 +171,16 @@
             </h:form>
 
         </p:dialog>
-        <p:dialog id="popupAddNewRefdata" appendTo="@(body)" widgetVar="popupAddNewRefdata" modal="true" style="overflow: auto; max-width: 90%; max-height: 90%">
+        <p:dialog id="popupAddNewRefdata" appendTo="@(body)" widgetVar="popupAddNewRefdata" modal="true" width="90%">
             <f:facet name="header">
                 <h:outputText value="#{refdataManagementPanel.PARAM_MSG_ADD_REFDATA}"
                               style="display: block;" />
             </f:facet>
             <f:facet name="controls">
-                <p:graphicImage name="images/close.png" styleClass="logout"
-                                onclick="deleteNewLine(); PF('popupAddNewRefdata').hide(); return false;" >
+                <p:graphicImage name="images/close.png" styleClass="logout" >
                     <p:ajax event="click" listener="#{uiRefdata.actionDeleteNewLine()}"
-                            oncomplete="deleteNewLine()" />
+                            update="#{p:component('panelValuesMetadatas')},#{p:component('saveButton')}"
+                            oncomplete="PF('popupAddNewRefdata').hide();" />
                 </p:graphicImage>
             </f:facet>
             <h:panelGroup >
@@ -286,15 +303,19 @@
                         <f:attribute name="codeConfig" value="3" />
 
                         <p:ajax event="select"
-                                oncomplete="updateTable();" />
+                                onstart="PF('popupWaitModal').show()"
+                                onerror="PF('popupWaitModal').hide()"
+                                oncomplete="updateTable();PF('popupWaitModal').hide();" />
 
                         <p:column     style="white-space: pre-line;">
-                            <p:commandLink process="@this" update="#{p:component('panelDetailsMetadata')}" >
+                            <p:commandLink process="@this" update="@this">
                                 <h:outputText id ="metadataName" value="#{uiBeanActionTree.getLocalName(node)}" />
-                                <p:ajax onstart="event.target.parentNode.previousSibling.click()" disabled="#{empty node.children}"/>
+                                <p:ajax  disabled="#{empty node.children}" onstart="event.target.parentNode.previousSibling.click(); return false;" />
                             </p:commandLink>
-                            <p:tooltip for="metadataName"  showDelay="1500" style="width: 30%">
-                                <h:outputText value="#{uiRefdata.getLocalDescription(node)}"  rendered="#{'' ne uiRefdata.getLocalDescription(node)}"/>
+                            <p:tooltip   hideEvent="mouseleave click" for="metadataName" 
+                                         rendered="#{'' ne uiRefdata.getLocalDescription(node)}"
+                                         style="width: 30%">
+                                <h:outputText value="#{uiRefdata.getLocalDescription(node)}" />
                                 <p:spacer height="5" />
                                 <!--<h:outputText value="#{refdataManagementPanel.PARAM_MSG_CLICK_FOR_REFDATA_EDIT}"  rendered="#{node.isLeaf()}"/>-->
                             </p:tooltip>
@@ -353,14 +374,14 @@
                                     <h:outputText
                                         value="#{refdataManagementPanel.PARAM_MSG_DOWNLOAD} " />
                                 </h:outputLink>
-                                <p:tooltip styleClass="tooltip"  showDelay="0"
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"  showDelay="0"
                                            rendered="#{not uiRefdata.metadataSelection.download}"
                                            for="downloadButton">
                                     <h:outputText
                                         value="#{refdataManagementPanel.PARAM_MSG_NO_RIGHT_ON_UPLOAD}" />
                                 </p:tooltip>
 
-                                <p:tooltip styleClass="tooltip"  showDelay="0"
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"  showDelay="0"
                                            rendered="#{uiRefdata.metadataSelection.download}"
                                            for="downloadButton">
                                     <h:outputText
@@ -370,16 +391,16 @@
 
                             <h:panelGroup
                                 rendered="#{not uiRefdata.metadataSelection.metadata.finalMetadata}"
-                                class="#{uiRefdata.metadataSelection.edition?'control':'control disabled'}">
+                                class="#{uiRefdata.metadataSelection.publication?'control':'control disabled'}">
                                 <p:graphicImage value="#{resource['images/add.png']}" />
                                 <h:outputLink
-                                    disabled="#{not uiRefdata.metadataSelection.edition}" value="#"
+                                    disabled="#{not uiRefdata.metadataSelection.publication}" value="#"
                                     id="addFileRefdata"
                                     onclick="PF('popupUploadRefdata').show();">
                                     <h:outputText value="#{refdataManagementPanel.PARAM_MSG_MASSIV_UPLOAD}" />
                                 </h:outputLink>
-                                <p:tooltip styleClass="tooltip"  showDelay="0"
-                                           rendered="#{not uiRefdata.metadataSelection.edition}"
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"  showDelay="0"
+                                             rendered="#{not uiRefdata.metadataSelection.publication}"
                                            for="addFileRefdata">
                                     <h:outputText
                                         value="#{refdataManagementPanel.PARAM_MSG_NO_RIGHT_FOR_EDIT}" />
@@ -399,12 +420,12 @@
                                                value="#{refdataManagementPanel.PARAM_MSG_SAVE}"
                                                onclick="PF('popupSaveDatasConfirmation').show()">
                                 </p:commandLink>
-                                <p:tooltip styleClass="tooltip"  showDelay="0" for="saveButtonLink"
-                                           rendered="#{not (uiRefdata.metadataSelection.edition or uiRefdata.metadataSelection.delete)}">
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"  showDelay="0" for="saveButtonLink"
+                                             rendered="#{not (uiRefdata.metadataSelection.publication or uiRefdata.metadataSelection.delete)}">
                                     <h:outputText
                                         value="#{refdataManagementPanel.PARAM_MSG_NO_RIGHT_FOR_EDIT}" />
                                 </p:tooltip>
-                                <p:tooltip styleClass="tooltip"  showDelay="0" for="saveButtonLink"
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"  showDelay="0" for="saveButtonLink"
                                            rendered="#{not uiRefdata.isGridOverallValid}">
                                     <h:outputText class="mandatory"
                                                   value="#{refdataManagementPanel.PARAM_MSG_FILL_MANDATORY_FIELDS}" />
@@ -412,7 +433,6 @@
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
-
 
                     <h:panelGroup id="panelValuesMetadatas"
                                   class="panelValuesMetadatas">
@@ -425,55 +445,58 @@
                                              id="tableValuesMetadatas"
                                              filteredValue="#{uiRefdata.filteredValues}" 
                                              styleClass="dataTable" rows="15" 
+                                             rowStyleClass="#{line.isNew?'newLine':'lineMetadataGrid'}"
                                              rendered="#{uiRefdata.metadataSelection != null}" >
-
-                                    <p:columns id="metadataColumns" value="#{uiRefdata.modelGridMetadata.headersColumns}" 
-                                               var="column" columnIndexVar="columnStatus" sortBy="#{line.columnsModelGridMetadatas[columnStatus].value}"
-                                               filterBy="#{line.columnsModelGridMetadatas[columnStatus].value}" filterMatchMode="contains"
-                                               visible="#{uiRefdata.visibledColumns[columnStatus]}"
-                                               styleClass="nom column#{columnStatus} #{line.columnsModelGridMetadatas[columnStatus].isListValues or line.columnsModelGridMetadatas[columnStatus].isNKey?'':'clickable'} #{line.columnsModelGridMetadatas[columnStatus].isNKey?'NKey':''} #{line.toDelete?'deleted':''}">
-                                        <f:facet name="header" class="column#{columnStatus}">
+                                    <c:forEach items="#{uiRefdata.modelGridMetadata.headersColumns}" 
+                                               varStatus="columnStatus" var="column" >
+                                        <p:column sortBy="#{line.columnsModelGridMetadatas[columnStatus.index].value}"
+                                                  filterBy="#{line.columnsModelGridMetadatas[columnStatus.index].value}" filterMatchMode="contains"
+                                                  visible="#{uiRefdata.visibledColumns[columnStatus.index]}"
+                                                  styleClass="nom column#{columnStatus.index} #{line.columnsModelGridMetadatas[columnStatus.index].isListValues or line.columnsModelGridMetadatas[columnStatus.index].isNKey?'':'clickable'} #{line.columnsModelGridMetadatas[columnStatus.index].isNKey?'NKey':''} #{line.toDelete?'deleted':''}">
+                                            <f:facet name="header" class="column#{columnStatus.index}">
                                             <h:outputText id="columnHeader" value="#{column}" />
-                                            <p:tooltip for="@(#metadatadisplayvaluesfomr\\:tableValuesMetadatas\\:columnHeader" value="#{column}" showDelay="700"  hideDelay="500"/>
+                                                <p:tooltip   hideEvent="mouseleave click" for="@(#metadatadisplayvaluesfomr\\:tableValuesMetadatas\\:columnHeader" value="#{column}" showDelay="700"  hideDelay="500"/>
                                         </f:facet>
                                         <h:panelGroup id="LinePanel">
-                                            <!-- pour une ligne enregistrée affichage d'un champs simple avec une valeur-->
+                                                <!--pour une ligne enregistrée affichage d'un champs simple avec une valeur-->
                                             <p:inplace id="inplace" editor="true"
-                                                       label="#{(line.columnsModelGridMetadatas[columnStatus].value eq null or line.columnsModelGridMetadatas[columnStatus].value eq '')?'...':line.columnsModelGridMetadatas[columnStatus].value}"
-                                                       toggleable="#{uiRefdata.metadataSelection.edition and (line.isNew or not line.columnsModelGridMetadatas[columnStatus].isNKey)}">
-                                                <c:if test="#{line.columnsModelGridMetadatas[columnStatus].isListValues}">
+                                                           label="#{(line.columnsModelGridMetadatas[columnStatus.index].value eq null or line.columnsModelGridMetadatas[columnStatus.index].value eq '')?'...':line.columnsModelGridMetadatas[columnStatus.index].value}"
+                                                           toggleable="#{uiRefdata.metadataSelection.publication and (line.isNew or not line.columnsModelGridMetadatas[columnStatus.index].isNKey)}">
+                                                    <p:ajax event="save" listener="#{uiRefdata.actionEditColumn(line.keyPath,columnStatus.index)}"
+                                                            process="@this"
+                                                            oncomplete="addModified(this);editColumn()" />
+                                                    <c:if test="#{line.columnsModelGridMetadatas[columnStatus.index].isListValues}">
                                                     <h:selectOneMenu
-                                                        value="#{line.columnsModelGridMetadatas[columnStatus].value}">
-                                                        <p:ajax event="change" listener="#{uiRefdata.actionEditColumn(line.keyPath,columnStatus)}"
-                                                                process="@this"
-                                                                oncomplete="editColumn()" />
+                                                            value="#{line.columnsModelGridMetadatas[columnStatus.index].value}">
                                                         <f:selectItems
-                                                            value="#{line.columnsModelGridMetadatas[columnStatus].listOfValuesPossibles}"
+                                                                value="#{line.columnsModelGridMetadatas[columnStatus.index].listOfValuesPossibles}"
                                                             var="value" itemLabel="#{value}" itemValue="#{value}" />
                                                     </h:selectOneMenu>
                                                 </c:if>
                                                 <c:otherwise>
-                                                    <c:if test="#{line.columnsModelGridMetadatas[columnStatus].isLongString}">
-                                                        <p:inputTextarea value="#{line.columnsModelGridMetadatas[columnStatus].value}"
-                                                                         class="inputTextAreaLongString" >
-                                                            <p:ajax event="change" listener="#{uiRefdata.actionEditColumn(line.keyPath,columnStatus)}"
-                                                                    process="@this"
-                                                                    oncomplete="editColumn()" />
+                                                        <c:if test="#{line.columnsModelGridMetadatas[columnStatus.index].isLongString}">
+                                                            <p:inputTextarea value="#{line.columnsModelGridMetadatas[columnStatus.index].value}"
+                                                                             class="inputTextAreaLongString" 
+                                                                             onkeypress="if (event.keyCode === 13) {
+                                                                                         return false;
+                                                                                     }" >
                                                         </p:inputTextarea>
 
                                                     </c:if>
                                                     <c:otherwise>
-                                                        <p:inputText value="#{line.columnsModelGridMetadatas[columnStatus].value}"
-                                                                     class="inputTextAreaLongString" >
-                                                            <p:ajax event="change" listener="#{uiRefdata.actionEditColumn(line.keyPath,columnStatus)}"
-                                                                    process="@this"
-                                                                    oncomplete="editColumn()" />
+                                                            <p:inputText value="#{line.columnsModelGridMetadatas[columnStatus.index].value}"
+                                                                         class="inputTextAreaLongString"
+                                                                         onkeypress="if (event.keyCode === 13) {
+                                                                                     return false;
+                                                                                 }" >
                                                         </p:inputText>
                                                     </c:otherwise>
                                                 </c:otherwise>
                                             </p:inplace>
                                         </h:panelGroup>
-                                    </p:columns>
+                                        </p:column>
+                                    </c:forEach>
+
                                     <p:column styleClass="actions" toggleable="false" exportable="false"
                                               rendered="#{not uiRefdata.metadataSelection.metadata.finalMetadata}">
                                         <f:facet name="header" >
@@ -490,11 +513,11 @@
                                                 update="#{p:component('popupAddNewRefdata')}"
                                                 oncomplete="PF('popupAddNewRefdata').show()">
                                             </p:commandButton>
-                                            <p:tooltip for="toggler" value="#{refdataManagementPanel.PARAM_MSG_TOGGLER}" />
+                                            <p:tooltip   hideEvent="mouseleave click" for="toggler" value="#{refdataManagementPanel.PARAM_MSG_TOGGLER}" />
                                             <p:columnToggler datasource="tableValuesMetadatas" trigger="toggler" >
                                                 <p:ajax event="toggle" listener="#{uiRefdata.onToggle}" />
                                             </p:columnToggler>
-                                            <p:tooltip for="addMetadata" value="#{uiRefdata.metadataSelection.edition?refdataManagementPanel.PARAM_MSG_CLICK_FOR_NEW_ENTRY:refdataManagementPanel.PARAM_MSG_NO_RIGHT_FOR_EDIT}" />
+                                            <p:tooltip   hideEvent="mouseleave click" for="addMetadata" value="#{uiRefdata.metadataSelection.publication?refdataManagementPanel.PARAM_MSG_CLICK_FOR_NEW_ENTRY:refdataManagementPanel.PARAM_MSG_NO_RIGHT_FOR_EDIT}" />
                                         </f:facet>
 
                                         <h:outputLink value="#" id="deleteButton"
@@ -508,7 +531,6 @@
                                         <p:commandLink id="deleteLineButton"
                                                        class="#{uiRefdata.metadataSelection.delete?'':'disabled'}"
                                                        disabled="#{not uiRefdata.metadataSelection.delete}"
-                                                       onclick="deleteLine();"
                                                        rendered="#{not line.isNew}" >
                                             <p:ajax event="click" listener="#{uiRefdata.actionDeleteLine(line.keyPath)}"
                                                     oncomplete="deleteLine()" />
@@ -517,12 +539,12 @@
                                             <p:graphicImage value="#{resource['images/add_ok.png']}"
                                                             rendered="#{line.toDelete}" />
                                         </p:commandLink>
-                                        <p:tooltip styleClass="tooltip"
+                                        <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"
                                                    rendered="#{line.isNew and uiRefdata.metadataSelection.delete}" showDelay="500" for="deleteButton">
                                             <h:outputText
                                                 value="#{refdataManagementPanel.PARAM_MSG_DELETE_LINE}" />
                                         </p:tooltip>
-                                        <p:tooltip styleClass="tooltip"
+                                        <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"
                                                    showDelay="500" for="deleteLineButton"
                                                    rendered="#{not line.isNew and uiRefdata.metadataSelection.delete}">
                                             <h:outputText
@@ -532,7 +554,7 @@
                                                 value="#{refdataManagementPanel.PARAM_MSG_NO_DELETE_LINE}"
                                                 rendered="#{line.toDelete}" />
                                         </p:tooltip>
-                                        <p:tooltip styleClass="tooltip"
+                                        <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"
                                                    rendered="#{not uiRefdata.metadataSelection.delete}" showDelay="500" for="deleteLineButton">
                                             <h:outputText
                                                 value="#{refdataManagementPanel.PARAM_MSG_NO_RIGHT_FOR_DELETE}" />

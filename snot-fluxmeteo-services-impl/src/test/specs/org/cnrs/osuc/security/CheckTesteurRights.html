@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Vérification des droits admin</title>
+    </head>
+    <body
+        style="p: before .success, li:before .success{ 
+            background-image: 
+                url(http://images4.wikia.nocookie.net/__cb20101013160837/sims/fr/images/d/dd/Ic%C3%B4ne_Valid.png); content: '&gt;'">
+                
+                <h3>On ajoute des droits sur les données expérimentales pour
+                    l'utilisateur  <span
+                        concordion:set="#utilisateur">testeurAuto</span>..</h3>
+
+                <table
+                    concordion:execute="#areRightsSet=addActivity(#utilisateur, #whichTreeCode, #role, #path, #dateDeDebut, #dateDeFin)">
+                    <tr>
+                        <th concordion:set="#utilisateur">Utilisateur</th>
+                        <th concordion:set="#whichTreeCode">WhichTreeCode</th>
+                        <th concordion:set="#role">Role</th>
+                        <th concordion:set="#path">Path</th>
+                        <th concordion:set="#dateDeDebut">Date de début</th>
+                        <th concordion:set="#dateDeFin">Date de fin</th>
+                        <th concordion:assertTrue="#areRightsSet">Droit mis</th>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEDATASET</td>
+                        <td>depot,publication,extraction,suppression</td>
+                        <td>lgt/ec1,ges,eddycovariance_sh</td>
+                        <td>01/04/2017</td>
+                        <td>01/05/2017</td>
+                        <td>true</td>
+                    </tr>
+                </table>
+            </body>
+        </html>

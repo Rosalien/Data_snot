@@ -14,9 +14,9 @@
           xmlns:localization="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/localization"
           xmlns:utils="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/utils">
 
+        <f:event listener="#{uiMenu.preRender}" type="preRenderView" />
         <h:head>
             <f:loadBundle basename="org.inra.ecoinfo.jsf.site" var="site" />
-            <f:loadBundle basename="org.inra.ecoinfo.jsf.index" var="index" />
             <title>#{site.PARAM_MSG_ORE_FULL_NAME} - <ui:insert
                     name="title">Application Title</ui:insert>
             </title>
@@ -35,7 +35,6 @@
                         <p:growl id="messages" showDetail="true"/>
                         <p:menubar model="#{uiMenu.restrictedToolbarGroup}" id="layoutContainer3" autoDisplay="false">
                             <f:facet name="options" >
-
                                 <p:outputPanel layout="inline">
 <!--                                        Logo à côté du panneau de connexion -->
 <!--                                    <p:graphicImage name="images/logo_snot_cnrs.png" />                                    -->

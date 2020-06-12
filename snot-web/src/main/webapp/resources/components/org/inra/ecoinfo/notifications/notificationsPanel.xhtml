@@ -23,10 +23,12 @@
                              async="false"
                              actionListener="#{uiNotifications.reloadNotifications()}"
                              />
+
         </h:form>
 
         <!--Popup confirmation de la suppression des messages        -->
-        <p:dialog id="popupConfirmationDeleteAllNotifications"  modal="true" widgetVar="notificationDeleteAll" appendTo="@(body)">
+
+        <p:dialog id="popupConfirmationDeleteAllNotifications"  modal="true" widgetVar="notificationDeleteAll" appendTo="@(body)" >
             <h:form id="notificationsPanelForm">
                 <f:facet name="header">
                     <h:outputText escape="false"
@@ -44,12 +46,15 @@
                             value="#{notificationPanel.PARAM_MSG_ALERT_DELETE_ALL}"
                             escape="false" />
                     </p>
+
                     <p:panel  styleClass="logoutButtons">
                         <p:commandButton value="#{notificationPanel.PARAM_MSG_CONFIRM}"
                                          action="#{uiNotifications.deleteAllNotifications}" process="@this"
                                          partialSubmit="true"
                                          update="#{p:component('notificationsPanel')},#{p:component('mailCounter')}"
                                          onstart="PF('notificationDeleteAll').hide()" />
+
+
                         <p:commandButton value="#{notificationPanel.PARAM_MSG_CANCEL}"
                                          oncomplete="PF('notificationDeleteAll').hide(); return false;"
                                          process="@none" update="@none" partialSubmit="true" />
@@ -57,7 +62,6 @@
                 </p:panel>
             </h:form>
         </p:dialog><!--Fin du popup confirmation de la suppression des messages        -->
-
 
         <p:socket onMessage="handleNewNotification" channel="/notify/#{uiIdentification.connectedLogin}"
                   fallbackTransport="websocket" onTransportFailure="console.log(xhr)"
@@ -90,7 +94,7 @@
                     <!--<p:panel styleClass="controlsNotificationsPanel" >-->
                     <!-- Pour supprimer les messages-->
                     <p:panel visible="true" header= "#{notificationPanel.PARAM_MSG_MANAGMENT_NOTIF}" style="font-size: 16px" styleClass="panelControlsRefdataNotifications" >
-                        
+
                         <p:panel styleClass="control"
                                  rendered="#{not empty uiNotifications.notifications}" >
 
@@ -106,7 +110,7 @@
                                             update="#{p:component('notificationsPanel')}" />
                                 </p:selectBooleanCheckbox>
                             </h:form> 
-                         
+
                             <p:graphicImage value="#{resource['images/check.png']}" />
                             <p:commandLink process="@this"
                                            update="#{p:component('notificationsPanel')},#{p:component('mailCounter')}"
@@ -119,24 +123,25 @@
                             </p:commandLink>                         
                         </p:panel>
 
+                        <!--Voir Ici pour le problème d'affichage du dialog pour la suppression-->
                         <p:panel styleClass="control disabled"
                                  rendered="#{empty uiNotifications.notifications}" >
                             <p:graphicImage
                                 value="#{resource['images/remove_selection.png']}" />
                             <h:outputText value="#{notificationPanel.PARAM_MSG_DELETE_ALL}" />
                         </p:panel>
-                        
-<!--                        Panel pour supprimer les messages            -->
+
+                        <!--                        Panel pour supprimer les messages            -->
                         <p:panel styleClass="control"
                                  rendered="#{not empty uiNotifications.notifications}" >
-                                                        <p:graphicImage
+                            <p:graphicImage
                                 value="#{resource['images/remove_selection.png']}" />
                             <p:commandLink process="@none"
                                            update="selectedNotificationBody"
                                            oncomplete="PF('notificationDeleteAll').show()"
                                            partialSubmit="true"
                                            value="#{notificationPanel.PARAM_MSG_DELETE_ALL}">
-                                <p:tooltip styleClass="tooltip" showDelay="0">
+                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="0">
                                     <h:outputText
                                         value="#{notificationPanel.PARAM_MSG_DELETE_ALL_MESSAGES}" />
                                 </p:tooltip>
@@ -179,7 +184,7 @@
                                                        update="#{p:component('leftNotificationsPanel')},#{p:component('mailCounter')},#{p:component('messageDetails')}"
                                                        rendered="#{!notification.archived}" process="@this"
                                                        action="#{uiNotifications.markAsRead}">
-                                            <p:tooltip styleClass="tooltip" showDelay="0">
+                                            <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="0">
                                                 <h:outputText value="#{notificationPanel.PARAM_MSG_MSG_READ}" />
                                             </p:tooltip>
                                             <h:outputText value="#{notification.message}"
@@ -191,7 +196,7 @@
 
                                         <p:commandLink id="messageArchived" update="#{p:component('messageDetails')}"
                                                        rendered="#{notification.archived}" process="@this">
-                                            <p:tooltip styleClass="tooltip" showDelay="0">
+                                            <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" showDelay="0">
                                                 <h:outputText value="#{notificationPanel.PARAM_MSG_MSG_READ}" />
                                             </p:tooltip>
                                             <h:outputText value="#{notification.message}"
@@ -201,9 +206,9 @@
                                                 value="#{notification}" />
                                         </p:commandLink>
                                     </p:column>
-                                    <p:tooltip for="abstractColumn" value="#{notification.message}"  showDelay="1000" hideDelay="2500"/>
-                                    <!--                                Colonne "actions possibles"-->
-                                    <p:column style="width: 60px;font-size: 16px"  id="bodyColumn">
+                                    <p:tooltip   hideEvent="mouseleave click" for="abstractColumn" value="#{notification.message}"  showDelay="1000" hideDelay="2500"/>
+
+                                    <p:column width="90px"  id="bodyColumn">
                                         <f:facet name="header">
                                             <h:outputText style="white-space: pre-line;"
                                                           value="#{notificationPanel.PARAM_MSG_POSSIBLES_ACTIONS}" />
@@ -221,9 +226,9 @@
                                                         target="#{uiNotifications.selectedNotification}"
                                                         value="#{notification}" />
                                                 </p:commandLink>
-                                                <p:tooltip styleClass="tooltip" rendered="#{not empty notification.body}"
-                                                           value="#{notificationPanel.PARAM_MSG_SHOW_DETAIL}"
-                                                           showDelay="0" for="infoNotification" />
+                                                <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip" rendered="#{not empty notification.body}"
+                                                             value="{notificationPanel.PARAM_MSG_SHOW_DETAIL}"
+                                                             showDelay="0" for="infoNotification" />
                                             </span>
                                             <span class="ui-g-6 ui-md-3">
                                                 <p:graphicImage name="images/attach.png"
@@ -235,8 +240,8 @@
 
                                                     <p:graphicImage name="images/attach.png" />
 
-                                                    <p:tooltip styleClass="tooltip" 
-                                                               showDelay="0" for="#{p:component('linkAttachment')}">
+                                                    <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"
+                                                                 showDelay="0" for="#{p:component('linkAttachment')}">
                                                         <h:outputText
                                                             value="#{notificationPanel.PARAM_MSG_DOWNLOAD} #{uiNotifications.selectedNotification.bodyTroncate?notificationPanel.PARAM_MSG_WHOLE:''} #{notificationPanel.PARAM_MSG_BODY_CONTENT}" />
                                                     </p:tooltip>
@@ -248,8 +253,8 @@
                                                                update="#{p:component('leftNotificationsPanel')},#{p:component('selectedNotificationBody')},#{p:component('mailCounter')}"
                                                                process="@this"
                                                                action="#{uiNotifications.deleteNotification}">
-                                                    <p:tooltip styleClass="tooltip"
-                                                               showDelay="0" for="deleteNotification">
+                                                    <p:tooltip   hideEvent="mouseleave click" styleClass="tooltip"
+                                                                 showDelay="0" for="deleteNotification">
                                                         <h:outputText value="#{notificationPanel.PARAM_MSG_DELETE}" />
                                                     </p:tooltip>
                                                     <p:graphicImage name="images/delete.png" />

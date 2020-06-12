@@ -14,10 +14,7 @@
         <f:loadBundle
             basename="org.inra.ecoinfo.notifications.jsf.notification"
             var="notificationPanel" />
-        
-        <!--<h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-controlNotificationsIcon-styles.css" />-->
-        <h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-controlNotificationsIcon-stylesAdmin.css" />
-        
+        <h:outputStylesheet name="css/org/inra/ecoinfo/notifications/jsf-controlNotificationsIcon-styles.css" />
         <p:remoteCommand name="updateNotificationsInformations" 
                          async="false"
                          delay="1000" partialSubmit="true"
@@ -75,14 +72,14 @@
 
         <h:panelGroup id="newNotificationsContainer" layout="inline" />
         <p:notificationBar id="newNotificationsTooltip" styleClass="tooltip" widgetVar="newNotificationsTooltip" 
-                           position="bottom" 
+                           position= "top" 
                            effect="slide"
                            style="z-index: 20;background: rgba(116, 178, 226, 0.27);}">
             <span style="font-size: 29px;font-weight: 700;"> #{notificationPanel.PARAM_MSG_NEW_MESSAGE}</span>
         </p:notificationBar>
 
         <p:outputPanel id="mailCounter" layout="inline">
-            <p:tooltip id="notificationTooltip" styleClass="tooltip" showDelay="0">
+            <p:tooltip   hideEvent="mouseleave click" id="notificationTooltip" styleClass="tooltip" showDelay="0">
                 <h:outputText
                     value="#{notificationPanel.PARAM_MSG_SHOW_NOTIF_PANEL}" />
             </p:tooltip>

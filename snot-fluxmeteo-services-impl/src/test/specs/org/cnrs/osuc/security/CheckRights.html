@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Vérification des droits admin</title>
+    </head>
+    <body
+        style="p: before .success, li:before .success{ 
+            background-image: 
+                url(http://images4.wikia.nocookie.net/__cb20101013160837/sims/fr/images/d/dd/Ic%C3%B4ne_Valid.png); content: '&gt;'">
+                <h3>
+                    On ajoute des droits sur les données de référence pour l'utilisateur <span
+                        concordion:set="#utilisateur">testeurAuto</span>.
+                </h3>
+                <table
+                    concordion:execute="#areRightsSet=addActivity(#utilisateur, #whichTreeCode, #role, #path, #dateDeDebut, #dateDeFin)">
+                    <tr>
+                        <th concordion:set="#utilisateur">Utilisateur</th>
+                        <th concordion:set="#whichTreeCode">WhichTreeCode</th>
+                        <th concordion:set="#role">Role</th>
+                        <th concordion:set="#path">Path</th>
+                        <th concordion:set="#dateDeDebut">Date de début</th>
+                        <th concordion:set="#dateDeFin">Date de fin</th>
+                        <th concordion:assertTrue="#areRightsSet">Droit mis</th>
+                    </tr>
+                    <!--                    <tr>
+                                            <td>testeurAuto</td>
+                                            <td>TREEREFDATA</td>
+                                            <td>publication,suppression</td>
+                                            <td>arborescence/type_de_zones_d_etudes</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>true</td>
+                                        </tr>-->
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>arborescence/sites</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>arborescence/theme</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>arborescence/types_de_donnees_par_themes_de_sites</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>metadata/jeu</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>metadata/gestionnairejeu</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>metrologie/unites</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>metrologie/variables</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>metrologie/variables_par_types_de_donnees</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/instruments</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/methods</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/references</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/references_des_methodes</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/references_des_instruments</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/periodes_d_application_des_methodes</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>instruments_methods/periodes_d_utilisation_des_instruments</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>infocomplementaires/liste_de_valeurs_d_informations_complementaires</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>infocomplementaires/informations_complementaires</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>testeurAuto</td>
+                        <td>TREEREFDATA</td>
+                        <td>publication,suppression</td>
+                        <td>infocomplementaires/informations_complementaires_par_site_theme_type_de_donnees_et_variable</td>
+                        <td></td>
+                        <td></td>
+                        <td>true</td>
+                    </tr>
+                </table>
+
+                <!--                <h3>On ajoute des droits sur les données expérimentales pour
+                                    l'utilisateur  <span
+                                        concordion:set="#utilisateur">testeurAuto</span>..</h3>
+                                <table
+                                    concordion:execute="#areRightsSet=addPrivilege(#utilisateur, #role, #privilegeType, #privilegePath, #dateDeDebut, #dateDeFin)">
+                                    <tr>
+                                        <th concordion:set="#role">Role</th>
+                                        <th concordion:set="#privilegeType">Type de privilège</th>
+                                        <th concordion:set="#privilegePath">Path</th>
+                                        <th concordion:set="#dateDeDebut">Date de début</th>
+                                        <th concordion:set="#dateDeFin">Date de fin</th>
+                                        <th concordion:assertTrue="#areRightsSet">Droit mis</th>
+                                    </tr>
+                                    <tr>
+                                        <td>depot,publication,extraction,suppression</td>
+                                        <td>dataset</td>
+                                        <td>rotation_prairie_culture/lusignan/pratiques_de_gestion</td>
+                                        <td>25/05/2005</td>
+                                        <td>05/11/2011</td>
+                                        <td>true</td>
+                                    </tr>
+                                </table>
+                
+                                <h3>On ajoute des droits sur le dépôt de fichiers complémentaires pour
+                                    l'utilisateur testeurAuto.</h3>
+                                <table
+                                    concordion:execute="#areRightsSet=addPrivilege(#utilisateur, #role, #privilegeType, #privilegePath, #dateDeDebut, #dateDeFin)">
+                                    <tr>
+                                        <th concordion:set="#role">Role</th>
+                                        <th concordion:set="#privilegeType">Type de privilège</th>
+                                        <th concordion:set="#privilegePath">Path</th>
+                                        <th concordion:set="#dateDeDebut">Date de début</th>
+                                        <th concordion:set="#dateDeFin">Date de fin</th>
+                                        <th concordion:assertTrue="#areRightsSet">Droit mis</th>
+                                    </tr>
+                                    <tr>
+                                        <td>depot</td>
+                                        <td>file</td>
+                                        <td>rotation_prairie_culture/lusignan/meteorologie/meteorologie</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>true</td>
+                                    </tr>
+                                    <tr>
+                                        <td>telechargement</td>
+                                        <td>file</td>
+                                        <td>rotation_prairie_culture/lusignan/meteorologie/meteorologie</td>
+                                        <td>01/01/1984</td>
+                                        <td>05/01/1984</td>
+                                        <td>true</td>
+                                    </tr>
+                                </table>-->
+            </body>
+        </html>

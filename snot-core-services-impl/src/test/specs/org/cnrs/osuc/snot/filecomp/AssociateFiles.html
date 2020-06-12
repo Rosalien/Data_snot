@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+<meta charset="UTF-8" />
+<title>Association de fichiers complémentaires</title>
+</head>
+<body>
+	<h3>On associe les fichiers complémentaires à des noeuds de
+		l'arbre.</h3>
+	<!--table
+		concordion:execute="#associate=associate(#path, #type, #name)">
+		<tr>
+			<th concordion:set="#type">Type</th>
+			<th concordion:set="#name">Nom</th>
+			<th concordion:set="#path">Path</th>
+			<th concordion:assertEquals="#associate">Téléchargé</th>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>projet_manche/oir/p1/donnees_biologiques/piegeage_en_montee</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>projet_manche/oir/p2/donnees_biologiques/piegeage_en_montee</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>projet_manche/nivelle/p1/donnees_biologiques/piegeage_en_monte</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>projet_manche/scarff/p1/donnees_biologiques/piegeage_en_montee</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>donnees_brutes</td>
+			<td>Fichier csv de test</td>
+			<td>projet_manche/scarff/p1/donnees_biologiques/piegeage_en_montee</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>licence</td>
+			<td>Image test</td>
+			<td>projet_manche/scarff/p1/donnees_biologiques/piegeage_en_montee</td>
+			<td>true</td>
+		</tr>
+	</table>
+	<h3>On test l'enregistrement des associations de fichiers complémentaires à des noeuds de
+		l'arbre.</h3>
+	<table concordion:verifyRows="#associate:getAssociates()">
+		<tr>
+			<th concordion:assertEquals="#associate.fileComp.fileType.code">Type</th>
+			<th concordion:assertEquals="#associate.fileComp.fileName">Nom</th>
+			<th concordion:assertEquals="#associate.resourcePath">Path</th>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>projet_manche/oir/p1/donnees_biologiques/piegeage_en_montee</td>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>projet_manche/oir/p2/donnees_biologiques/piegeage_en_montee</td>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>
+				projet_manche/nivelle/p1/donnees_biologiques/piegeage_en_monte</td>
+		</tr>
+		<tr>
+			<td>protocole</td>
+			<td>Fichier de test</td>
+			<td>
+				projet_manche/scarff/p1/donnees_biologiques/piegeage_en_montee</td>
+		</tr>
+		<tr>
+			<td>donnees_brutes</td>
+			<td>Fichier csv de test</td>
+			<td>
+				projet_manche/scarff/p1/donnees_biologiques/piegeage_en_montee</td>
+		</tr>
+		<tr>
+			<td>licence</td>
+			<td>Image test</td>
+			<td>projet_manche/scarff/p1/donnees_biologiques/piegeage_en_montee</td>
+		</tr>
+	</table-->
+</body>
+</html>

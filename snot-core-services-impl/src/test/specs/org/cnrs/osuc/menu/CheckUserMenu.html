@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Gestion des menus</title>
+    </head>
+    <body
+        style="p: before .success, li:before .success{  
+            background-image:  
+                url(http://images4.wikia.nocookie.net/__cb20101013160837/sims/fr/images/d/dd/Ic%C3%B4ne_Valid.png); content: '&amp;gt;'">
+                <p>
+                    On initialise la locale <span concordion:set="#locale">fr</span> pour
+                    l'utilisateur. <span concordion:execute="initLocale(#locale)" />
+                </p>
+
+                On test les menus pour cet utilisateur.
+                <p>
+                    Les menus diponibles pour l'utilisateur <span
+                        concordion:assertEquals="getUtilisateurConnected()">testeurAuto</span>
+                    sont:
+                </p>
+                <p>
+                    <span concordion:execute="#menus=getMenus()"><span
+                            concordion:assertEquals="#menus">Accès aux données; Administration des données; Gestion de mon compte;</span></span>
+                </p>
+                <p>
+                    On change la locale en <span concordion:set="#locale">en</span>
+                </p>
+                <span concordion:execute="changeLocale(#locale)"></span> La nouvelle
+                locale est
+                <span concordion:assertEquals="getLocale()">en</span>.
+                <p>
+                    Les menus diponibles pour l'utilisateur <span
+                        concordion:execute="getUtilisateurConnected()">testeurAuto</span> sont:
+                </p>
+                <p>
+                    <span concordion:execute="#menus=getMenus()"><span
+                            concordion:assertEquals="#menus">Access to data; Data administration; My account;</span></span>
+                </p>
+                <p>
+                    On change la locale en <span concordion:set="#locale">fr</span>
+                    <span concordion:execute="changeLocale(#locale)"></span> La nouvelle
+                    locale est
+                    <span concordion:assertEquals="getLocale()">fr</span>.
+                </p>
+            </body>
+        </html>
