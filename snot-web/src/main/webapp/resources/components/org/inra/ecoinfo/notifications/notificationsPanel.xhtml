@@ -26,43 +26,6 @@
 
         </h:form>
 
-        <!--Popup confirmation de la suppression des messages        -->
-
-        <p:dialog id="popupConfirmationDeleteAllNotifications"  modal="true" widgetVar="notificationDeleteAll" appendTo="@(body)" >
-            <h:form id="notificationsPanelForm">
-                <f:facet name="header">
-                    <h:outputText escape="false"
-                                  value="#{notificationPanel.PARAM_MSG_ALERT_CONFIRM}" />
-                </f:facet>
-                <f:facet name="controls">
-                    <p:graphicImage name="images/close.png"
-                                    styleClass="logout"
-                                    onclick="PF('notificationDeleteAll').hide();
-                                            return false;" />
-                </f:facet>
-                <p:panel >
-                    <p>
-                        <h:outputText
-                            value="#{notificationPanel.PARAM_MSG_ALERT_DELETE_ALL}"
-                            escape="false" />
-                    </p>
-
-                    <p:panel  styleClass="logoutButtons">
-                        <p:commandButton value="#{notificationPanel.PARAM_MSG_CONFIRM}"
-                                         action="#{uiNotifications.deleteAllNotifications}" process="@this"
-                                         partialSubmit="true"
-                                         update="#{p:component('notificationsPanel')},#{p:component('mailCounter')}"
-                                         onstart="PF('notificationDeleteAll').hide()" />
-
-
-                        <p:commandButton value="#{notificationPanel.PARAM_MSG_CANCEL}"
-                                         oncomplete="PF('notificationDeleteAll').hide(); return false;"
-                                         process="@none" update="@none" partialSubmit="true" />
-                    </p:panel>
-                </p:panel>
-            </h:form>
-        </p:dialog><!--Fin du popup confirmation de la suppression des messages        -->
-
         <p:socket onMessage="handleNewNotification" channel="/notify/#{uiIdentification.connectedLogin}"
                   fallbackTransport="websocket" onTransportFailure="console.log(xhr)"
                   transport="long-polling"
@@ -302,6 +265,44 @@
                 </p:panel>
             </h:form>
         </p:dialog>
+
+        <!--Popup confirmation de la suppression des messages        -->
+
+        <p:dialog id="popupConfirmationDeleteAllNotifications"  modal="true" widgetVar="notificationDeleteAll" appendTo="@(body)" >
+            <h:form id="notificationsPanelForm">
+                <f:facet name="controls">
+                    <p:graphicImage name="images/close.png"
+                                    styleClass="logout"
+                                    onclick="PF('notificationDeleteAll').hide();
+                                            return false;" />
+                </f:facet>
+                <f:facet name="header">
+                    <h:outputText escape="false"
+                                  value="#{notificationPanel.PARAM_MSG_ALERT_CONFIRM}" />
+                </f:facet>
+                <p:panel >
+                    <p>
+                        <h:outputText
+                            value="#{notificationPanel.PARAM_MSG_ALERT_DELETE_ALL}"
+                            escape="false" />
+                    </p>
+
+                    <p:panel  styleClass="logoutButtons">
+                        <p:commandButton value="#{notificationPanel.PARAM_MSG_CONFIRM}"
+                                         action="#{uiNotifications.deleteAllNotifications}" process="@this"
+                                         partialSubmit="true"
+                                         update="#{p:component('notificationsPanel')},#{p:component('mailCounter')}"
+                                         onstart="PF('notificationDeleteAll').hide()" />
+
+
+                        <p:commandButton value="#{notificationPanel.PARAM_MSG_CANCEL}"
+                                         oncomplete="PF('notificationDeleteAll').hide(); return false;"
+                                         process="@none" update="@none" partialSubmit="true" />
+                    </p:panel>
+                </p:panel>
+            </h:form>
+        </p:dialog><!--Fin du popup confirmation de la suppression des messages        -->
+
 
     </composite:implementation>
 </html>
