@@ -96,7 +96,7 @@
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-theme</artifactId>
-            <version>1.0.0-RC20</version>
+            <version>1.0.0-RC18</version>
             <!--<classifier>dev</classifier> uncompressed theme.css-->
         </dependency>    
 

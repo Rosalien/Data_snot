@@ -20,7 +20,7 @@
     <bean id="variableDAO" class="org.cnrs.osuc.snot.refdata.variable.JPAVariableSnotDAO" parent="abstractDAO" />
     <bean id="datatypeVariableUniteSnotDAO" class="org.cnrs.osuc.snot.refdata.datatypevariableunite.JPADatatypeVariableUniteSnotDAO" parent="abstractDAO" />
            
-    <!--    <bean id="siteThemeDatatypeSnotDAO" class="org.cnrs.osuc.snot.refdata.sitethemedatatypesnot.JPASiteThemeDatatypeSnotDAO" parent="abstractDAO" />-->
+    <!--<bean id="siteThemeDatatypeSnotDAO" class="org.cnrs.osuc.snot.refdata.sitethemedatatypesnot.JPASiteThemeDatatypeSnotDAO" parent="abstractDAO" />-->
     <!--  <bean id="metadataManager" >
             <property name="localizationManager" ref="localizationManager" />
     </bean>-->

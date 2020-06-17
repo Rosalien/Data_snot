@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:identification="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/identification">
+
+    <composite:interface>
+    </composite:interface>
+
+    <composite:implementation>
+
+
+        <h:outputStylesheet name="css/org/inra/ecoinfo/identification/jsf-changeProfilePanel-styles.css" />
+
+        <f:loadBundle basename="org.inra.ecoinfo.identification.messages"
+                      var="msgs" />
+        <h:form>
+            <p:remoteCommand name="autoRunOnLoadPageInitWhichTree"
+                             autoRun="true"
+                             async="false"
+                             process="@this"
+                             partialSubmit="true"
+                             update="#{p:component('profileForm')}"/>
+            <!--update="@this,#{p:component('profileForm')}, #{p:component('associateGroupPanel')}" -->
+            <p:remoteCommand name="adduser" process="@this"
+                             action="#{uiChangeProfile.newUser}" update="#{p:component('panelgridContent')}" />
+            <p:remoteCommand name="reloadUser"
+                             process="@this"
+                             update="@this,#{p:component('panelListUtilisateurs')} ,#{p:component('popupSaveProfileConfirmation')}" />
+            <p:remoteCommand name="updateWithEMail"
+                             action="#{uiChangeProfile.updateWithEMail}"
+                             update="@this,#{p:component('panelListUtilisateurs')} ,#{p:component('popupSaveProfileConfirmation')}" 
+                             process="@this, #{p:component('changeProfilePanelForm')}"
+                             oncomplete="PF('popupSaveProfileConfirmation').hide();"/>
+            <p:remoteCommand name="updateWithConfirm"
+                             action="#{uiChangeProfile.updateWithConfirm}"
+                             update="@this,#{p:component('panelListUtilisateurs')} ,#{p:component('popupSaveProfileConfirmation')}" 
+                             process="@this, #{p:component('changeProfilePanelForm')}"
+                             oncomplete="PF('popupSaveProfileConfirmation').hide();"/>
+        </h:form>
+        <p:layout styleClass="subcontainer" id="subcontaineChangerProfiles" widgetVar="subcontainerChangeProfiles">
+            <p:layoutUnit class="navigationHeader" position="north" resizable="true" size="6em">
+                <h1 class="navigationHeader">
+                    <h:panelGroup styleClass="navigation">
+                        <h:panelGroup styleClass="navigationItem">
+                            <p:graphicImage  value="#{resource['images/home.png']}" />
+                            <h:outputLink value="index.jsf">#{index.PARAM_MSG_BREADCRUMBS} </h:outputLink>
+                        </h:panelGroup>
+                        <h:panelGroup styleClass="navigationItem">#{changeProfil.PARAM_MSG_BREAD_CRUMBS_USERS}</h:panelGroup>
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="title">
+                        <p:graphicImage name="images/credential-user.png" />
+                        #{changeProfil.PARAM_MSG_TITLE_CHANGE_USERS}
+                    </h:panelGroup>
+                </h1>
+<!--                Suppression de l'aide-->
+<!--                <h:form>
+                    <p:accordionPanel activeIndex="-1"
+                                      styleClass="help-panel">
+                        <p:tab  >
+                            <f:facet name="title">
+
+                                <p class="intro-main">
+                                    <h:outputText
+                                        value="#{changeProfil.PARAM_MSG_INTRO_MAIN_FIRST_LINE}"
+                                        escape="false" />
+                                </p>
+                            </f:facet>
+                            <p class="intro-main">
+                                <h:outputText value="#{changeProfil.PARAM_MSG_INTRO_CHANGE_PROFIL}"
+                                              escape="false" />
+                            </p>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:form>-->
+            </p:layoutUnit>
+            <p:layoutUnit position="west" resizable="true" collapsible="true"  minSize="200" size="320"  id="templateLeft">
+                <h2>#{msgs.PROPERTY_MSG_USER_CHOICE}</h2>
+                <!--<p class="intro">#{msgs.PROPERTY_MSG_USER_CHOICE_TEXT}</p>-->
+                <p:tooltip   hideEvent="mouseleave click"  styleClass="tooltip" showDelay="500" />
+                <h:form id='changeProfilesPanelUsersForm'>
+                    <p:outputPanel id="panelListUtilisateurs" layout="block">
+                        <p:dataTable id="utilisateursTable"
+                                     emptyMessage="#{changeProfil.PARAM_MSG_NO_RECORD}"
+                                     var="utilisateur"
+                                     value="#{uiChangeProfile.utilisateurs}"
+                                     selection="#{uiChangeProfile.currentUtilisateur}"
+                                     selectionMode="single"
+                                     rowKey="#{utilisateur.login}"
+                                     styleClass="dataTable"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="10" >
+                            <p:ajax event="rowSelect"
+                                    oncomplete="reloadUser()"
+                                    update="#{p:component('profileForm')}, #{p:component('associateGroupPanel')}"
+                                    resetValues="true" >
+                            </p:ajax>
+                            <p:column styleClass="nom #{utilisateur.isRoot?'rootUser':'simpleUser'}" filterBy="#{utilisateur.prenom} #{utilisateur.nom}"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText id="userList"
+                                                  value="#{msgs.PROPERTY_MSG_USER_LISTE}" style="display: inline;" />
+
+
+                                    <p:commandLink pt:data-tooltip="#{msgs.PROPERTY_MSG_NEW_USER_TOOLTIP}" 
+                                                   styleClass="inline invisibleButton" 
+                                                   rendered="#{uiChangeProfile.meRoot}">
+                                        <p:ajax event="click" oncomplete="new_profil()"/>
+                                            <p:graphicImage value="#{resource['images/new_profil.png']}" />
+                                    </p:commandLink>
+
+
+                                </f:facet>
+
+                                <h:outputText id="user" value="#{utilisateur.prenom} #{utilisateur.nom}" 
+                                              pt:data-tooltip="#{msgs.PROPERTY_MSG_CHANGE_USER_TOOLTIP}"/>
+                            </p:column>
+                            <p:column style="width: 50px">
+
+                                <h:panelGroup styleClass="img" style="text-align:left">
+                                    <p:commandButton icon="linkTo" id="link_to" rendered="#{uiBeanActionTree.policyManager.currentUser.isRoot}"
+                                                     styleClass="invisibleButton" process="@this"
+                                                     ajax="true" update="@this, #{p:component('associateGroupPanel')}"
+                                                     disabled="#{utilisateur.isRoot}"
+                                                     onstart="PF('dialogAssociateGroupPanel').show()">
+                                        <p:ajax event="click" update="#{p:component('link_totooltip')}, #{p:component('dialogAssociateGroupPanel')}"
+                                                listener="#{uiChangeProfile.setCurrentUtilisateur(utilisateur)}"/>
+                                        <p:ajax event="click" listener="#{uiAssociateGroups.init('TREEDATASET,TREEREFDATA', utilisateur)}"/>
+                                    </p:commandButton>
+
+                                    <p:commandButton id="deleteUserButton" icon="delete" rendered="#{uiBeanActionTree.policyManager.currentUser.isRoot or uiBeanActionTree.policyManager.currentUser == utilisateur}"
+                                                     styleClass="invisibleButton" process="@this"
+                                                     actionListener="#{uiChangeProfile.deleteUser(utilisateur)}"
+                                                     ajax="true" update="#{p:component('utilisateursTable')}"
+                                                     disabled="#{utilisateur.isRoot}">
+                                        <p:confirm />
+                                    </p:commandButton>
+
+                                    <p:confirmDialog header="#{changeProfil.PARAM_MSG_HEADER_ALERT_DELETE}" global="true" showEffect="fade" hideEffect="fade"
+                                                     severity="alert"
+                                                     closable="true">
+                                        <f:facet name="message">
+                                            <h:outputFormat
+                                                value="#{changeProfil.PARAM_MSG_ALERT_DELETE}"
+                                                escape="false"
+                                                >
+                                                <f:param value="#{utilisateur.nom} #{utilisateur.prenom}" />
+                                            </h:outputFormat>
+                                        </f:facet>     
+                                        <p:commandButton value="#{changeProfil.PARAM_MSG_DELETE}" type="button" styleClass="ui-confirmdialog-yes"  />
+                                        <p:commandButton value="#{changeProfil.PARAM_MSG_CANCEL}" type="button" styleClass="ui-confirmdialog-no"  />
+                                    </p:confirmDialog> 
+
+                                    <p:tooltip   hideEvent="mouseleave click" id="link_totooltip" for="link_to" >
+                                        <h:outputFormat
+                                            value="#{changeProfil.PROPERTY_MSG_MODIFY_USER_GROUPS}"
+                                            escape="true"
+                                            >
+                                            <f:param value="#{utilisateur.nom}" />
+                                        </h:outputFormat>
+                                    </p:tooltip>
+
+                                    <p:tooltip   hideEvent="mouseleave click" id="link_deleteUserButton" for="deleteUserButton" >
+                                        <h:outputFormat
+                                            value="#{uiChangeProfile.currentUtilisateur.login eq utilisateur.login?changeProfil.PARAM_MSG_DELETE_ME:changeProfil.PARAM_MSG_DELETE_USER_ACCOUNT}"
+                                            escape="true"
+                                            >
+                                            <f:param value="#{utilisateur.nom}" />
+                                        </h:outputFormat>
+                                    </p:tooltip>
+                                </h:panelGroup>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:outputPanel>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" styleClass="right" id="templateCenter">
+                <p:dialog id="dialogAssociateGroupPanel" appendTo="@(body)" widgetVar="dialogAssociateGroupPanel">
+                    <identification:associateGroups  id="associateGroupPanel" rendered="#{uiBeanActionTree.policyManager.currentUser.isRoot and uiChangeProfile.currentUtilisateur ne null}"
+                                                     whichTrees="TREEDATASET,TREEREFDATA"
+                                                     user="#{uiChangeProfile.currentUtilisateur}"/>
+                </p:dialog>
+                <h:form id="changeProfilesPanelForm">
+                    <h:panelGroup layout="block" id="changeProfile"
+                                  styleClass="#{uiChangeProfile.selected?'':'disabled'}">
+                        <identification:changeProfilePanel id="changeProfilePanelInclude"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:layoutUnit>
+
+        </p:layout>
+    </composite:implementation>
+
+</html>

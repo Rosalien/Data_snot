@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:identification="http://java.sun.com/jsf/composite/components/org/inra/ecoinfo/identification">
+
+    <composite:interface>
+    </composite:interface>
+
+    <composite:implementation>
+        <script type="text/javascript">
+            function handleChangeProfilRequest(xhr, status, args) {
+                console.dir(xhr);
+                console.dir(status);
+                console.dir(args);
+                if (args.validationFailed) {
+                    if (!args.loggedIn) {
+                        PF('panelgridContent').jq.effect("shake", {times: 5}, 100);
+                        resetInputSize();
+                    }
+                } else {
+                    PF('popupSaveProfileConfirmation').show();
+                }
+                return args.validationFailed;
+            }
+            function resetInputSize() {
+                $('.formError div').filter(':empty').parent().prev()
+                        .removeClass('ui-grid-col-6').addClass('ui-grid-col-12')
+                        .next().css('display', 'none');
+                $('input').css('width', '100%');
+            }
+            jQuery(document).ready(function () {
+                resetInputSize();
+            });
+        </script>
+        <f:loadBundle
+            basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+            var="changeProfil" />
+
+        <h:outputStylesheet name="css/org/inra/ecoinfo/identification/jsf-changeProfilePanel-styles.css" />
+        <p:dialog id="popupSaveProfileConfirmation" appendTo="@(body)"
+                  modal="true" widgetVar="popupSaveProfileConfirmation">
+            <h:form id ="chengeProfileUpdateForm">
+                <p:remoteCommand name="update"
+                                 action="#{uiChangeProfile.update}"
+                                 process="@this, #{p:component('changeProfilePanelForm')}"
+                                 oncomplete="PF('popupSaveProfileConfirmation').hide();if(typeof reloadUser == 'function'){reloadUser()}"/>
+                <f:facet name="header">
+                    <h:outputText escape="false"
+                                  value="#{changeProfil.PARAM_MSG_ALERT_CONFIRM}" />
+                </f:facet>
+                <f:facet name="controls">
+                    <p:graphicImage name="images/close.png" styleClass="logout"
+                                    onclick="PF('popupSaveProfileConfirmation').hide(); return false;" />
+                </f:facet>
+                <h:panelGroup style="width:300px; text-align: left;" layout="block">
+                    <p class="intro">
+                        <h:outputText
+                            value="#{uiChangeProfile.nouveau?msg.PROPERTY_MSG_CONFIRM_NEW_PROFIL_ALERT:msg.PROPERTY_MSG_CONFIRM_CHANGE_PROFIL_ALERT}" />
+                    </p>
+                    <p class="intro">#{msg.PROPERTY_MSG_CONFIRM_CHANGE_PROFIL}</p>
+                    <h:panelGroup styleClass="panelControlsWrapper panelControlsWrapperPopupSaveProfileConfirmation">
+                        <h:panelGroup styleClass="panelControls panelControlsPopupSaveProfileConfirmation">
+                            <h:panelGroup styleClass="control update"
+                                          rendered="#{not uiChangeProfile.nouveau}">
+                                <p:commandLink  update="@form"
+                                                process="@this"
+                                                oncomplete="PF('popupSaveProfileConfirmation').hide(); update();">
+                                    <p:graphicImage value="#{resource['images/accepted.png']}"
+                                                    width="20" />
+                                    <h:outputText value="#{changeProfil.PARAM_MSG_CONFIRM}"/>
+                                </p:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="control updateWithEmail"
+                                          rendered="#{uiChangeProfile.nouveau}">
+                                <p:commandLink 
+                                    process="@this"
+                                    oncomplete="PF('popupSaveProfileConfirmation').hide();updateWithEMail()">
+                                    <p:graphicImage value="#{resource['images/add.png']}" />
+                                    <h:outputText value="#{changeProfil.PARAM_MSG_CONFIRM_SEND_EMAIL}"  />
+                                </p:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="control updateWithConfirm"
+                                          rendered="#{uiChangeProfile.nouveau}">
+                                <p:commandLink 
+                                    process="@this" 
+                                    oncomplete="PF('popupSaveProfileConfirmation').hide();updateWithConfirm();">
+                                    <p:graphicImage value="#{resource['images/accepted.png']}" />
+                                    <h:outputText  value="#{changeProfil.PARAM_MSG_CONFIRM_VALID_PROFILE }"  />
+                                </p:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup styleClass="control close">
+                                <p:commandLink
+                                    oncomplete="PF('popupSaveProfileConfirmation').hide(); return false;"
+                                    process="@none" update="@none" >
+                                    <p:graphicImage value="#{resource['images/close.png']}"
+                                                    width="20" />
+                                    <h:outputText value="#{changeProfil.PARAM_MSG_CANCEL}" />
+                                </p:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+        <h:form id="changeProfilePanelForm" prependId="false">
+            <h:panelGroup id="profileForm" >
+                <f:loadBundle
+                    basename="org.inra.ecoinfo.identification.jsf.changeProfile"
+                    var="changeProfil" />
+                <h2>
+                    <h:outputText value="#{uiChangeProfile.titleChangeUser}" />
+
+                    <h:panelGroup styleClass="panel-currentUtilisateur-selected">
+                        <h:outputText value="#{changeProfil.PARAM_MSG_NO_SELECTED_USER}"
+                                      rendered="#{uiChangeProfile.currentUtilisateur == null}"
+                                      styleClass="important" />
+
+                        <h:outputText value="#{changeProfil.PARAM_MSG_SELECTED_USER} "
+                                      rendered="#{uiChangeProfile.currentUtilisateur != null and not uiChangeProfile.nouveau and not uiChangeProfile.me}"
+                                      style="color: black; font-weight: normal; " />
+                        <h:outputText
+                            value="#{uiChangeProfile.currentUtilisateur.prenom} #{uiChangeProfile.currentUtilisateur.nom}"
+                            rendered="#{uiChangeProfile.currentUtilisateur != null and not uiChangeProfile.nouveau and not uiChangeProfile.me}" />
+                    </h:panelGroup>
+                </h2>
+
+                <f:loadBundle basename="org.inra.ecoinfo.identification.messages"
+                              var="msg" />
+                <p class="intro">#{msg.PROPERTY_MSG_CHANGE_PROFIL_TEXT}</p>
+                <p:panel id="panelgridContent"
+                         style="width: 100%"
+                         widgetVar="panelgridContent"
+                         styleClass="custom-rf-p profileForm">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.PROPERTY_MSG_IDENTIFICATION}" />
+                    </f:facet>
+                    <f:facet name="footer">
+                        <h:panelGroup styleClass="panelControlsWrapper panelControlsWrapperLoginPopup launchWrapper" >
+                            <h:panelGroup styleClass="panelControls panelControlsLoginPopup">
+                                <h:panelGroup styleClass="control">
+                                    <p:commandLink id="buttonModify" process="@this,#{p:component('profileForm')}"
+                                                   update="#{p:component('profileForm')},#{p:component('popupSaveProfileConfirmation')}"
+
+                                                   onerror="console.log('error')"
+                                                   onsuccess="console.log('succes')"
+                                                   oncomplete="handleChangeProfilRequest(xhr, status, args)"
+                                                   partialSubmit="false"  >
+                                        <p:graphicImage value="#{resource['images/edit.png']}"  />
+                                        <h:outputText value="#{uiChangeProfile.nouveau?msg.PROPERTY_MSG_CHANGE_PROFIL_ADD:msg.PROPERTY_MSG_CHANGE_PROFIL_SUBMIT}" />
+                                    </p:commandLink>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="control">
+                                    <p:commandLink process="@this,#{p:component('profileForm')}"
+                                                   action="#{uiChangeProfile.reset}"
+
+                                                   update="#{p:component('profileForm')}"
+                                                   oncomplete="resetInputSize()">
+                                        <p:graphicImage value="#{resource['images/refresh.png']}" />
+                                        <h:outputText value="#{msg.PROPERTY_MSG_CHANGE_PROFIL_RESET}" />
+                                    </p:commandLink>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="control deleteUserButton">
+                                    <p:commandLink id="deleteProfileButton" 
+                                                   rendered="#{!uiChangeProfile.currentUtilisateur.isRoot}"
+                                                   process="@this"
+                                                   actionListener="#{uiChangeProfile.deleteUser(uiChangeProfile.currentUtilisateur)}"
+                                                   ajax="true" update="#{p:component('profileForm')}" 
+                                                   onsuccess="alert('#{changeProfil.PARAM_MSG_DELETED_AND_DISCONNECTED}');window.location.href = 'login.jsf'">
+                                        <p:graphicImage value="#{resource['images/delete_profil.png']}" alt="Suppression de mon profil"/>
+                                        <h:outputText value="#{uiChangeProfile.currentUtilisateur.login eq utilisateur.login?changeProfil.PARAM_MSG_DELETE_ME:changeProfil.PARAM_MSG_DELETE_USER_ACCOUNT}" />
+                                        <p:confirm />
+                                        <p:confirmDialog header="#{changeProfil.PARAM_MSG_HEADER_ALERT_DELETE_ME}" global="true" 
+                                                         showEffect="fade" hideEffect="fade"
+                                                         severity="alert"
+                                                         closable="true">
+                                            <f:facet name="message">
+                                                <h:outputFormat
+                                                    value="#{changeProfil.PARAM_MSG_ALERT_DELETE_ME}"
+                                                    escape="false"
+                                                    >
+                                                    <f:param value="#{uiChangeProfile.nom} #{uiChangeProfile.prenom}" />
+                                                </h:outputFormat>
+                                            </f:facet>   
+                                            <h:panelGroup styleClass="panelControlsWrapper panelControlsWrapperLoginPopupConfirm launchWrapper" >
+                                                <h:panelGroup styleClass="panelControls panelControlsLoginPopuConfirmp">
+                                                    <h:panelGroup styleClass="control deleteUserButton">  
+                                                        <p:commandLink value="#{changeProfil.PARAM_MSG_DELETE_ME}" type="button" styleClass="ui-confirmdialog-yes"  >
+                                                            <p:graphicImage value="#{resource['images/delete_profil.png']}" />
+                                                            <h:outputText value="#{changeProfil.PARAM_MSG_DELETE_ME}" />
+                                                        </p:commandLink>
+                                                        <p:commandLink value="#{changeProfil.PARAM_MSG_CANCEL}" type="button" styleClass="ui-confirmdialog-no"  >
+                                                            <p:graphicImage value="#{resource['images/close.png']}" />
+                                                            <h:outputText value="#{changeProfil.PARAM_MSG_CANCEL}" />
+                                                        </p:commandLink>
+                                                    </h:panelGroup>
+                                                </h:panelGroup>
+                                            </h:panelGroup>
+                                        </p:confirmDialog>
+                                    </p:commandLink>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </f:facet>
+                    <h:outputLabel value="#{msg.PROPERTY_MSG_MANDATORY_FIELDS}"
+                                   styleClass="mandatory" />
+                    <f:event listener="#{uiChangeProfile.validatePasswords}" type="postValidate" />
+                    <p:panelGrid columns="2" layout="grid" styleClass="profileForm content ui-g" columnClasses="ui-g-4, ui-g-8" >
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_NAME}" for="nom" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError">
+                            <p:inputText id="nom" value="#{uiChangeProfile.nom}"
+                                         required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_NAME}"
+                                         maxlength="20" size="60"
+                                         alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                <f:validateLength minimum="2" maximum="20" />
+                                <f:validateRequired />
+                            </p:inputText>
+                            <p:message id="nomError" showSummary="true" showDetail="false"
+                                       styleClass="message" for="nom" />
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_FIRST_NAME}" for="prenom" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError">
+                            <p:inputText id="prenom" value="#{uiChangeProfile.prenom}"
+                                         required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_FIRST_NAME}"
+                                         maxlength="20" size="60"
+                                         alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                <f:validateLength minimum="2" maximum="20" />
+                                <f:validateRequired />
+                            </p:inputText>
+                            <p:message id="prenomError" showSummary="true" showDetail="false"
+                                       styleClass="message" for="prenom" />
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_EMAIL}" for="email" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError">
+                            <p:inputText id="email" value="#{uiChangeProfile.email}"
+                                         required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_EMAIL}"
+                                         validator="#{uiChangeProfile.validateEmail}" maxlength="100"
+                                         size="60"
+                                         alt="#{msg.PROPERTY_MSG_EMPTY_STRING}">
+                                <f:validateRegex
+                                    pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$" />
+                                <f:validateRequired />
+                            </p:inputText>
+                            <p:message id="emailError" showSummary="true"
+                                       showDetail="false" styleClass="message" for="email" />
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_LOGIN}" for="login" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError" rendered="#{uiChangeProfile.nouveau}">
+                            <p:inputText id="login" value="#{uiChangeProfile.login}"
+                                         required="true" validatorMessage="#{msg.PROPERTY_MSG_BAD_LOGIN}"
+                                         maxlength="100" size="60"
+                                         validator="#{uiChangeProfile.validateLogin}">
+                                <f:validateRegex pattern="^[0-9a-zA-Z]*$" />
+                                <f:validateLength minimum="3" maximum="20" />
+                                <f:validateRequired />
+                            </p:inputText>
+                            <p:message id="loginError" showSummary="true" showDetail="false" styleClass="message" for="login" />
+                        </p:panelGrid>
+                        <p:panelGrid columns="1" layout="grid"  columnClasses="formInput,formError" rendered="#{not uiChangeProfile.nouveau}">
+                            <h:outputText  value="#{uiChangeProfile.login}" />
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_CURRENT_PASSWORD}" for="currentPassword"
+                                       rendered="#{uiChangeProfile.me}" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError" rendered="#{uiChangeProfile.me}">
+                            <p:password id="currentPassword"
+                                        value="#{uiChangeProfile.currentPassword}"
+                                        maxlength="20" size="60" >
+
+                            </p:password>
+                            <p:message id="currentPasswordError" showSummary="true"
+                                       styleClass="message" showDetail="false" for="currentPassword"/>
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_PASSWORD}" for="password"
+                                       rendered="#{uiChangeProfile.me or uiChangeProfile.nouveau}" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError"
+                                     rendered="#{uiChangeProfile.me or uiChangeProfile.nouveau}">
+                            <p:password id="password" value="#{uiChangeProfile.password}"
+                                        maxlength="20" size="60">
+                            </p:password>
+                            <p:message id="passwordError" showSummary="true"
+                                       styleClass="message" showDetail="false" for="password" />
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_PASSWORD_BIS}" for="passwordBis"
+                                       rendered="#{uiChangeProfile.me or uiChangeProfile.nouveau}" indicateRequired="true"/>
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError"
+                                     rendered="#{uiChangeProfile.me or uiChangeProfile.nouveau}">
+                            <p:password id="passwordBis"
+                                        value="#{uiChangeProfile.passwordBis}"
+                                        maxlength="20" size="60">
+                            </p:password>
+                            <p:message id="passwordErrorBis" showSummary="true"
+                                       styleClass="message" showDetail="false" for="passwordBis" />
+                        </p:panelGrid>
+
+                        <p:outputLabel value="#{msg.PROPERTY_MSG_SUP_ADMIN}"
+                                       styleClass="#{uiChangeProfile.meRoot?'':'disabled'}" />
+                        <p:panelGrid columns="2" layout="grid"  columnClasses="formInput,formError"
+                                     styleClass="#{uiChangeProfile.meRoot?'':'disabled'}">
+                            <p:inputSwitch id="supAdmin" onLabel="#{msg.PROPERTY_MSG_YES}"
+                                           offLabel="#{msg.PROPERTY_MSG_NO}"
+                                           value="#{uiChangeProfile.root}"
+                                           disabled="#{!uiChangeProfile.meRoot}"
+                                           validator="#{uiChangeProfile.validateIsRoot}">
+                            </p:inputSwitch>
+                            <p:message id="supAdminError" showSummary="true"
+                                       styleClass="message" showDetail="false" for="supAdmin" />
+                        </p:panelGrid>
+                    </p:panelGrid>
+
+                </p:panel>
+            </h:panelGroup>
+
+        </h:form>
+    </composite:implementation>
+
+</html>

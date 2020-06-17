@@ -93,7 +93,7 @@
                 <name language="en">Tree/Qualitatives values</name>
                 <order>5</order>
                 <description language="key">valeurqualitative_description</description>
-                <description language="fr">Définit les valeurs qualitatives utiles dans les données de références du SNO-T</description>
+                <description language="fr">Définit les valeurs qualitatives utiles dans les données de référence du SNO-Tourbières</description>
                 <description language="en">Sets qualitatives values</description>
                 <recorder>org.inra.ecoinfo.refdata.valeurqualitative.Recorder
                 </recorder>

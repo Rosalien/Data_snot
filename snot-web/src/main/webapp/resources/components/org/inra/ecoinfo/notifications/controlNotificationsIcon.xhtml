@@ -11,6 +11,15 @@
         <composite:attribute name="mailCounterId" required="false" />
     </composite:interface>
     <composite:implementation id="controlNotificationPanel" >
+     
+        <p:notificationBar id="newNotificationsTooltip" styleClass="tooltip" widgetVar="newNotificationsTooltip" 
+                           position= "top" 
+                           effect="slide"
+                           style="z-index: 20;background: rgba(116, 178, 226, 0.27);}">
+            <span style="font-size: 29px;font-weight: 700;"> #{notificationPanel.PARAM_MSG_NEW_MESSAGE}</span>
+        </p:notificationBar>
+
+
         <f:loadBundle
             basename="org.inra.ecoinfo.notifications.jsf.notification"
             var="notificationPanel" />
@@ -71,12 +80,6 @@
         </script>
 
         <h:panelGroup id="newNotificationsContainer" layout="inline" />
-        <p:notificationBar id="newNotificationsTooltip" styleClass="tooltip" widgetVar="newNotificationsTooltip" 
-                           position= "top" 
-                           effect="slide"
-                           style="z-index: 20;background: rgba(116, 178, 226, 0.27);}">
-            <span style="font-size: 29px;font-weight: 700;"> #{notificationPanel.PARAM_MSG_NEW_MESSAGE}</span>
-        </p:notificationBar>
 
         <p:outputPanel id="mailCounter" layout="inline">
             <p:tooltip   hideEvent="mouseleave click" id="notificationTooltip" styleClass="tooltip" showDelay="0">
@@ -88,6 +91,7 @@
                             onclick="reloadAndShowNotifications()" />
             <h:outputText value="#{uiNotifications.counterNewMessages}" />
         </p:outputPanel>
+
     </composite:implementation>
 
 </html>
