@@ -109,23 +109,22 @@
                 <description language="key">types_de_donnees_par_themes_de_sites_description</description>
                 <description language="fr">Cette donnée de référence permet de définir une arborescence qui sera utilisée pour déposer des fichiers de données sur des types de données.</description>
                 <description language="en">This reference data defines a tree that will be used to deposit data files on data types.</description>
-                <recorder>org.inra.ecoinfo.refdata.sitethemedatatype.Recorder
-                </recorder>
+                <!--<recorder>org.inra.ecoinfo.refdata.sitethemedatatype.Recorder</recorder>-->
+                <recorder>org.cnrs.osuc.snot.refdata.sitethemedatatype.Recorder</recorder>
                 <spring-dao>
                     <class>datatypeDAO</class>
-                </spring-dao>
-                <spring-dao>
-                    <class>siteThemeDatatypeDAO</class>
-                </spring-dao>
-                <!--                Pour la version 1912.01, à décommenter-->
-                <spring-dao>
-                    <class>datatypeVariableUniteDAO</class>
                 </spring-dao>
                 <spring-dao>
                     <class>siteDAO</class>
                 </spring-dao>
                 <spring-dao>
                     <class>themeDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>siteThemeDatatypeSnotDAO</class>
+                </spring-dao>
+                <spring-dao>
+                    <class>datatypeVariableUniteSnotDAO</class>
                 </spring-dao>
             </metadata>                 
                                                                
@@ -376,47 +375,34 @@
     </module>
     <module>
         <datatypeConfiguration>
-                <dataType>
-                    <name language="key">eddycovariance_sh</name>
-                    <name language="fr">Flux de GES par eddy-covariance sans gap-filling</name>
-                    <name language="en">Greenhouse gas flux by eddy-covariance without gap-filling</name>
-                    <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance sans gap-filling
-                    </description>
-                    <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station without gap-filling
-                    </description>
-                    <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
-                    <recorder>recorderFlux_if</recorder>
-                    <name-file-checkers>
-                        <class>fileNameCheckerSnotddmmyyyy</class>
-                    </name-file-checkers>
-                </dataType>
-                <dataType>
-                    <name language="key">eddycovarianceGF_sh</name>
-                    <name language="fr">Flux de GES par eddy-covariance avec gap-filling</name>
-                    <name language="en">Greenhouse gas flux by eddy-covariance with gap-filling</name>
-                    <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance
-                    </description>
-                    <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station
-                    </description>
-                    <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
-                    <recorder>recorderFlux_if</recorder>
-                    <name-file-checkers>
-                        <class>fileNameCheckerSnotddmmyyyy</class>
-                    </name-file-checkers>
-                </dataType>          
-            
-            <!--            <dataType>
-                <name language="key">meteosol_sh</name>
-                <name language="fr">Météo et physique du sol semi-horaire</name>
-                <name language="en">Weather and soil physic</name>
-                <description language="fr">Météo et physique du sol semi-horaire</description>
-                <description language="en">Weather and soil physic</description>
+            <dataType>
+                <name language="key">eddycovariance_sh</name>
+                <name language="fr">Flux de GES par eddy-covariance sans gap-filling</name>
+                <name language="en">Greenhouse gas flux by eddy-covariance without gap-filling</name>
+                <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance sans gap-filling
+                </description>
+                <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station without gap-filling
+                </description>
                 <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
-                <recorder>recorderMeteo_sh</recorder>
+                <recorder>recorderFlux_if</recorder>
                 <name-file-checkers>
                     <class>fileNameCheckerSnotddmmyyyy</class>
                 </name-file-checkers>
-            </dataType>-->
+            </dataType>
+            <dataType>
+                <name language="key">eddycovarianceGF_sh</name>
+                <name language="fr">Flux de GES par eddy-covariance avec gap-filling</name>
+                <name language="en">Greenhouse gas flux by eddy-covariance with gap-filling</name>
+                <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance
+                </description>
+                <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station
+                </description>
+                <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
+                <recorder>recorderFlux_if</recorder>
+                <name-file-checkers>
+                    <class>fileNameCheckerSnotddmmyyyy</class>
+                </name-file-checkers>
+            </dataType>          
             <dataType>
                 <name language="key">meteosol_infraj</name>
                 <name language="fr">Météo et physique du sol infra-journalier</name>

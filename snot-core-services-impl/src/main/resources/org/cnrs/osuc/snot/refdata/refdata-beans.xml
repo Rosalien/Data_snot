@@ -8,10 +8,7 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="typeSiteDAO" class="org.cnrs.osuc.snot.refdata.typezoneetude.JPATypeSiteDAO" parent="abstractDAO" /><!--
-        <bean id="siteSnotDAO" class="org.cnrs.osuc.snot.refdata.site.JPASiteSnotDAO" parent="abstractDAO">
-        <property name="typeSiteDAO" ref="typeSiteDAO" />
-    </bean>-->
+    <bean id="typeSiteDAO" class="org.cnrs.osuc.snot.refdata.typezoneetude.JPATypeSiteDAO" parent="abstractDAO" />
     <bean id="siteSnotDAO" class="org.cnrs.osuc.snot.refdata.site.JPASiteSnotDAO" parent="abstractDAO"/>
     <bean id="siteDAO" class="org.cnrs.osuc.snot.refdata.site.JPASiteSnotDAO" parent="abstractDAO" />
     <bean id="jeuDAO" class="org.cnrs.osuc.snot.refdata.jeu.JPAJeuDAO" parent="abstractDAO" />
@@ -19,9 +16,12 @@
     <bean id="sousJeuDAO" class="org.cnrs.osuc.snot.refdata.sousjeu.JPASousJeuDAO" parent="abstractDAO" />
     <bean id="variableDAO" class="org.cnrs.osuc.snot.refdata.variable.JPAVariableSnotDAO" parent="abstractDAO" />
     <bean id="datatypeVariableUniteSnotDAO" class="org.cnrs.osuc.snot.refdata.datatypevariableunite.JPADatatypeVariableUniteSnotDAO" parent="abstractDAO" />
-           
-    <!--<bean id="siteThemeDatatypeSnotDAO" class="org.cnrs.osuc.snot.refdata.sitethemedatatypesnot.JPASiteThemeDatatypeSnotDAO" parent="abstractDAO" />-->
-    <!--  <bean id="metadataManager" >
+ 
+    <bean id="datatypeVariableUniteDAO" class="org.inra.ecoinfo.refdata.datatypevariableunite.JPADatatypeVariableUniteDAO" parent="abstractDAO" />
+    <bean id="siteThemeDatatypeDAO" class="org.inra.ecoinfo.refdata.sitethemedatatype.JPASiteThemeDatatypeDAO" parent="abstractDAO" />
+               
+    <bean id="siteThemeDatatypeSnotDAO" class="org.cnrs.osuc.snot.refdata.sitethemedatatype.JPASiteThemeDatatypeSnotDAO" parent="abstractDAO" />
+<!--      <bean id="metadataManager" >
             <property name="localizationManager" ref="localizationManager" />
     </bean>-->
     <bean id="traitementDAO" class="org.cnrs.osuc.snot.refdata.traitement.JPATraitementDAO" parent="abstractDAO" />

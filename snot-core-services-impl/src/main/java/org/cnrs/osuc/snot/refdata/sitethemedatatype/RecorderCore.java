@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.cnrs.osuc.snot.refdata.sitethemedatatypesnot;
+package org.cnrs.osuc.snot.refdata.sitethemedatatype;
 
 import com.Ostermiller.util.CSVParser;
 import java.io.File;
@@ -16,18 +16,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.cnrs.osuc.snot.refdata.datatypevariableunite.DatatypeVariableUniteSnot;
-import org.cnrs.osuc.snot.refdata.datatypevariableunite.IDatatypeVariableUniteSnotDAO;
 import org.inra.ecoinfo.mga.business.composite.AbstractBranchNode;
 import org.inra.ecoinfo.mga.business.composite.INode;
-import org.inra.ecoinfo.mga.configurator.AbstractMgaIOConfigurator;
-import org.inra.ecoinfo.mga.configurator.IMgaIOConfiguration;
-import org.inra.ecoinfo.mga.configurator.IMgaIOConfigurator;
-import org.inra.ecoinfo.mga.enums.WhichTree;
-import org.cnrs.osuc.snot.refdata.site.SiteSnot;
 import org.inra.ecoinfo.mga.business.composite.NodeDataSet;
 import org.inra.ecoinfo.mga.business.composite.RealNode;
 import org.inra.ecoinfo.mga.configuration.PatternConfigurator;
+import org.inra.ecoinfo.mga.configurator.AbstractMgaIOConfigurator;
+import org.inra.ecoinfo.mga.configurator.IMgaIOConfigurator;
+import org.inra.ecoinfo.mga.enums.WhichTree;
 import org.inra.ecoinfo.refdata.AbstractCSVMetadataRecorder;
 import org.inra.ecoinfo.refdata.ColumnModelGridMetadata;
 import org.inra.ecoinfo.refdata.LineModelGridMetadata;
@@ -35,25 +31,21 @@ import org.inra.ecoinfo.refdata.ModelGridMetadata;
 import org.inra.ecoinfo.refdata.datatype.DataType;
 import org.inra.ecoinfo.refdata.datatype.IDatatypeDAO;
 import org.inra.ecoinfo.refdata.datatypevariableunite.DatatypeVariableUnite;
+import org.inra.ecoinfo.refdata.datatypevariableunite.IDatatypeVariableUniteDAO;
 import org.inra.ecoinfo.refdata.site.ISiteDAO;
 import org.inra.ecoinfo.refdata.site.Site;
+import org.inra.ecoinfo.refdata.sitethemedatatype.ISiteThemeDatatypeDAO;
 import org.inra.ecoinfo.refdata.theme.IThemeDAO;
 import org.inra.ecoinfo.refdata.theme.Theme;
 import org.inra.ecoinfo.utils.exceptions.BusinessException;
 import org.inra.ecoinfo.utils.exceptions.PersistenceException;
 
 /**
- * The Class Recorder.
  *
- * @author "Guillaume Enrico"
+ * @author jbparoissien
  */
-public class Recorder extends AbstractCSVMetadataRecorder<INode> {
-
-    /**
-     * The datatypes possibles.
-     */
-    private Map<String, String[]> datatypesPossibles = new ConcurrentHashMap<>();
-    /**
+public class RecorderCore extends AbstractCSVMetadataRecorder<INode> {
+     /**
      * The site dao.
      */
     protected ISiteDAO siteDAO;
@@ -66,10 +58,6 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
      */
     protected IDatatypeDAO datatypeDAO;
     /**
-     * The projets possibles.
-     */
-    private Map<String, String[]> projetsPossibles = new ConcurrentHashMap<>();
-    /**
      * The sites possibles.
      */
     private Map<String, String[]> sitesPossibles = new ConcurrentHashMap<>();
@@ -77,14 +65,15 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
      * The themes possibles.
      */
     private Map<String, String[]> themesPossibles = new ConcurrentHashMap<>();
-
+    /**
+     * The datatypes possibles.
+     */
+    private Map<String, String[]> datatypesPossibles = new ConcurrentHashMap<>();
     /**
      * The projet site theme datatype dao.
      */
-    protected ISiteThemeDatatypeSnotDAO siteThemeDatatypeSnotDAO;
-
-    protected IDatatypeVariableUniteSnotDAO datatypeVariableUniteSnotDAO;
-//    protected IDatatypeVariableUniteSnotDAO datatypeVariableUniteDAO;
+    protected ISiteThemeDatatypeDAO siteThemeDatatypeDAO;
+    protected IDatatypeVariableUniteDAO datatypeVariableUniteDAO;
 
     // a voir
     final int CODE_CONF = 2;
@@ -92,7 +81,7 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
     /**
      *
      */
-    public Recorder() {
+    public RecorderCore() {
 
     }
 
@@ -113,7 +102,6 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
                 .map(p -> mgaServiceBuilder.getRecorder().getRealNodeByNKey(p))
                 .map(p -> p.orElse(null))
                 .forEach(rn -> mgaServiceBuilder.getRecorder().remove(rn));
-        policyManager.clearTreeFromSession();
         if (errorsReport.hasErrors()) {
             throw new BusinessException(errorsReport.getErrorsMessages());
         }
@@ -129,11 +117,9 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
 
         Stream<INode> nodes = Stream.empty();
         try {
-//JBP avec la version 06            
-            //        IMgaIOConfiguration configuration = mgaServiceBuilder.getMgaIOConfigurator().getConfiguration(CODE_CONF);
-            IMgaIOConfiguration configuration = mgaServiceBuilder.getMgaIOConfigurator().getConfiguration(CODE_CONF)
-                    .orElseThrow(() -> new BusinessException("no configuration 2"));
-            nodes = mgaServiceBuilder.loadNodes(configuration, policyManager.isRoot(), false);
+            nodes = mgaServiceBuilder.getMgaIOConfigurator().getConfiguration(CODE_CONF)
+                    .map(conf->mgaServiceBuilder.loadNodes(conf, policyManager.isRoot(), false))
+                    .orElse(Stream.empty());
 
         } catch (Exception ex) {
             Logger.getLogger(Recorder.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,25 +156,27 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
         final LineModelGridMetadata lineModelGridMetadata = new LineModelGridMetadata();
 
         try {
+
             lineModelGridMetadata.getColumnsModelGridMetadatas().add(
                     new ColumnModelGridMetadata(
                             node == null ? AbstractCSVMetadataRecorder.EMPTY_STRING
-                                    : node.getNodeByNodeableTypeResource(SiteSnot.class).getNodeable().getCode(), sitesPossibles, null, true, false,
+                                    : node.getNodeByNodeableTypeResource(Site.class).getNodeable().getCode(), sitesPossibles, null, true, false,
                             true));
 
             lineModelGridMetadata
                     .getColumnsModelGridMetadatas()
                     .add(new ColumnModelGridMetadata(
                             node == null ? AbstractCSVMetadataRecorder.EMPTY_STRING
-                                    : node.getNodeByNodeableTypeResource(Theme.class).getNodeable().getName(),
+                                    : node.getNodeByNodeableTypeResource(Theme.class).getNodeable().getCode(),
                             themesPossibles, null, true, false, true));
 
             lineModelGridMetadata.getColumnsModelGridMetadatas().add(
                     new ColumnModelGridMetadata(
                             node == null ? AbstractCSVMetadataRecorder.EMPTY_STRING
-                                    : node.getNodeByNodeableTypeResource(DataType.class).getNodeable().getName(),
+                                    : node.getNodeByNodeableTypeResource(DataType.class).getNodeable().getCode(),
                             datatypesPossibles, null, true, false, true));
         } catch (Exception ex) {
+            LOGGER.debug(ex.getMessage(), ex);
         }
 
         return lineModelGridMetadata;
@@ -199,8 +187,8 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
      *
      * @return the projet site theme datatype dao
      */
-    public ISiteThemeDatatypeSnotDAO getSiteThemeDatatypeDAO() {
-        return siteThemeDatatypeSnotDAO;
+    public ISiteThemeDatatypeDAO getSiteThemeDatatypeDAO() {
+        return siteThemeDatatypeDAO;
     }
 
     /**
@@ -269,16 +257,15 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
             throws BusinessException {
 
         final ErrorsReport errorsReport = new ErrorsReport();
+        List listNodes = new ArrayList();
 
         try {
-            List listNodes = new ArrayList();
             IMgaIOConfigurator configurator = mgaServiceBuilder.getMgaIOConfigurator();
             Set existingPathes = getAllElements().stream().map(n -> n.getPath()).collect(Collectors.toSet());
             Stream<String> buildOrderedPaths = buildOrderedPathes(file, configurator, CODE_CONF, true)
                     .filter(p -> !existingPathes.contains(p));
 
-            Stream<INode> listChild = buildLeaves(buildOrderedPaths, CODE_CONF)
-                    .collect(Collectors.toList()).stream()
+            Stream<INode> listChild = buildLeaves(buildOrderedPaths, CODE_CONF).collect(Collectors.toList()).stream()
                     .peek(node -> listNodes.add(node));
             persistNodes(listChild, parser);
             if (errorsReport.hasErrors()) {
@@ -291,25 +278,6 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
         } catch (final javax.persistence.PersistenceException | BusinessException e) {
             throw new BusinessException(e.getMessage(), e);
         }
-    }
-
-    //Correction    
-    private void addVariableNodes(List<INode> listNodes) {
-        Map<DataType, List<DatatypeVariableUniteSnot>> datatypeNodes = datatypeVariableUniteSnotDAO.getAll(DatatypeVariableUniteSnot.class).stream()
-                .collect(Collectors.groupingBy(DatatypeVariableUniteSnot::getDatatype));
-        listNodes.stream()
-                .forEach((node) -> {
-                    DataType datatype = (DataType) node.getNodeable();
-
-                    datatypeNodes.get(datatype).forEach((dvu) -> {
-                        String path = String.format("%s%s%s", node.getRealNode().getPath(), PatternConfigurator.PATH_SEPARATOR, dvu.getCode());
-                        RealNode rn = new RealNode(node.getRealNode(), null, dvu, path);
-                        mgaServiceBuilder.getRecorder().saveOrUpdate(rn);
-                        NodeDataSet nds = new NodeDataSet((NodeDataSet) node, null);
-                        nds.setRealNode(rn);
-                        mgaServiceBuilder.getRecorder().merge(nds);
-                    });
-                });
     }
 
     /**
@@ -333,19 +301,11 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
     /**
      * Sets the projet site theme datatype dao.
      *
-     * @param siteThemeDatatypeSnotDAO the new projet site theme datatype dao
+     * @param siteThemeDatatypeDAO the new projet site theme datatype dao
      */
-    public void setSiteThemeDatatypeDAO(final ISiteThemeDatatypeSnotDAO siteThemeDatatypeSnotDAO) {
-        this.siteThemeDatatypeSnotDAO = siteThemeDatatypeSnotDAO;
-    }
-
-    /**
-     * Sets datatypeVariableUnite
-     *
-     * @param datatypeVariableUniteDAO the new datatypeVariableUnite dao
-     */
-    public void setDatatypeVariableUniteSnotDAO(IDatatypeVariableUniteSnotDAO datatypeVariableUniteDAO) {
-        this.datatypeVariableUniteSnotDAO = datatypeVariableUniteDAO;
+    public void setSiteThemeDatatypeDAO(
+            final ISiteThemeDatatypeDAO siteThemeDatatypeDAO) {
+        this.siteThemeDatatypeDAO = siteThemeDatatypeDAO;
     }
 
     /**
@@ -358,30 +318,12 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
     }
 
     /**
-     * Sets the sites possibles.
-     *
-     * @param sitesPossibles the sites possibles
-     */
-    public void setSitesPossibles(final Map<String, String[]> sitesPossibles) {
-        this.sitesPossibles = sitesPossibles;
-    }
-
-    /**
      * Sets the theme dao.
      *
      * @param themeDAO the new theme dao
      */
     public void setThemeDAO(final IThemeDAO themeDAO) {
         this.themeDAO = themeDAO;
-    }
-
-    /**
-     * Sets the themes possibles.
-     *
-     * @param themesPossibles the themes possibles
-     */
-    public void setThemesPossibles(final Map<String, String[]> themesPossibles) {
-        this.themesPossibles = themesPossibles;
     }
 
     /**
@@ -434,12 +376,33 @@ public class Recorder extends AbstractCSVMetadataRecorder<INode> {
      * @param <T>
      * @param datatype
      */
-    protected <T extends AbstractBranchNode> void removeStickyLeaves(T datatype) throws BusinessException {
-
-        IMgaIOConfiguration configuration = mgaServiceBuilder.getMgaIOConfigurator().getConfiguration(CODE_CONF)
-                .orElseThrow(() -> new BusinessException("no configuration 2"));
-
-        WhichTree whichTree = configuration.getWhichTree();
+    protected <T extends AbstractBranchNode> void removeStickyLeaves(T datatype) {
+        WhichTree whichTree = mgaServiceBuilder.getMgaIOConfigurator().getConfiguration(CODE_CONF)
+                .map(conf->conf.getWhichTree())
+                .orElse(WhichTree.TREEDATASET);
         mgaServiceBuilder.getRecorder().removeStickyLeaves(datatype, whichTree);
+    }
+
+    private void addVariableNodes(List<INode> listNodes) {
+        Map<DataType, List<DatatypeVariableUnite>> datatypeNodes = datatypeVariableUniteDAO.getAll(DatatypeVariableUnite.class).stream()
+                .collect(Collectors.groupingBy(DatatypeVariableUnite::getDatatype));
+        listNodes.stream()
+                .forEach((node) -> {
+                    DataType datatype = (DataType) node.getNodeable();
+                    if (datatypeNodes.containsKey(datatype)) {
+                        datatypeNodes.get(datatype).forEach((dvu) -> {
+                            String path = String.format("%s%s%s", node.getRealNode().getPath(), PatternConfigurator.PATH_SEPARATOR, dvu.getCode());
+                            RealNode rn = new RealNode(node.getRealNode(), null, dvu, path);
+                            mgaServiceBuilder.getRecorder().saveOrUpdate(rn);
+                            NodeDataSet nds = new NodeDataSet((NodeDataSet) node, null);
+                            nds.setRealNode(rn);
+                            mgaServiceBuilder.getRecorder().merge(nds);
+                        });
+                    }
+                });
+    }
+
+    public void setDatatypeVariableUniteDAO(IDatatypeVariableUniteDAO datatypeVariableUniteDAO) {
+        this.datatypeVariableUniteDAO = datatypeVariableUniteDAO;
     }
 }

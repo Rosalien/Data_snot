@@ -1,7 +1,7 @@
 /**
  * OREILacs project - see LICENCE.txt for use created: 5 mai 2009 11:50:44
  */
-package org.cnrs.osuc.snot.refdata.sitethemedatatypesnot;
+package org.cnrs.osuc.snot.refdata.sitethemedatatype;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +19,7 @@ import org.inra.ecoinfo.mga.business.composite.Nodeable;
 import org.inra.ecoinfo.mga.business.composite.Nodeable_;
 import org.inra.ecoinfo.mga.business.composite.RealNode;
 import org.inra.ecoinfo.mga.business.composite.RealNode_;
+import org.inra.ecoinfo.refdata.datatype.DataType;
 
 /**
  * The Class JPASiteThemeDatatypeDAO.
@@ -60,7 +61,7 @@ public class JPASiteThemeDatatypeSnotDAO extends AbstractJPADAO<INode> implement
                         .map(t -> (INode) result.get(t))
                         .collect(Collectors.toList());
     }
-
+    
 //    @Override
 //    public Optional<SiteThemeDatatypeSnot> getByCode(String code) {
 //        CriteriaQuery<SiteThemeDatatypeSnot> query = builder.createQuery(SiteThemeDatatypeSnot.class);

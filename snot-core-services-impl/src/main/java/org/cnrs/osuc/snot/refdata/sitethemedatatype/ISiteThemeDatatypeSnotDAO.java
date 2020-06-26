@@ -1,11 +1,12 @@
 /**
  * OREILacs project - see LICENCE.txt for use created: 5 mai 2009 11:53:17
  */
-package org.cnrs.osuc.snot.refdata.sitethemedatatypesnot;
+package org.cnrs.osuc.snot.refdata.sitethemedatatype;
 
 import java.util.List;
 import org.inra.ecoinfo.IDAO;
 import org.inra.ecoinfo.mga.business.composite.INode;
+import org.inra.ecoinfo.mga.business.composite.RealNode;
 
 
 /**
@@ -30,4 +31,6 @@ public interface ISiteThemeDatatypeSnotDAO extends IDAO<INode> {
      * @link(String) the datatype code
      */
     List<INode> getByPathSiteThemeCodeAndDatatypeCode(String pathSite, String themeCode, String datatypeCode);
+    
+
 }

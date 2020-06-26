@@ -27,6 +27,7 @@
                 <entry key="eddycovariance_sh" value-ref="defaultVersionFileHelper" />
                 <entry key="eddycovariance_j" value-ref="defaultVersionFileHelper" />
                 <entry key="eddycovariance_m" value-ref="defaultVersionFileHelper" />
+                <entry key="eddycovarianceGF_sh" value-ref="defaultVersionFileHelper" />
                 <entry key="chambreco2_sh" value-ref="defaultVersionFileHelper" />
                 <entry key="chambreco2_infraj" value-ref="defaultVersionFileHelper" />
                 <entry key="chambreco2_m" value-ref="defaultVersionFileHelper" />
