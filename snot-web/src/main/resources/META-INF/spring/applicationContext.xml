@@ -95,14 +95,14 @@
     </util:list>-->
 
 
-    <!--Ajout pour la 1912.01-->
-<!--    <util:map id="usersDeletionManagersMap" value-type="org.inra.ecoinfo.identification.IUsersDeletion">
+    <!--Ajout pour la suppression d'un utilisateur-->
+    <util:map id="usersDeletionManagersMap" value-type="org.inra.ecoinfo.identification.IUsersDeletion">
         <entry key="Notifications" value-ref="notificationsManager" />
         <entry key="RightRequest" value-ref="requestManager" />
         <entry key="Extraction" value-ref="extractionManager" />
         <entry key="FileComp" value-ref="fileCompManager" />
         <entry key="Dataset" value-ref="datasetManager" />
-    </util:map>-->
+    </util:map>
 
 
 </beans>

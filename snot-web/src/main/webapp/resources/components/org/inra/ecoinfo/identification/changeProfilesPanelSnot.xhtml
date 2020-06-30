@@ -60,8 +60,7 @@
                         #{changeProfil.PARAM_MSG_TITLE_CHANGE_USERS}
                     </h:panelGroup>
                 </h1>
-<!--                Suppression de l'aide-->
-<!--                <h:form>
+                <h:form>
                     <p:accordionPanel activeIndex="-1"
                                       styleClass="help-panel">
                         <p:tab  >
@@ -79,11 +78,11 @@
                             </p>
                         </p:tab>
                     </p:accordionPanel>
-                </h:form>-->
+                </h:form>
             </p:layoutUnit>
             <p:layoutUnit position="west" resizable="true" collapsible="true"  minSize="200" size="320"  id="templateLeft">
                 <h2>#{msgs.PROPERTY_MSG_USER_CHOICE}</h2>
-                <!--<p class="intro">#{msgs.PROPERTY_MSG_USER_CHOICE_TEXT}</p>-->
+                <p class="intro">#{msgs.PROPERTY_MSG_USER_CHOICE_TEXT}</p>
                 <p:tooltip   hideEvent="mouseleave click"  styleClass="tooltip" showDelay="500" />
                 <h:form id='changeProfilesPanelUsersForm'>
                     <p:outputPanel id="panelListUtilisateurs" layout="block">
@@ -110,18 +109,15 @@
                                                   value="#{msgs.PROPERTY_MSG_USER_LISTE}" style="display: inline;" />
 
 
-                                    <p:commandLink pt:data-tooltip="#{msgs.PROPERTY_MSG_NEW_USER_TOOLTIP}" 
-                                                   styleClass="inline invisibleButton" 
-                                                   rendered="#{uiChangeProfile.meRoot}">
-                                        <p:ajax event="click" oncomplete="new_profil()"/>
-                                            <p:graphicImage value="#{resource['images/new_profil.png']}" />
-                                    </p:commandLink>
+                                    <p:commandButton pt:data-tooltip="#{msgs.PROPERTY_MSG_NEW_USER_TOOLTIP}" icon="add_ok" styleClass="inline invisibleButton" rendered="#{uiChangeProfile.meRoot}">
+                                        <p:ajax event="click" oncomplete="adduser()" />
+                                    </p:commandButton>
 
 
                                 </f:facet>
 
                                 <h:outputText id="user" value="#{utilisateur.prenom} #{utilisateur.nom}" 
-                                              pt:data-tooltip="#{msgs.PROPERTY_MSG_CHANGE_USER_TOOLTIP}"/>
+                                               pt:data-tooltip="#{msgs.PROPERTY_MSG_CHANGE_USER_TOOLTIP}"/>
                             </p:column>
                             <p:column style="width: 50px">
 

@@ -377,11 +377,11 @@
         <datatypeConfiguration>
             <dataType>
                 <name language="key">eddycovariance_sh</name>
-                <name language="fr">Flux de GES par eddy-covariance sans gap-filling</name>
-                <name language="en">Greenhouse gas flux by eddy-covariance without gap-filling</name>
-                <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance sans gap-filling
+                <name language="fr">Flux de GES par eddy-covariance</name>
+                <name language="en">Greenhouse gas flux by eddy-covariance</name>
+                <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance
                 </description>
-                <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station without gap-filling
+                <description language="en">Atmospheric semi-hourly greenhouse gas flux from eddy-covariance station
                 </description>
                 <fileNameDateFormat>dd-MM-yyyy</fileNameDateFormat>
                 <recorder>recorderFlux_if</recorder>
@@ -389,8 +389,8 @@
                     <class>fileNameCheckerSnotddmmyyyy</class>
                 </name-file-checkers>
             </dataType>
-            <dataType>
-                <name language="key">eddycovarianceGF_sh</name>
+<!--            <dataType>
+                <name language="key">eddycovariance-gf_sh</name>
                 <name language="fr">Flux de GES par eddy-covariance avec gap-filling</name>
                 <name language="en">Greenhouse gas flux by eddy-covariance with gap-filling</name>
                 <description language="fr">Flux atmosphérique semi-horaire des GES provenant d'une station eddy-covariance
@@ -402,7 +402,7 @@
                 <name-file-checkers>
                     <class>fileNameCheckerSnotddmmyyyy</class>
                 </name-file-checkers>
-            </dataType>          
+            </dataType>          -->
             <dataType>
                 <name language="key">meteosol_infraj</name>
                 <name language="fr">Météo et physique du sol infra-journalier</name>
