@@ -33,5 +33,5 @@
 		<property name="datatypeDAO" ref="datatypeDAO" />
 		<property name="variableDAO" ref="variableDAO" />
 
-    </bean>-->
+    </bean>
 </beans>

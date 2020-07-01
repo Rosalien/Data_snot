@@ -65,7 +65,7 @@
             </map>
         </property>
     </bean>
-    <bean id="notificationsManager" class="org.inra.ecoinfo.notifications.impl.JSFNotificationManager">
+    <bean id="notificationsManager" class="org.inra.ecoinfo.notifications.impl.JSFNotificationManager" parent="MO">
         <property name="utilisateurDAO" ref="utilisateurDAO"/>
         <property name="notificationDAO" ref="notificationDAO"/>
         <property name="messageProducer" ref="messageProducer"/>
@@ -93,14 +93,13 @@
         <ref bean="genericDatatypeExtractionIntegrator" />
         <ref bean="helloFIFI" />
     </util:list>-->
-
-
+    
     <!--Ajout pour la suppression d'un utilisateur-->
     <util:map id="usersDeletionManagersMap" value-type="org.inra.ecoinfo.identification.IUsersDeletion">
         <entry key="Notifications" value-ref="notificationsManager" />
         <entry key="RightRequest" value-ref="requestManager" />
-        <entry key="Extraction" value-ref="extractionManager" />
-        <entry key="FileComp" value-ref="fileCompManager" />
+        <!--<entry key="Extraction" value-ref="extractionManager" />-->
+        <!--<entry key="FileComp" value-ref="fileCompManager" />-->
         <entry key="Dataset" value-ref="datasetManager" />
     </util:map>
 
