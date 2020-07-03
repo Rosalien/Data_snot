@@ -15,8 +15,7 @@
     <import resource="classpath:/org/inra/ecoinfo/dataset/ws/ws-publish-beans.xml" />
     
     <bean id="rootService" class="org.inra.ecoinfo.ws.identification.RootService"
-          parent="MO" scope="prototype"
-    >
+          parent="MO" scope="prototype">
         <property name="endPointChecker" ref="endPointChecker" />
         <property name="mapSubServices">
             <map>
