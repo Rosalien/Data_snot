@@ -47,4 +47,12 @@
         <flag>false</flag>
         <flag-type>variable</flag-type>
     </column>
+    <column>
+        <name>TW</name>
+        <not-null>false</not-null>
+        <value-type>float</value-type>
+        <variable>true</variable>
+        <flag>false</flag>
+        <flag-type>variable</flag-type>
+    </column>
 </dataset-descriptor>
