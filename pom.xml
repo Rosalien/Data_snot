@@ -151,7 +151,7 @@
         <taglistreport.version>2.4</taglistreport.version>
         <javadocReport.version>3.1.1</javadocReport.version>
         <l10n.version>1.0-alpha-2</l10n.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <dbunit.version>2.6.0</dbunit.version>
         <spring-dbunit.version>2.5.1</spring-dbunit.version>
         <testNG.version>7.0.0</testNG.version>
